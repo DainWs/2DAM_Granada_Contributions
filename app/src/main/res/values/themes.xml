@@ -1,17 +1,35 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.GranadaContributions" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+<resources>
+    <style name="Theme.GranadaContributions.LoginActivity"
+        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/toolbar_background_color</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="colorContainer">@color/white</item>
+        <item name="colorText">@color/black</item>
+
+        <item name="colorOnPrimary">@color/design_default_color_error</item>
+    </style>
+
+    <style name="Theme.GranadaContributions.MainActivity"
+        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/toolbar_background_color</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorBackground">@color/main_activity_background_color</item>
+        <item name="colorContainer">@color/main_activity_items_background_color</item>
+        <item name="colorText">@color/main_activity_text_color</item>
+
+        <item name="colorOnPrimary">@color/design_default_color_error</item>
+    </style>
+
+    <style name="Theme.GranadaContributions.PreferencesActivity"
+        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/toolbar_background_color</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorBackground">@color/preferences_background_color</item>
+        <item name="colorContainer">@color/preferences_items_background_color</item>
+        <item name="colorText">@color/preferences_text_color</item>
+
+        <item name="colorOnPrimary">@color/design_default_color_error</item>
     </style>
 
     <style name="Theme.GranadaContributions.NoActionBar">

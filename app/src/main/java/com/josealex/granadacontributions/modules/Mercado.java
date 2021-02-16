@@ -3,8 +3,6 @@ package com.josealex.granadacontributions.modules;
 import com.josealex.granadacontributions.utils.Consulta;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.function.Predicate;
 
 public class Mercado {
 
