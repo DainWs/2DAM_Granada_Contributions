@@ -1,13 +1,14 @@
 package com.josealex.granadacontributions;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.josealex.granadacontributions.firebase.FirebaseDBManager;
+import com.josealex.granadacontributions.modules.Mercado;
+import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,6 +18,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String USER_BUNDLE_ID = "User";
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    private FirebaseDBManager dbManager;
     private User loggedUser;
 
     @Override
@@ -36,7 +40,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+        GlobalInformation.mainActivity = this;
+        dbManager = new FirebaseDBManager(this, loggedUser);
 
+        User user = new User("123", "123", "123", "");
+        FirebaseDBManager.createUserData(this, user);
+        user = new User("1234", "1234", "1234", "");
+        FirebaseDBManager.createUserData(this, user);
+        user = new User("1235", "1235", "1235", "");
+        FirebaseDBManager.createUserData(this, user);
+        user = new User("1236", "1236", "1236", "");
+        FirebaseDBManager.createUserData(this, user);
+
+        Mercado mercado = new Mercado();
+        mercado.setUid("1234");
+        mercado.setNombre("Otro mercado");
+
+        ArrayList<String> a = new ArrayList<String>();
+        a.add("1234");
+        a.add("1235");
+
+        mercado.setGestores(a);
+
+        ArrayList<Productos> c = new ArrayList<Productos>();
+        c.add(new Productos("4", "4", "4", 4));
+        c.add(new Productos("5", "5", "5", 5));
+
+        mercado.setProductos(c);
+
+        FirebaseDBManager.saveMercado(mercado);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override
@@ -66,5 +99,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void update() {
+
+        for (User user: GlobalInformation.USERS) {
+            System.out.println("------------------<Correo "+user.getCorreo());
+        }
+
+        for (Mercado m : GlobalInformation.MERCADOS) {
+            System.out.println("------------------Mercado "+m.getNombre());
+            for (Productos p : m.getProductos()) {
+                System.out.println("---------producto "+p.getNombre());
+            }
+        }
     }
 }
