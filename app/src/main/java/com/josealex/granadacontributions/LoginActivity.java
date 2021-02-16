@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private static int GOOGLEIN = 100;
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    ImageButton google;
+    Button google;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getBaseContext(), "CONECTADO", Toast.LENGTH_SHORT).show();
+
                                 toMainActivity(mAuth);
                             } else {
                                 Toast.makeText(getBaseContext(), "NO CONECTO", Toast.LENGTH_SHORT).show();
@@ -110,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 System.out.println(e);
+                e.printStackTrace();
             }
 
         }
@@ -120,25 +122,15 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            String eemail = currentUser.getEmail();
+
+            String mail = currentUser.getEmail();
             String displayName = currentUser.getDisplayName();
             Uri photoUrl = currentUser.getPhotoUrl();
-            String phoneNumber = currentUser.getPhoneNumber();
             String uid = currentUser.getUid();
-            intent.putExtra("email", eemail);
-            if (displayName == null) {
-                String a[] = eemail.split("@");
-                intent.putExtra("displayName", a[0]);
-            } else {
-                intent.putExtra("displayName", displayName);
-            }
-            if (photoUrl == null) {
-                intent.putExtra("photoUrl", "https://aaahockey.org/wp-content/uploads/2017/06/default-avatar.png");
-            } else {
-                intent.putExtra("photoUrl", photoUrl.toString());
-            }
-            intent.putExtra("phoneNumber", phoneNumber);
-            intent.putExtra("uid", uid);
+
+            //(String uid, String nombre, String apellido, String correo, String fotoURL
+            User user =  new User(uid, displayName, mail, photoUrl.toString());
+            intent.putExtra(MainActivity.USER_BUNDLE_ID, user);
             startActivity(intent);
         } else {
             Toast.makeText(getBaseContext(), "SIN USUARIO", Toast.LENGTH_LONG);

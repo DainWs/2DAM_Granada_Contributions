@@ -9,17 +9,15 @@ public class User implements Serializable {
 
     private String uid;
     private String nombre;
-    private String apellido;
     private String correo;
     private String fotoURL;
     private ArrayList<String> gestiona = new ArrayList<>();
 
     public User(){}
 
-    public User(String uid, String nombre, String apellido, String correo, String fotoURL) {
+    public User(String uid, String nombre, String correo, String fotoURL) {
         this.uid = uid;
         this.nombre = nombre;
-        this.apellido = apellido;
         this.correo = correo;
         this.fotoURL = fotoURL;
     }
@@ -38,14 +36,6 @@ public class User implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     public String getCorreo() {

@@ -12,12 +12,12 @@
         <activity
             android:name=".PreferencesActivity"
             android:label="@string/app_name"
-            android:theme="@style/GranadaContributions.PreferencesActivity" />
+            android:theme="@style/GranadaContributions.PreferencesActivity.NoActionBar" />
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/GranadaContributions.MainActivity" />
+            android:theme="@style/GranadaContributions.MainActivity.NoActionBar" />
 
         <activity
             android:name=".LoginActivity"

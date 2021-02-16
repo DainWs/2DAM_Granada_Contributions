@@ -15,7 +15,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="GranadaContributions.LoginActivity">
-        <item name="colorPrimary">@color/toolbar_background_color</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorBackground">@color/white</item>
         <item name="colorContainer">@color/white</item>
@@ -24,8 +24,9 @@
         <item name="colorOnPrimary">@color/design_default_color_error</item>
     </style>
 
+
     <style name="GranadaContributions.MainActivity">
-        <item name="colorPrimary">@color/toolbar_background_color</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorBackground">@color/main_activity_background_color</item>
         <item name="colorContainer">@color/main_activity_items_background_color</item>
@@ -34,13 +35,23 @@
         <item name="colorOnPrimary">@color/design_default_color_error</item>
     </style>
 
+    <style name="GranadaContributions.MainActivity.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="GranadaContributions.PreferencesActivity">
-        <item name="colorPrimary">@color/toolbar_background_color</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorBackground">@color/preferences_background_color</item>
         <item name="colorContainer">@color/preferences_items_background_color</item>
         <item name="colorText">@color/preferences_text_color</item>
 
         <item name="colorOnPrimary">@color/design_default_color_error</item>
+    </style>
+
+    <style name="GranadaContributions.PreferencesActivity.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

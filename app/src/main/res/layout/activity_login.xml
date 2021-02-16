@@ -29,21 +29,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/bgoogle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_menu_camera" />
-            </LinearLayout>
+                android:orientation="vertical"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/login_google_button"
+        android:id="@+id/bgoogle"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="250dp"
         android:layout_height="50dp"
