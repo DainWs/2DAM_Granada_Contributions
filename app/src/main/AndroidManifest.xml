@@ -8,21 +8,21 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GranadaContributions">
+        android:theme="@style/GranadaContributions">
         <activity
             android:name=".PreferencesActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.GranadaContributions.PreferencesActivity" />
-
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.GranadaContributions.PreferencesActivity" />
+            android:theme="@style/GranadaContributions.PreferencesActivity" />
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.GranadaContributions.MainActivity">
+            android:theme="@style/GranadaContributions.MainActivity" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/GranadaContributions.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

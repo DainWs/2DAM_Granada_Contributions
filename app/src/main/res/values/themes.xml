@@ -1,6 +1,20 @@
 <resources>
-    <style name="Theme.GranadaContributions.LoginActivity"
-        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="GranadaContributions" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+
+    <style name="GranadaContributions.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="GranadaContributions.LoginActivity">
         <item name="colorPrimary">@color/toolbar_background_color</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorBackground">@color/white</item>
@@ -10,8 +24,7 @@
         <item name="colorOnPrimary">@color/design_default_color_error</item>
     </style>
 
-    <style name="Theme.GranadaContributions.MainActivity"
-        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="GranadaContributions.MainActivity">
         <item name="colorPrimary">@color/toolbar_background_color</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorBackground">@color/main_activity_background_color</item>
@@ -21,8 +34,7 @@
         <item name="colorOnPrimary">@color/design_default_color_error</item>
     </style>
 
-    <style name="Theme.GranadaContributions.PreferencesActivity"
-        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="GranadaContributions.PreferencesActivity">
         <item name="colorPrimary">@color/toolbar_background_color</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorBackground">@color/preferences_background_color</item>
@@ -31,13 +43,4 @@
 
         <item name="colorOnPrimary">@color/design_default_color_error</item>
     </style>
-
-    <style name="Theme.GranadaContributions.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.GranadaContributions.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.GranadaContributions.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
