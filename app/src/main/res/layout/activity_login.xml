@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/GranadaContributions.LoginActivity"
     tools:context=".LoginActivity">
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -40,5 +41,23 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/login_google_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/common_google_signin_btn_text_dark_normal"
+        android:gravity="center"
+        android:text="@string/sign_in_with_google"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
