@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="categorias">
+        <item>"Leche y derivados"</item>
+        <item>"Carnes pescados y huevos"</item>
+        <item>"Legumbres, frutos secos y patatas"</item>
+        <item>"Hortalizas. Alimentos reguladores"</item>
+        <item>"Frutas. Alimentos reguladores"</item>
+        <item>"Cereales. Alimentos energéticos"</item>
+        <item>"Mantecas y aceites"</item>
+        <item>"Bebidas"</item>
+    </array>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="toolbar_background_color">#000000</color>
+
+    <color name="login_background_color">#FFFFFF</color>
+
+    <color name="main_activity_background_color">#ECEFF1</color>
+    <color name="main_activity_items_background_color">#FFFFFF</color>
+    <color name="main_activity_text_color">#CDD0D3</color>
+
+    <color name="preferences_background_color">#FFFFFF</color>
+    <color name="preferences_items_background_color">#ECEFF1</color>
+    <color name="preferences_text_color">#000000</color>
+</resources>
