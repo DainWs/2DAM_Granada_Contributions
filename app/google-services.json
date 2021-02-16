@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "794003546144",
+    "project_id": "granadacontributions",
+    "storage_bucket": "granadacontributions.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794003546144:android:11a1b19168758726ad1c45",
+        "android_client_info": {
+          "package_name": "com.josealex.granadacontributions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794003546144-4iuroabiip8756ds4j9ph3e0unle998p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.josealex.granadacontributions",
+            "certificate_hash": "d935dd02eea276579d57bdc6a232c8501077a16d"
+          }
+        },
+        {
+          "client_id": "794003546144-o9f5bk3r7tqlsqi6mg0os19r6h53rllk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGt1X1boyVP9iDrz6ilhKpyZHUdoaNAHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794003546144-o9f5bk3r7tqlsqi6mg0os19r6h53rllk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
