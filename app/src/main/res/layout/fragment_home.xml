@@ -28,7 +28,7 @@
 
         <include
             android:id="@+id/rcw"
-            layout="@layout/fragment_item_list"
+            layout="@layout/fragment_item_listmercado"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
