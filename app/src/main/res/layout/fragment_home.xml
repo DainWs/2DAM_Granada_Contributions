@@ -82,7 +82,7 @@
 
     <include
         android:id="@+id/rcw"
-        layout="@layout/fragment_item_list"
+        layout="@layout/fragment_item_listmercado"
         android:layout_width="416dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"

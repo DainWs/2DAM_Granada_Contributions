@@ -1,13 +1,10 @@
 package com.josealex.granadacontributions.ui.rview;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +18,6 @@ import com.josealex.granadacontributions.modules.Productos;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -43,7 +39,7 @@ public class MymercadosRecyclerViewAdapter extends RecyclerView.Adapter<Mymercad
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
+                .inflate(R.layout.fragment_itemmercado, parent, false);
         return new ViewHolder(view);
     }
 
