@@ -16,7 +16,7 @@ import android.graphics.Paint;
  * Author: julianshen
  * Github: https://gist.github.com/julianshen
  * Recurso: https://gist.github.com/julianshen/5829333
- *
+ * TODO(decidir que hacer con cicleTransform)
  */
 public class CircleTransform //TODO(implements Transformation)
 {
