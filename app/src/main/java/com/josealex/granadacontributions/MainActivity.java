@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.FirebaseDatabase;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
@@ -38,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
         if(b != null) {
             loggedUser = (User) b.getSerializable(USER_BUNDLE_ID);
         }
-
+        
         setContentView(R.layout.activity_main);
         GlobalInformation.mainActivity = this;
         dbManager = new FirebaseDBManager(this, loggedUser);
-
+        FirebaseDBManager.createUserData(this,loggedUser);
         User user = new User("123", "123", "123", "");
         FirebaseDBManager.createUserData(this, user);
         user = new User("1234", "1234", "1234", "");
@@ -53,20 +54,25 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDBManager.createUserData(this, user);
 
         Mercado mercado = new Mercado();
-        mercado.setUid("1234");
+        mercado.setUid("1235");
         mercado.setNombre("Otro mercado");
+        Mercado mercado2 = new Mercado();
+        mercado.setUid("1235");
+        mercado.setNombre("Otro mercado2");
 
         ArrayList<String> a = new ArrayList<String>();
         a.add("1234");
         a.add("1235");
 
         mercado.setGestores(a);
-
+        mercado2.setGestores(a);
         ArrayList<Productos> c = new ArrayList<Productos>();
         c.add(new Productos("4", "4", "4", 4));
         c.add(new Productos("5", "5", "5", 5));
 
         mercado.setProductos(c);
+        mercado2.setProductos(c);
+
 
         FirebaseDBManager.saveMercado(mercado);
 

@@ -106,6 +106,7 @@ public class FirebaseDBManager {
                 //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS MERCADOS AL COMENZAR)
 
                 GlobalInformation.mainActivity.update();
+                GlobalInformation.home.update();
             }
 
             @Override
@@ -199,7 +200,7 @@ public class FirebaseDBManager {
                     GlobalInformation.mainActivity.update();
                 }
 
-                //TODO(ACTUALIZA AQUI LAS PREFERENCIAS)
+
             }
 
             @Override

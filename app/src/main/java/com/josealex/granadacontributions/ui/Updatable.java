@@ -1,4 +1,4 @@
-package com.josealex.granadacontributions.ui.home;
+package com.josealex.granadacontributions.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
