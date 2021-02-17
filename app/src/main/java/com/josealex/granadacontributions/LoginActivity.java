@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private static int GOOGLEIN = 100;
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    ImageButton google;
+    Button google;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,47 +6,12 @@
     android:layout_height="match_parent"
     android:theme="@style/GranadaContributions.LoginActivity"
     tools:context=".LoginActivity">
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/redondeo"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/bgoogle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_menu_camera" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
 
     <Button
-        android:id="@+id/login_google_button"
+        android:id="@+id/bgoogle"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/common_google_signin_btn_text_dark_normal"
         android:gravity="center"
         android:text="@string/sign_in_with_google"
