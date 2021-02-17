@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.Mercado;
-import com.josealex.granadacontributions.modules.Productos;
+import com.josealex.granadacontributions.ui.rview.MymercadosRecyclerViewAdapter;
 import com.josealex.granadacontributions.ui.rview.MyproductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -21,30 +21,24 @@ import java.util.ArrayList;
 public class ProductosFragment extends Fragment {
 
     private View root;
-    private View viewrcwproductos;
-    private  ArrayList<Productos> productoslista;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
-    }
+    private View viewRCWProductos;
+    private Mercado mercado;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_productos, container, false);
-        productoslista = (ArrayList<Productos>) getArguments().getSerializable("listaproductos");
-        viewrcwproductos = root.findViewById(R.id.include);
+        mercado = (Mercado) getArguments().getSerializable(MymercadosRecyclerViewAdapter.BUNDLE_MERCADO_ID);
 
-        verProductos(productoslista);
+        viewRCWProductos = root.findViewById(R.id.include);
+
+        verProductos(mercado.getProductos());
         return  root;
     }
 
     public void verProductos(ArrayList Productos){
-        RecyclerView recyclerView = (RecyclerView) viewrcwproductos;
+        RecyclerView recyclerView = (RecyclerView) viewRCWProductos;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new MyproductosRecyclerViewAdapter(Productos));
     }

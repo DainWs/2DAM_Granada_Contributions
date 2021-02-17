@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
+import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.utils.Consulta;
 
 
 import java.util.ArrayList;
@@ -23,7 +25,9 @@ import java.util.List;
 
 public class MymercadosRecyclerViewAdapter extends RecyclerView.Adapter<MymercadosRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Mercado> mValuesMercados;
+    public static final String BUNDLE_MERCADO_ID = "mercado";
+
+    private List<Mercado> mValuesMercados;
     private  ArrayList<Productos> mValuesPr = new ArrayList<>() ;
     private FragmentActivity activity;
     private Context context;
@@ -45,23 +49,7 @@ public class MymercadosRecyclerViewAdapter extends RecyclerView.Adapter<Mymercad
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-
-        holder.mName.setText(mValuesMercados.get(position).getNombre());
-        holder.mContentView.setText(mValuesMercados.get(position).getUid());
-        holder.mProducts.setText("Mis Productos");
-        holder.mProducts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                   mValuesPr = mValuesMercados.get(position).getProductos();
-                   Bundle bundle = new Bundle();
-                   bundle.putSerializable("listaproductos",mValuesPr);
-
-                  //Navigation.findNavController().navigate(, bundle);
-                   NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                   navController.navigate(R.id.action_nav_home_to_productosFragment,bundle);
-
-            }
-        });
+        holder.start(mValuesMercados.get(position));
     }
 
     @Override
@@ -69,18 +57,52 @@ public class MymercadosRecyclerViewAdapter extends RecyclerView.Adapter<Mymercad
         return mValuesMercados.size();
     }
 
+    public void update(ArrayList<Mercado> mercadosList) {
+        mValuesMercados = mercadosList;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mName;
-        public final TextView mProducts;
         public final TextView mContentView;
+        public Mercado mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mName = (TextView) view.findViewById(R.id.item_number);
-            mProducts = (TextView) view.findViewById(R.id.textView);
             mContentView = (TextView) view.findViewById(R.id.content);
+        }
+
+        public void start(Mercado mItem) {
+            this.mItem = mItem;
+
+            ArrayList<User> ownersUsers = Consulta.getUsersWhere(new Consulta<User>() {
+                @Override
+                public boolean comprueba(User o) {
+                    return (mItem.getUidOwner().equals(o.getUid()));
+                }
+            });
+
+            String ownersNames = context.getResources().getString(R.string.owners_text);
+            if(ownersUsers.size() > 0)
+                ownersNames += ownersUsers.get(0).getNombre();
+
+            mName.setText(mItem.getNombre());
+            mContentView.setText(ownersNames);
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mValuesPr = mItem.getProductos();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(BUNDLE_MERCADO_ID, mItem);
+
+                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_nav_home_to_productosFragment,bundle);
+
+                }
+            });
         }
 
         @Override

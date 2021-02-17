@@ -1,7 +1,11 @@
 package com.josealex.granadacontributions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.FirebaseDatabase;
@@ -11,6 +15,7 @@ import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDBManager dbManager;
     private User loggedUser;
 
+    private MenuItem switchModeItem;
+    private boolean onGestorMode = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,43 +50,18 @@ public class MainActivity extends AppCompatActivity {
         
         setContentView(R.layout.activity_main);
         GlobalInformation.mainActivity = this;
+
         dbManager = new FirebaseDBManager(this, loggedUser);
-        FirebaseDBManager.createUserData(this,loggedUser);
-        User user = new User("123", "123", "123", "");
-        FirebaseDBManager.createUserData(this, user);
-        user = new User("1234", "1234", "1234", "");
-        FirebaseDBManager.createUserData(this, user);
-        user = new User("1235", "1235", "1235", "");
-        FirebaseDBManager.createUserData(this, user);
-        user = new User("1236", "1236", "1236", "");
-        FirebaseDBManager.createUserData(this, user);
 
-        Mercado mercado = new Mercado();
-        mercado.setUid("1235");
-        mercado.setNombre("Otro mercado");
-        Mercado mercado2 = new Mercado();
-        mercado.setUid("1235");
-        mercado.setNombre("Otro mercado2");
+        loggedUser.addGestiones("1234");
+        FirebaseDBManager.createUserData(this, loggedUser);
 
-        ArrayList<String> a = new ArrayList<String>();
-        a.add("1234");
-        a.add("1235");
-
-        mercado.setGestores(a);
-        mercado2.setGestores(a);
-        ArrayList<Productos> c = new ArrayList<Productos>();
-        c.add(new Productos("4", "4", "4", 4));
-        c.add(new Productos("5", "5", "5", 5));
-
-        mercado.setProductos(c);
-        mercado2.setProductos(c);
-
-
-        FirebaseDBManager.saveMercado(mercado);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //toolbar.getMenu()
+        //        .add(Menu.NONE, R.id.mode_user_switch, Menu.FIRST, R.string.change_user_mode);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -94,9 +77,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        switchModeItem = menu.findItem(R.id.mode_user_switch);
+        Switch switchView = ((Switch) switchModeItem.getActionView().findViewById(R.id.switch_view));
+
+        switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked != onGestorMode) {
+                    onGestorMode = isChecked;
+                    GlobalInformation.home.updateMode(isChecked);
+                }
+            }
+        });
+
+        if(loggedUser.getGestiona().size() <= 0) {
+            menu.removeItem(R.id.mode_user_switch);
+        }
+
         return true;
     }
 
@@ -119,5 +120,20 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("---------producto "+p.getNombre());
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.nav_settings:
+                Intent intent = new Intent(this, PreferencesActivity.class);
+                intent.putExtra(USER_BUNDLE_ID, loggedUser);
+                startActivity(intent);
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }

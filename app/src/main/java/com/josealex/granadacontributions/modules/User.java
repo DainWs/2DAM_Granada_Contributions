@@ -76,7 +76,7 @@ public class User implements Serializable {
         ArrayList<String> select = new ArrayList<>();
 
         for (String gestiones : gestiona) {
-            if(where.test(gestiones)) {
+            if(where.comprueba(gestiones)) {
                 select.add(gestiones);
             }
         }

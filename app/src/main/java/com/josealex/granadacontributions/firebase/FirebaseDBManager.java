@@ -79,6 +79,8 @@ public class FirebaseDBManager {
 
                     Mercado newMercado = new Mercado();
                     newMercado.setUid((String) mercado.child("uid").getValue());
+
+                    newMercado.setUidOwner((String) mercado.child("uidOwner").getValue());
                     newMercado.setNombre((String) mercado.child("nombre").getValue());
 
                     //PILLAMOS LOS GESTORES

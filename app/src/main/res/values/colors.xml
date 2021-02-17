@@ -14,4 +14,17 @@
     <color name="preferences_background_color">#FFFFFF</color>
     <color name="preferences_items_background_color">#ECEFF1</color>
     <color name="preferences_text_color">#000000</color>
+
+
+    <color name="colorPrimary">#0276AA</color>
+    <color name="colorPrimaryDark">#0276AA</color>
+    <color name="colorSecondary">#0097BC</color>
+    <color name="colorSecondaryTransparent">#660097BC</color>
+    <color name="colorTertiary">#00B7B7</color>
+    <color name="colorQuaternary">#30D3A1</color>
+    <color name="colorQuinary">#9CEA83</color>
+    <color name="colorSextary">#F9F871</color>
+    <color name="colorDarkAccent">#8F68B3</color>
+    <color name="colorAccent">#AE60A6</color>
+    <color name="colorLightAccent">#C65993</color>
 </resources>
