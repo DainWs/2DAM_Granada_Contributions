@@ -2,12 +2,14 @@ package com.josealex.granadacontributions.modules;
 
 import com.josealex.granadacontributions.utils.Consulta;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Mercado {
+public class Mercado implements Serializable {
 
     private String uid;
     private String nombre;
+    private String uidOwner;
     private ArrayList<String> gestores = new ArrayList<>();
     private ArrayList<Productos> productos = new ArrayList<>();
 
@@ -16,6 +18,7 @@ public class Mercado {
     public Mercado(String uid, String nombre, ArrayList<String> gestores, ArrayList<Productos> productos) {
         this.uid = uid;
         this.nombre = nombre;
+        this.uidOwner = gestores.get(0);
         this.gestores = gestores;
         this.productos = productos;
     }
@@ -34,6 +37,27 @@ public class Mercado {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getUidOwner() {
+        return (uidOwner == null) ? gestores.get(0) : uidOwner;
+    }
+
+    public void setUidOwner(String uidOwner) {
+        if(uidOwner == null || uidOwner.isEmpty()) this.uidOwner = uidOwner;
+    }
+
+    public void updateUidOwner(String newUIDOwner) {
+        if (gestores.contains(newUIDOwner)) {
+            for (int i = 0; i < gestores.size(); i++) {
+                if (gestores.get(i).equalsIgnoreCase(newUIDOwner)) {
+                    String oldOwner = gestores.get(0);
+                    gestores.set(0, newUIDOwner);
+                    gestores.set(i, oldOwner);
+                }
+            }
+            this.uidOwner = newUIDOwner;
+        }
     }
 
     public ArrayList<String> getGestores() {
@@ -58,7 +82,7 @@ public class Mercado {
         ArrayList<String> select = new ArrayList<>();
 
         for (String gestor : gestores) {
-            if(where.test(gestor)) {
+            if(where.comprueba(gestor)) {
                 select.add(gestor);
             }
         }
@@ -84,7 +108,7 @@ public class Mercado {
         ArrayList<Productos> select = new ArrayList<>();
 
         for (Productos producto : productos) {
-            if(where.test(producto)) {
+            if(where.comprueba(producto)) {
                 select.add(producto);
             }
         }

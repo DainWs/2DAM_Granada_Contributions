@@ -79,6 +79,8 @@ public class FirebaseDBManager {
 
                     Mercado newMercado = new Mercado();
                     newMercado.setUid((String) mercado.child("uid").getValue());
+
+                    newMercado.setUidOwner((String) mercado.child("uidOwner").getValue());
                     newMercado.setNombre((String) mercado.child("nombre").getValue());
 
                     //PILLAMOS LOS GESTORES
@@ -107,6 +109,7 @@ public class FirebaseDBManager {
 
                 GlobalInformation.mainActivity.update();
                 GlobalInformation.home.update();
+
             }
 
             @Override
@@ -146,7 +149,7 @@ public class FirebaseDBManager {
                     }
                 }
 
-                //TODO(ACTUALIZA AQUI LAS PREFERENCIAS)
+               GlobalInformation.prefence.update();
             }
 
             @Override
