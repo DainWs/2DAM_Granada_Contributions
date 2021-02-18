@@ -3,6 +3,7 @@ package com.josealex.granadacontributions.ui.setting;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ public class PreferenceFragment extends Fragment {
     TextView name, mail;
     ImageButton addgestion;
     User user;
+    private Dialog dialog;
     ArrayList<Mercado> listaGestion;
     private RecyclerView viewRCWGestion;
     private MymercadosRecyclerViewAdapter recyclerViewAdapter;
@@ -59,11 +63,30 @@ public class PreferenceFragment extends Fragment {
         name.setText(user.getNombre());
         mail.setText(user.getCorreo());
         addgestion = root.findViewById(R.id.edit_phone_button);
+        dialog = new Dialog(getContext());
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.addgestion);
+        EditText editTextNombrexp = dialog.findViewById(R.id.passtext);
+        Button aceptar = dialog.findViewById(R.id.buaccept);
+        Button cancel = dialog.findViewById(R.id.buttonCancel);
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO (añadir mercado uid al usuario)
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         addgestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialogestion ;
-              //TODO (añadir dialog para agregar gestion)
+
+                dialog.show();
+
             }
         });
         cargarGestion();
