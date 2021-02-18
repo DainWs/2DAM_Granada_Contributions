@@ -9,10 +9,6 @@
         android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/GranadaContributions">
-        <activity
-            android:name=".PreferencesActivity"
-            android:label="@string/app_name"
-            android:theme="@style/GranadaContributions.PreferencesActivity.NoActionBar" />
 
         <activity
             android:name=".MainActivity"

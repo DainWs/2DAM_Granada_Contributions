@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewinfogestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="Password"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/passtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buaccept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Accept" />
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -109,6 +109,7 @@ public class FirebaseDBManager {
 
                 GlobalInformation.mainActivity.update();
                 GlobalInformation.home.update();
+
             }
 
             @Override
@@ -148,7 +149,7 @@ public class FirebaseDBManager {
                     }
                 }
 
-                //TODO(ACTUALIZA AQUI LAS PREFERENCIAS)
+               GlobalInformation.prefence.update();
             }
 
             @Override
