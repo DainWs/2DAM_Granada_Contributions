@@ -4,6 +4,6 @@
     <item
         android:id="@+id/mode_user_switch"
         android:title="@string/change_user_mode"
-        app:actionLayout="@layout/switch_item"
+        app:actionLayout="@layout/single_switch_item"
         app:showAsAction="always" />
 </menu>

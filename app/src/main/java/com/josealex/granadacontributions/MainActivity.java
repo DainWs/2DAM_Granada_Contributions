@@ -1,23 +1,18 @@
 package com.josealex.granadacontributions;
 
-import android.content.ClipData;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.FirebaseDatabase;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
-import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,8 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         dbManager = new FirebaseDBManager(this, loggedUser);
 
         loggedUser.addGestiones("1234");
-        FirebaseDBManager.createUserData(this, loggedUser);
+        FirebaseDBManager.saveUserData(loggedUser);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);

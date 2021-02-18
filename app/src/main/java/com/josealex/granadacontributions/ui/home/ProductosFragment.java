@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.josealex.granadacontributions.R;
+import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
+import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
 import com.josealex.granadacontributions.modules.Mercado;
-import com.josealex.granadacontributions.ui.rview.MymercadosRecyclerViewAdapter;
-import com.josealex.granadacontributions.ui.rview.MyproductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class ProductosFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_productos, container, false);
-        mercado = (Mercado) getArguments().getSerializable(MymercadosRecyclerViewAdapter.BUNDLE_MERCADO_ID);
+        mercado = (Mercado) getArguments().getSerializable(MarketsRecyclerAdapter.BUNDLE_MERCADO_ID);
 
         viewRCWProductos = root.findViewById(R.id.include);
 
@@ -40,6 +40,6 @@ public class ProductosFragment extends Fragment {
     public void verProductos(ArrayList Productos){
         RecyclerView recyclerView = (RecyclerView) viewRCWProductos;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new MyproductosRecyclerViewAdapter(Productos));
+        recyclerView.setAdapter(new ProductsRecyclerAdapter(Productos));
     }
 }

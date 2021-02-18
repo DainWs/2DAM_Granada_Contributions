@@ -1,6 +1,4 @@
-package com.josealex.granadacontributions.ui.rview;
-
-import androidx.recyclerview.widget.RecyclerView;
+package com.josealex.granadacontributions.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,53 +6,58 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.User;
-
 
 import java.util.List;
 
 
-public class MyusuariosRecyclerViewAdapter extends RecyclerView.Adapter<MyusuariosRecyclerViewAdapter.ViewHolder> {
+public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdapter.ViewHolder> {
 
-    private final List<User> mValuesusuarios;
+    private final List<User> mValues;
 
-    public MyusuariosRecyclerViewAdapter(List<User> items) {
-        mValuesusuarios = items;
+    public UsersRecyclerAdapter(List<User> items) {
+        mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_itemusuario, parent, false);
+                .inflate(R.layout.list_item_user, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-
-        holder.mIdView.setText(mValuesusuarios.get(position).getNombre());
-        holder.mContentView.setText(mValuesusuarios.get(position).getCorreo());
+        holder.start(mValues.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mValuesusuarios.size();
+        return mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public final ImageView imagefotoURL;
-
+        public final ImageView imageURL;
+        private User mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_name);
-            mContentView = (TextView) view.findViewById(R.id.contentcorreo);
-            imagefotoURL = view.findViewById(R.id.imagefotoURL);
+            mIdView = view.findViewById(R.id.item_name);
+            mContentView = view.findViewById(R.id.contentcorreo);
+            imageURL = view.findViewById(R.id.imagefotoURL);
+        }
+
+        public void start(User mItem) {
+            this.mItem = mItem;
+            mIdView.setText(mItem.getNombre());
+            mContentView.setText(mItem.getCorreo());
         }
 
         @Override

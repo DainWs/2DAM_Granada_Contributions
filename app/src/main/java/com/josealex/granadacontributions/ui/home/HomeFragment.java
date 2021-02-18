@@ -15,11 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
+import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
-import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
-import com.josealex.granadacontributions.ui.rview.MymercadosRecyclerViewAdapter;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
@@ -49,7 +48,7 @@ public class HomeFragment extends Fragment {
     private ViewGroup filterMenuLinearlayout;
 
     private RecyclerView viewRCWMercados;
-    private MymercadosRecyclerViewAdapter recyclerViewAdapter;
+    private MarketsRecyclerAdapter recyclerViewAdapter;
     private ArrayList<Mercado> mercadosList;
 
     private Spinner mercadosSpinner;
@@ -129,11 +128,7 @@ public class HomeFragment extends Fragment {
 
     public void cargarMercado(){
         viewRCWMercados.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewAdapter = new MymercadosRecyclerViewAdapter(
-                mercadosList,
-                getContext(),
-                getActivity()
-        );
+        recyclerViewAdapter = new MarketsRecyclerAdapter(mercadosList);
 
         viewRCWMercados.setAdapter(recyclerViewAdapter);
     }

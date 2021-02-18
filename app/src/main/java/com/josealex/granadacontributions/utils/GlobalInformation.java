@@ -18,5 +18,5 @@ public class GlobalInformation {
 
     public static MainActivity mainActivity = null;
     public static HomeFragment home = new HomeFragment();
-    public static PreferenceFragment prefence = new PreferenceFragment();
+    public static PreferenceFragment preferences = new PreferenceFragment();
 }

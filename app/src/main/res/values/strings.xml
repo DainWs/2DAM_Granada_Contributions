@@ -16,4 +16,13 @@
     <string name="explore_btn_text">Explorar</string>
     <string name="change_user_mode">Change User Mode</string>
     <string name="owners_text">"Owners : "</string>
+    <string name="market_to_apply_text">Market to apply</string>
+    <string name="market_password_text">Market password</string>
+    <string name="password_hint">Password</string>
+    <string name="apply_button_text">Apply</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="spinner_nothing_selected">Nothing selected</string>
+    <string name="spinner_select_market">Select one market</string>
+    <string name="incorrect_market_password">Incorrect Password</string>
+    <string name="password_is_empty">Password is empty</string>
 </resources>

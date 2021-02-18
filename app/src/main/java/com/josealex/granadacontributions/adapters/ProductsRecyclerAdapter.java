@@ -1,12 +1,11 @@
-package com.josealex.granadacontributions.ui.rview;
-
-import androidx.recyclerview.widget.RecyclerView;
+package com.josealex.granadacontributions.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.Productos;
@@ -14,45 +13,49 @@ import com.josealex.granadacontributions.modules.Productos;
 import java.util.List;
 
 
-public class MyproductosRecyclerViewAdapter extends RecyclerView.Adapter<MyproductosRecyclerViewAdapter.ViewHolder> {
+public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapter.ViewHolder> {
 
-    private final List<Productos> mValuesproductos;
+    private final List<Productos> mValues;
 
-    public MyproductosRecyclerViewAdapter(List<Productos> items) {
-        mValuesproductos = items;
+    public ProductsRecyclerAdapter(List<Productos> items) {
+        mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_itemproductos, parent, false);
+                .inflate(R.layout.list_item_product, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        System.out.println(holder.mContentView);
-        holder.mContentView.setText(mValuesproductos.get(position).getNombre());
-        holder.mIdView.setText(mValuesproductos.get(position).getCantidad()+"");
-
+        holder.start(mValues.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mValuesproductos.size();
+        return mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-
+        private Productos mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.item_number2);
             mContentView = view.findViewById(R.id.content2);
+        }
+
+        public void start(Productos mItem) {
+            //TODO (ACORDARSE DE MODIFICAR EL LAYOUT list_item_product)
+            this.mItem = mItem;
+            mIdView.setText(mItem.getCantidad()+"");
+            mContentView.setText(mItem.getNombre());
         }
 
         @Override

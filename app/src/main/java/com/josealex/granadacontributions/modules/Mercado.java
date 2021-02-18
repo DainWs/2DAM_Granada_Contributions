@@ -10,12 +10,19 @@ public class Mercado implements Serializable {
     private String uid;
     private String nombre;
     private String uidOwner;
+    private String password;
     private ArrayList<String> gestores = new ArrayList<>();
     private ArrayList<Productos> productos = new ArrayList<>();
 
     public Mercado(){}
 
-    public Mercado(String uid, String nombre, ArrayList<String> gestores, ArrayList<Productos> productos) {
+    public Mercado(
+            String uid,
+            String nombre,
+            String password,
+            ArrayList<String> gestores,
+            ArrayList<Productos> productos
+    ) {
         this.uid = uid;
         this.nombre = nombre;
         this.uidOwner = gestores.get(0);
@@ -58,6 +65,14 @@ public class Mercado implements Serializable {
             }
             this.uidOwner = newUIDOwner;
         }
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public ArrayList<String> getGestores() {

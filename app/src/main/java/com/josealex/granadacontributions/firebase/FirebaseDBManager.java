@@ -18,8 +18,6 @@ import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 
 public class FirebaseDBManager {
@@ -82,6 +80,7 @@ public class FirebaseDBManager {
 
                     newMercado.setUidOwner((String) mercado.child("uidOwner").getValue());
                     newMercado.setNombre((String) mercado.child("nombre").getValue());
+                    newMercado.setPassword((String) mercado.child("password").getValue());
 
                     //PILLAMOS LOS GESTORES
                     ArrayList<String> gestores = new ArrayList<>();
@@ -149,7 +148,7 @@ public class FirebaseDBManager {
                     }
                 }
 
-               GlobalInformation.prefence.update();
+               GlobalInformation.preferences.update();
             }
 
             @Override
@@ -221,7 +220,7 @@ public class FirebaseDBManager {
         return USER_FIREBASE_DB_PATH;
     }
 
-    public static void createUserData(Activity activity, User user) {
+    public static void saveUserData(User user) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String userPath = FirebaseDBManager.makeFirebaseURLPath(user.getCorreo());
         USER_REF = db.getReference(userPath);
@@ -237,7 +236,6 @@ public class FirebaseDBManager {
     }
 
     public static void restartListeners() {
-
         if(USER_REF != null && USERS_EVENTS_LISTENER != null) {
             USER_REF.addChildEventListener(USERS_EVENTS_LISTENER);
         }
