@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -66,6 +67,15 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
+        navigationView.findViewById(R.id.nav_settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PreferencesActivity.class);
+                intent.putExtra(USER_BUNDLE_ID, loggedUser);
+                startActivity(intent);
+            }
+        });
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
                 .setDrawerLayout(drawer)
@@ -124,16 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.nav_settings:
-                Intent intent = new Intent(this, PreferencesActivity.class);
-                intent.putExtra(USER_BUNDLE_ID, loggedUser);
-                startActivity(intent);
-                break;
-        }
-
-
         return super.onOptionsItemSelected(item);
     }
 }
