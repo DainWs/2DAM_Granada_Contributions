@@ -8,17 +8,17 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
-        android:theme="@style/GranadaContributions">
+        android:theme="@style/Theme.AppCompat.Light">
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/GranadaContributions.MainActivity.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/GranadaContributions.LoginActivity">
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

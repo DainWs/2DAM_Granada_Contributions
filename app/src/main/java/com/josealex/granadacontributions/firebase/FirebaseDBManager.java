@@ -65,12 +65,10 @@ public class FirebaseDBManager {
                     else
                         GlobalInformation.USERS.add(tmpUser);
                 }
-                //El home estara esperando a que la lista de usuarios este lista, cuando lo este,
-                //notificamos a home para que recoga la lista
 
                 //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS USUARIOS AL COMENZAR)
 
-                //RECOGEMOS LOS CHATS
+                //RECOGEMOS LOS MERCADOS
                 Iterable<DataSnapshot> mercados = snapshot.child(MARKETS_PATH).getChildren();
 
                 for (DataSnapshot mercado : mercados) {
@@ -105,8 +103,6 @@ public class FirebaseDBManager {
                 //para que recoga los datos, pero si no se creo no hay problema, cuando se cree el comprobara
                 //una vez si hay datos
                 //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS MERCADOS AL COMENZAR)
-
-                GlobalInformation.mainActivity.update();
                 GlobalInformation.home.update();
 
             }
@@ -144,7 +140,6 @@ public class FirebaseDBManager {
                         GlobalInformation.USERS.set(searchedID, user);
 
                         //TODO (ACTUALIZA AQUI USO DE LISTAS)
-                        GlobalInformation.mainActivity.update();
                     }
                 }
 
@@ -189,7 +184,7 @@ public class FirebaseDBManager {
 
                 ArrayList<Mercado> list = GlobalInformation.MERCADOS;
                 for (int i = 0; i < list.size(); i++) {
-                    if(list.get(i).getUid().equals(user.getUid())) {
+                    if(list.get(i).getUid().equals(mercado.getUid())) {
                         searchedID = i;
                         break;
                     }
@@ -199,7 +194,7 @@ public class FirebaseDBManager {
                     GlobalInformation.MERCADOS.set(searchedID, mercado);
 
                     //TODO (ACTUALIZA AQUI USO DE LISTAS)
-                    GlobalInformation.mainActivity.update();
+                    GlobalInformation.home.update();
                 }
 
 

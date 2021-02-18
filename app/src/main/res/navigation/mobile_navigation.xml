@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_from_home_to_productosFragment"
             app:destination="@id/productosFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_makeMarketFragment"
+            app:destination="@id/makeMarketFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_mercadoFragment"
+            app:destination="@id/mercadoFragment" />
     </fragment>
     <fragment
         android:id="@+id/productosFragment"
@@ -23,6 +29,19 @@
         android:id="@+id/nav_settings"
         android:name="com.josealex.granadacontributions.ui.setting.PreferenceFragment"
         android:label="setting"
-        tools:layout="@layout/fragment_preferences" />
+        tools:layout="@layout/fragment_preferences" >
+        <action
+            android:id="@+id/action_nav_settings_to_makeMarketFragment"
+            app:destination="@id/makeMarketFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/makeMarketFragment"
+        android:name="com.josealex.granadacontributions.ui.makers.MakeMarketFragment"
+        android:label="MakeMarketFragment" />
+    <fragment
+        android:id="@+id/mercadoFragment"
+        android:name="com.josealex.granadacontributions.ui.home.MercadoFragment"
+        android:label="fragment_mercado"
+        tools:layout="@layout/fragment_mercado" />
 
 </navigation>

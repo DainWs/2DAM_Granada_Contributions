@@ -1,9 +1,14 @@
 package com.josealex.granadacontributions.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import com.squareup.picasso.Transformation;
+
 
 /**
  * Gracias a julianshen por compartir esta clase, gracias a ella pude realizar el redondeado de la imagen
@@ -18,7 +23,7 @@ import android.graphics.Paint;
  * Recurso: https://gist.github.com/julianshen/5829333
  * TODO(decidir que hacer con cicleTransform)
  */
-public class CircleTransform //TODO(implements Transformation)
+public class CircleTransform implements Transformation
 {
     //TODO(@Override)
     public Bitmap transform(Bitmap source) {

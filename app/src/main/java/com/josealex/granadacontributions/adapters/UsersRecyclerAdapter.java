@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.List;
 
@@ -49,15 +51,20 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_name);
-            mContentView = view.findViewById(R.id.contentcorreo);
-            imageURL = view.findViewById(R.id.imagefotoURL);
+            mIdView = view.findViewById(R.id.item_user_name);
+            mContentView = view.findViewById(R.id.item_user_correo);
+            imageURL = view.findViewById(R.id.item_user_image);
         }
 
         public void start(User mItem) {
             this.mItem = mItem;
             mIdView.setText(mItem.getNombre());
             mContentView.setText(mItem.getCorreo());
+
+            Glide.with(GlobalInformation.mainActivity)
+                    .load( mItem.getFotoURL() )
+                    .circleCrop()
+                    .into( imageURL );
         }
 
         @Override

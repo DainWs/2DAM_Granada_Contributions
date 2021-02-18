@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class Mercado implements Serializable {
 
-    private String uid;
-    private String nombre;
-    private String uidOwner;
-    private String password;
+    private String uid = "";
+    private String nombre = "";
+    private String uidOwner = "";
+    private String password = "";
     private ArrayList<String> gestores = new ArrayList<>();
     private ArrayList<Productos> productos = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class Mercado implements Serializable {
     }
 
     public void setUidOwner(String uidOwner) {
-        if(uidOwner == null || uidOwner.isEmpty()) this.uidOwner = uidOwner;
+        if(uidOwner != null && !uidOwner.isEmpty()) this.uidOwner = uidOwner;
     }
 
     public void updateUidOwner(String newUIDOwner) {

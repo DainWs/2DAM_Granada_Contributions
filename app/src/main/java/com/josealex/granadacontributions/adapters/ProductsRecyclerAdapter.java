@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.Productos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapter.ViewHolder> {
 
-    private final List<Productos> mValues;
+    private List<Productos> mValues;
 
     public ProductsRecyclerAdapter(List<Productos> items) {
         mValues = items;
@@ -33,9 +34,18 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         holder.start(mValues.get(position));
     }
 
+    public ArrayList<Productos> getList() {
+        return new ArrayList<>(mValues);
+    }
+
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void update(ArrayList<Productos> list) {
+        mValues = list;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -47,8 +57,8 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number2);
-            mContentView = view.findViewById(R.id.content2);
+            mIdView = view.findViewById(R.id.item_product_name);
+            mContentView = view.findViewById(R.id.item_product_price);
         }
 
         public void start(Productos mItem) {
