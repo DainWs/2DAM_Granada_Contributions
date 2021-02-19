@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -28,6 +27,7 @@ import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.ui.home.HomeFragment;
+import com.josealex.granadacontributions.ui.home.MercadoFragment;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.NavigationManager;
@@ -38,6 +38,7 @@ import java.util.ArrayList;
 
 public class PreferenceFragment extends Fragment {
 
+    private boolean hasStarted = false;
 
     View root;
     User user;
@@ -48,6 +49,8 @@ public class PreferenceFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GlobalInformation.preferences = this;
+        hasStarted = true;
 
     }
 
@@ -64,6 +67,7 @@ public class PreferenceFragment extends Fragment {
 
         Glide.with( getContext() )
              .load( user.getFotoURL() )
+             .error(R.drawable.ic_launcher_foreground)
              .into(
                   (ImageView) root.findViewById(R.id.user_profile_image)
              );
@@ -165,7 +169,7 @@ public class PreferenceFragment extends Fragment {
                         bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
 
                         NavigationManager.navigateTo(
-                                R.id.action_nav_settings_to_makeMarketFragment,
+                                R.id.action_from_settings_to_makeMarketFragment,
                                 bundle
                         );
                     }
@@ -189,24 +193,39 @@ public class PreferenceFragment extends Fragment {
                 return false;
             }
         });
-        recyclerViewAdapter = new MarketsRecyclerAdapter(listaGestion);
+        recyclerViewAdapter = new MarketsRecyclerAdapter(listaGestion) {
+            @Override
+            public void onItemClick(Mercado mItem) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(MercadoFragment.MARKET_TITLE_BUNDLE_ID, mItem.getNombre());
+                bundle.putSerializable(MercadoFragment.MARKET_BUNDLE_ID, mItem);
+                bundle.putSerializable(MercadoFragment.MARKET_USER_BUNDLE_ID, user);
+
+                NavigationManager.navigateTo(
+                        R.id.action_from_settings_to_mercadoFragment,
+                        bundle
+                );
+            }
+        };
 
         userManagesRecyclerView.setAdapter(recyclerViewAdapter);
     }
 
     public void update() {
-        listaGestion = Consulta.getMercadosWhere(new Consulta<Mercado>() {
-            @Override
-            public boolean comprueba(Mercado o) {
+        if(hasStarted) {
+            listaGestion = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+                @Override
+                public boolean comprueba(Mercado o) {
 
-                for (String uid : user.getGestiona()) {
-                    if (uid.equals(o.getUid())) {
-                        return true;
+                    for (String uid : user.getGestiona()) {
+                        if (uid.equals(o.getUid())) {
+                            return true;
+                        }
                     }
+                    return false;
                 }
-                return false;
-            }
-        });
-        recyclerViewAdapter.update(listaGestion);
+            });
+            recyclerViewAdapter.update(listaGestion);
+        }
     }
 }

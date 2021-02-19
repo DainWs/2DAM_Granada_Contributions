@@ -32,6 +32,7 @@ public class FirebaseDBManager {
     private static ChildEventListener MERCADOS_EVENTS_LISTENER;
 
     private static DatabaseReference USER_REF;
+    private static DatabaseReference USERS_REF;
     private static DatabaseReference MERCADO_REF;
 
     private Activity activity;
@@ -42,6 +43,7 @@ public class FirebaseDBManager {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String DB_CONNECTION = makeFirebaseURLPath(user.getCorreo());
         USER_REF = db.getReference(DB_CONNECTION);
+        USERS_REF =  db.getReference(USERS_PATH);
         MERCADO_REF = db.getReference(MARKETS_PATH);
 
         initListeners(user);
@@ -104,6 +106,8 @@ public class FirebaseDBManager {
                 //una vez si hay datos
                 //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS MERCADOS AL COMENZAR)
                 GlobalInformation.home.update();
+                GlobalInformation.preferences.update();
+                GlobalInformation.productosListFragment.update();
 
             }
 
@@ -113,7 +117,7 @@ public class FirebaseDBManager {
         });
 
         //CUANDO EL USUARIO CAMBIA SUS DATOS
-        USERS_EVENTS_LISTENER = USER_REF.addChildEventListener(new ChildEventListener() {
+        USERS_EVENTS_LISTENER = USERS_REF.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
 
@@ -197,7 +201,7 @@ public class FirebaseDBManager {
                     GlobalInformation.home.update();
                 }
 
-
+                GlobalInformation.productosListFragment.update();
             }
 
             @Override

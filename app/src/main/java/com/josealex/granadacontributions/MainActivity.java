@@ -12,10 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
-import com.josealex.granadacontributions.modules.Mercado;
-import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
-import com.josealex.granadacontributions.utils.CircleTransform;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import androidx.navigation.NavController;
@@ -36,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private User loggedUser;
 
     private MenuItem switchModeItem;
-    private boolean onGestorMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(getBaseContext())
                 .load( loggedUser.getFotoURL() )
                 .circleCrop()
+                .error(R.drawable.ic_launcher_foreground)
                 .into(
                         (ImageView)headerView.findViewById(R.id.usuario_image)
                 );
@@ -99,9 +96,10 @@ public class MainActivity extends AppCompatActivity {
         switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked != onGestorMode) {
-                    onGestorMode = isChecked;
-                    GlobalInformation.home.updateMode(isChecked);
+                if (isChecked != GlobalInformation.ON_MANAGER_MODE) {
+                    GlobalInformation.ON_MANAGER_MODE = isChecked;
+                    GlobalInformation.home.changeMode(isChecked);
+                    //TODO(FALTAN POR ACTUALIZAR)
                 }
             }
         });

@@ -1,6 +1,8 @@
 package com.josealex.granadacontributions.modules;
 
-public class Productos {
+import java.io.Serializable;
+
+public class Productos implements Serializable {
 
     private String uid;
     private String nombre;
@@ -65,5 +67,10 @@ public class Productos {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

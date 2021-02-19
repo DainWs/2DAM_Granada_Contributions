@@ -10,14 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.josealex.granadacontributions.R;
+import com.josealex.granadacontributions.modules.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class MyExpandableListAdapter<T> extends BaseExpandableListAdapter {
     private Context context;
-    private List<String> expandableListTitle;
-    private HashMap<String, List<T>> expandableListDetail;
+    private List<String> expandableListTitle = new ArrayList<>();
+    private HashMap<String, List<T>> expandableListDetail = new HashMap<>();
 
     public MyExpandableListAdapter(Context context, List<String> expandableListTitle,
                                    HashMap<String, List<T>> expandableListDetail) {
@@ -26,13 +28,20 @@ public abstract class MyExpandableListAdapter<T> extends BaseExpandableListAdapt
         this.expandableListDetail = expandableListDetail;
     }
 
+    public MyExpandableListAdapter(Context context, String title,
+                                   List<T> list) {
+        this.context = context;
+        expandableListTitle.add(title);
+        expandableListDetail.put(title, list);
+    }
+
     public void update(String title, List<T> newModels) {
         expandableListDetail.put(title, newModels);
         notifyDataSetChanged();
     }
 
     @Override
-    public Object getChild(int listPosition, int expandedListPosition) {
+    public T getChild(int listPosition, int expandedListPosition) {
         return this.expandableListDetail
                 .get(this.expandableListTitle.get(listPosition))
                 .get(expandedListPosition);
@@ -50,14 +59,7 @@ public abstract class MyExpandableListAdapter<T> extends BaseExpandableListAdapt
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_item_user, null);
         }
-
-        T model = (T) getChild(listPosition, expandedListPosition);
-
-        TextView mNameView = (TextView) convertView.findViewById(R.id.item_user_name);
-        TextView mMailView = (TextView) convertView.findViewById(R.id.item_user_correo);
-        ImageView mImageView = (ImageView)convertView.findViewById(R.id.item_user_image);
-
-        initValues(model, convertView);
+        initValues((T) getChild(listPosition, expandedListPosition), convertView);
 
         return convertView;
     }
@@ -98,14 +100,6 @@ public abstract class MyExpandableListAdapter<T> extends BaseExpandableListAdapt
         listTitleTV.setTypeface(null, Typeface.BOLD);
         listTitleTV.setText(listTitle);
 
-        View finalConvertView = convertView;
-        convertView.findViewById(R.id.expandable_list_title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onTitleClick(finalConvertView);
-            }
-        });
-
         return convertView;
     }
 
@@ -120,6 +114,4 @@ public abstract class MyExpandableListAdapter<T> extends BaseExpandableListAdapt
     }
 
     public abstract void initValues(T model, View convertView);
-
-    public abstract void onTitleClick(View convertView);
 }

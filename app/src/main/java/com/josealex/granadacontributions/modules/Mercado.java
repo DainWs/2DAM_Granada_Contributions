@@ -93,6 +93,12 @@ public class Mercado implements Serializable {
         }
     }
 
+    public void removeGestores(String uid) {
+        if(gestores.contains(uid)) {
+            gestores.remove(uid);
+        }
+    }
+
     public ArrayList<String> getGestoresWhere(Consulta<String> where) {
         ArrayList<String> select = new ArrayList<>();
 
@@ -130,4 +136,7 @@ public class Mercado implements Serializable {
 
         return select;
     }
+
+
+
 }

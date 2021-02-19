@@ -57,14 +57,14 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_product_name);
-            mContentView = view.findViewById(R.id.item_product_price);
+            mIdView = view.findViewById(R.id.item_product_price);
+            mContentView = view.findViewById(R.id.item_product_name);
         }
 
         public void start(Productos mItem) {
             //TODO (ACORDARSE DE MODIFICAR EL LAYOUT list_item_product)
             this.mItem = mItem;
-            mIdView.setText(mItem.getCantidad()+"");
+            mIdView.setText(mItem.getPrecio()+"€");
             mContentView.setText(mItem.getNombre());
         }
 

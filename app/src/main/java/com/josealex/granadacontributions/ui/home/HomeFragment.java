@@ -16,16 +16,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
+import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
+import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.GlobalInformation;
+import com.josealex.granadacontributions.utils.NavigationManager;
+import com.josealex.granadacontributions.utils.ResourceManager;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     public static final String USER_BUNDLE_ID = "User";
+
+    private boolean hasStarted = false;
+
     private View root;
 
     private FirebaseDBManager dbManager;
@@ -48,8 +55,10 @@ public class HomeFragment extends Fragment {
     private ViewGroup filterMenuLinearlayout;
 
     private RecyclerView viewRCWMercados;
-    private MarketsRecyclerAdapter recyclerViewAdapter;
+    private MarketsRecyclerAdapter recyclerViewMarketsAdapter;
+    private ProductsRecyclerAdapter recyclerViewProductsAdapter;
     private ArrayList<Mercado> mercadosList;
+    private ArrayList<Productos> productosList;
 
     private Spinner mercadosSpinner;
     private Spinner categoriasSpinner;
@@ -68,6 +77,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         GlobalInformation.home.update();
         GlobalInformation.home = this;
+        hasStarted = true;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -93,6 +103,7 @@ public class HomeFragment extends Fragment {
 
         startHome();
 
+        viewRCWMercados.setLayoutManager(new LinearLayoutManager(getContext()));
         cargarMercado();
         return root;
     }
@@ -100,77 +111,121 @@ public class HomeFragment extends Fragment {
     private void startHome() {
         mercadosList = GlobalInformation.MERCADOS;
 
-        addMercadoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
+        productosList = new ArrayList<>();
+        for (Mercado mercado:GlobalInformation.MERCADOS) {
+            productosList.addAll(mercado.getProductos());
+        }
+
+        addMercadoBtn.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, loggedUser);
+
+            NavigationManager.navigateTo(
+                    R.id.action_from_home_to_makeMarketFragment,
+                    bundle
+            );
         });
 
-        filterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        filterBtn.setOnClickListener(v -> makeFilter());
+        exploreBtn.setOnClickListener(v ->
+        {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_USER_BUNDLE_ID, loggedUser);
+            bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_TITLE_BUNDLE_ID, ResourceManager.getString(R.string.products));
+            bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_MODE_BUNDLE_ID, ProductosListFragment.ALL_PRODUCTS);
 
-        exploreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cargarMercado();
-            }
+            NavigationManager.navigateTo(
+                    R.id.action_from_home_to_productosFragment,
+                    bundle
+            );
         });
 
         filterMenuLinearlayout.removeView(
                 filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
         );
 
-        updateMode(false);
+        inMode = GlobalInformation.ON_MANAGER_MODE;
+        updateMode();
     }
 
-    public void cargarMercado(){
-        viewRCWMercados.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewAdapter = new MarketsRecyclerAdapter(mercadosList);
+    public void cargarMercado() {
+        recyclerViewMarketsAdapter = new MarketsRecyclerAdapter(mercadosList) {
+            @Override
+            public void onItemClick(Mercado mItem) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(MercadoFragment.MARKET_TITLE_BUNDLE_ID, mItem.getNombre());
+                bundle.putSerializable(MercadoFragment.MARKET_BUNDLE_ID, mItem);
+                bundle.putSerializable(MercadoFragment.MARKET_USER_BUNDLE_ID, loggedUser);
 
-        viewRCWMercados.setAdapter(recyclerViewAdapter);
+                NavigationManager.navigateTo(
+                        R.id.action_from_home_to_mercadoFragment,
+                        bundle
+                );
+            }
+        };
+
+        productosList = new ArrayList<>();
+        for (Mercado mercado:GlobalInformation.MERCADOS) {
+            productosList.addAll(mercado.getProductos());
+        }
+        recyclerViewProductsAdapter = new ProductsRecyclerAdapter(productosList);
+
+        if (inMode) viewRCWMercados.setAdapter(recyclerViewMarketsAdapter);
+        else viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
+
     }
 
     public void update() {
-        if(recyclerViewAdapter != null) {
+        if(hasStarted) {
             if (inMode) {
                 mercadosList = Consulta.getMercadosWhere(mercadosDelUsuario);
-                recyclerViewAdapter.update(mercadosList);
+                recyclerViewMarketsAdapter.update(mercadosList);
+                viewRCWMercados.setAdapter(recyclerViewMarketsAdapter);
             } else {
-                recyclerViewAdapter.update(GlobalInformation.MERCADOS);
+                productosList = new ArrayList<>();
+                for (Mercado mercado: GlobalInformation.MERCADOS) {
+                    productosList.addAll(mercado.getProductos());
+                }
+                recyclerViewProductsAdapter.update(productosList);
+                viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
             }
         }
     }
 
+    public void makeFilter() {
+        //TODO(HACER FILTRO)
+    }
+
     // si el Switch Button esta ON es true
     // si el Switch Button esta OFF es false
-    public void updateMode(boolean checked) {
+    public void changeMode(boolean checked) {
         if(inMode != checked) {
             inMode = checked;
 
             update();
+            updateMode();
+        }
+    }
 
-            if (inMode) {
-                filterMenuLinearlayout.addView(addMercadoBtn, 0);
+    private void updateMode() {
+        if (inMode) {
+            filterMenuLinearlayout.addView(addMercadoBtn, 0);
 
-                //TODO(FALTAN COSAS POR ACTUALIZAR)
-            }
-            else {
-                filterMenuLinearlayout.removeView(
-                        filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
-                );
+            //TODO(FALTAN COSAS POR ACTUALIZAR)
+        }
+        else {
+            filterMenuLinearlayout.removeView(
+                    filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
+            );
 
-                Consulta.getMercadosWhere(new Consulta<Mercado>() {
-                    @Override
-                    public boolean comprueba(Mercado o) {
-                        return false;
-                    }
-                });
+            Consulta.getMercadosWhere(new Consulta<Mercado>() {
+                @Override
+                public boolean comprueba(Mercado o) {
+                    return false;
+                }
+            });
 
-                //TODO(FALTAN COSAS POR ACTUALIZAR)
-            }
+            //TODO(FALTAN COSAS POR ACTUALIZAR)
         }
     }
 }

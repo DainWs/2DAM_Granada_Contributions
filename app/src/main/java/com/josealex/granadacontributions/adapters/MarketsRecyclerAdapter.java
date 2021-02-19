@@ -12,6 +12,7 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.NavigationManager;
 import com.josealex.granadacontributions.utils.ResourceManager;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MarketsRecyclerAdapter extends RecyclerView.Adapter<MarketsRecyclerAdapter.ViewHolder> {
+public abstract class MarketsRecyclerAdapter extends RecyclerView.Adapter<MarketsRecyclerAdapter.ViewHolder> {
 
     public static final String BUNDLE_MERCADO_ID = "mercado";
 
@@ -67,12 +68,18 @@ public class MarketsRecyclerAdapter extends RecyclerView.Adapter<MarketsRecycler
         public void start(Mercado mItem) {
             this.mItem = mItem;
 
-            ArrayList<User> ownersUsers = Consulta.getUsersWhere(new Consulta<User>() {
-                @Override
-                public boolean comprueba(User o) {
-                    return (mItem.getUidOwner().equals(o.getUid()));
-                }
-            });
+            ArrayList<User> ownersUsers = new ArrayList<>();
+            if(mItem.getUidOwner().equals(GlobalInformation.SIGN_IN_USER.getUid())) {
+                ownersUsers.add(GlobalInformation.SIGN_IN_USER);
+            }
+            else {
+                ownersUsers = Consulta.getUsersWhere(new Consulta<User>() {
+                    @Override
+                    public boolean comprueba(User o) {
+                        return (mItem.getUidOwner().equals(o.getUid()));
+                    }
+                });
+            }
 
             String ownersNames = ResourceManager.getString(R.string.owners_text);
             if(ownersUsers.size() > 0)
@@ -83,13 +90,7 @@ public class MarketsRecyclerAdapter extends RecyclerView.Adapter<MarketsRecycler
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(BUNDLE_MERCADO_ID, mItem);
-
-                    NavigationManager.navigateTo(
-                            R.id.action_from_home_to_productosFragment,
-                            bundle
-                    );
+                    onItemClick(mItem);
                 }
             });
         }
@@ -99,4 +100,6 @@ public class MarketsRecyclerAdapter extends RecyclerView.Adapter<MarketsRecycler
             return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
+
+    public abstract void onItemClick(Mercado mercado);
 }
