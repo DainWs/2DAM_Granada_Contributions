@@ -13,15 +13,21 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdapter.ViewHolder> {
 
-    private final List<User> mValues;
+    private List<User> mValues;
 
     public UsersRecyclerAdapter(List<User> items) {
         mValues = items;
+    }
+
+    public void update(ArrayList<User> usersList) {
+        mValues = usersList;
+        notifyDataSetChanged();
     }
 
     @Override

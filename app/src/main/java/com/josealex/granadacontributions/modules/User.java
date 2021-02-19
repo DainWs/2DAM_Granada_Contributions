@@ -97,10 +97,10 @@ public class User implements Serializable {
         return select;
     }
 
-    public boolean hasGestionesWhere(Consulta<String> where) {
+    public boolean hasGestionesWhere(String where) {
         for (String gestiones : gestiona) {
-            System.out.println("AAAAA " + gestiona.size() + " size "+gestiones + " " + where.comprueba(gestiones));
-            if(where.comprueba(gestiones)) {
+            System.out.println("AAAAA " + gestiona.size() + " size "+gestiones);
+            if(where.equals(gestiones)) {
                 return true;
             }
         }

@@ -7,32 +7,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.josealex.granadacontributions.R;
-import com.josealex.granadacontributions.adapters.ModelsSpinnerAdapter;
-import com.josealex.granadacontributions.adapters.MyExpandableListAdapter;
 import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
+import com.josealex.granadacontributions.adapters.UsersRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.GlobalInformation;
-import com.josealex.granadacontributions.utils.ResourceManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class MercadoFragment extends Fragment {
@@ -41,9 +32,9 @@ public class MercadoFragment extends Fragment {
     public static final String MARKET_USER_BUNDLE_ID = "user";
     public static final String MARKET_BUNDLE_ID = "market";
 
-    private String expandableListTitle = "";
-    private ArrayList<User> expandableUsersList = new ArrayList<>();
-    private MyExpandableListAdapter<User> expandableListAdapter;
+    private ArrayList<User> usersList;
+    private RecyclerView usersListRecyclerView;
+    private UsersRecyclerAdapter usersAdapter;
 
     private RecyclerView productsRecyclerView;
     private ProductsRecyclerAdapter adapter;
@@ -81,48 +72,29 @@ public class MercadoFragment extends Fragment {
         optionsLinearMenu = root.findViewById(R.id.options_linear_menu);
         deleteMarketButton = root.findViewById(R.id.market_manager_remove_button);
 
-        expandableListTitle = ResourceManager.getString(R.string.managers);
 
-        Consulta<String> userIsGestorOfConsult = new Consulta<String>() {
-            @Override
-            public boolean comprueba(String o) {
-                return (market.getUid().equals(o));
-            }
-        };
+        System.out.println("USER " + market.getGestores().size());
+        for (String s : market.getGestores()) {
+            System.out.println(s);
+        }
 
-        System.out.println(market.getUid() +" market uid");
-
-        expandableUsersList = Consulta.getUsersWhere(new Consulta<User>() {
+        usersList = Consulta.getUsersWhere(new Consulta<User>() {
             @Override
             public boolean comprueba(User o) {
-                return (o.hasGestionesWhere(userIsGestorOfConsult));
+                return (o.hasGestionesWhere(market.getUid()));
             }
         });
 
-        System.out.println("expandable size "+expandableUsersList.size());
+        System.out.println(usersList.size());
 
-        expandableListAdapter =
-                new MyExpandableListAdapter<User>(
-                        getContext(),
-                        expandableListTitle,
-                        expandableUsersList
-                ) {
-                    @Override
-                    public void initValues(User model, View convertView) {
-                        initExpandableValues(model, convertView);
-                    }
-                };
+        usersAdapter = new UsersRecyclerAdapter(usersList);
 
-        ExpandableListView expandableListView =
-                (ExpandableListView) root.findViewById(R.id.expandable_list);
+        System.out.println(usersAdapter.getItemCount());
 
-        expandableListView.setAdapter(expandableListAdapter);
-        expandableListView.setOnChildClickListener(
-                (parent, v, groupPosition, childPosition, id) -> true
-        );
+        usersListRecyclerView = root.findViewById(R.id.market_managers_recyclerview);
+        usersListRecyclerView.setAdapter(usersAdapter);
 
         adapter = new ProductsRecyclerAdapter(market.getProductos());
-
         productsRecyclerView =
                 (RecyclerView) root.findViewById(R.id.market_products_list);
         productsRecyclerView.setAdapter(adapter);
@@ -192,8 +164,8 @@ public class MercadoFragment extends Fragment {
     }
 
     private void removeUser(User user) {
-        expandableUsersList.remove(user);
-        expandableListAdapter.update(expandableListTitle, expandableUsersList);
+        usersList.remove(user);
+        usersAdapter.update(usersList);
 
         user.removeGestiones(market.getUid());
         market.removeGestores(user.getUid());
@@ -214,22 +186,15 @@ public class MercadoFragment extends Fragment {
 
     private void updateList() {
         adapter.update(this.market.getProductos());
-        if(expandableUsersList.size() != this.market.getGestores().size()) {
-            Consulta<String> userIsGestorOfConsult = new Consulta<String>() {
-                @Override
-                public boolean comprueba(String o) {
-                    return (market.getUid().equals(o));
-                }
-            };
-
-            expandableUsersList = Consulta.getUsersWhere(new Consulta<User>() {
+        if(usersList.size() != this.market.getGestores().size()) {
+            usersList = Consulta.getUsersWhere(new Consulta<User>() {
                 @Override
                 public boolean comprueba(User o) {
-                    return (o.hasGestionesWhere(userIsGestorOfConsult));
+                    return (o.hasGestionesWhere(market.getUid()));
                 }
             });
 
-            expandableListAdapter.update(expandableListTitle, expandableUsersList);
+            usersAdapter.update(usersList);
         }
     }
 

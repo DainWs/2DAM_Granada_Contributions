@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +8,14 @@
     tools:context=".ui.home.ProductoFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
@@ -221,20 +226,18 @@
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/contentDescription"
+                        android:paddingStart="5dp"
                         android:paddingLeft="5dp"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/ic_show_password"
-                        android:contentDescription="@string/contentDescription"
-                        android:paddingStart="5dp" />
+                        android:src="@mipmap/ic_show_password" />
 
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
 
-        <com.josealex.granadacontributions.views.MyExpandableList
-            android:id="@+id/expandable_list"
-            android:groupIndicator="@null"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -242,21 +245,6 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:listSelector="@android:color/transparent"
-            tools:context=".list.ItemFragment"
-            tools:listheader="@layout/simple_expandable_list_group"
-            tools:listitem="@layout/list_item_user" />
-
-        <LinearLayout
-            android:id="@+id/product_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
             android:background="@color/main_activity_background_color"
             android:orientation="horizontal"
             android:paddingStart="25dp"
@@ -271,9 +259,61 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start"
+                android:text="@string/managers"
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
-                tools:text="@string/products" />
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/toolbar_background_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
+
+        <include
+            android:id="@+id/market_managers_recyclerview"
+            layout="@layout/list_users"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/main_activity_background_color"
+            android:orientation="horizontal"
+            android:paddingStart="25dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="@string/products"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -289,25 +329,25 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/toolbar_background_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <include
             android:id="@+id/market_products_list"
+            layout="@layout/list_products"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="25dp"
-            tools:listitem="@layout/list_item_product" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/options_linear_menu"
@@ -332,4 +372,4 @@
 
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
