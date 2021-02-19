@@ -11,7 +11,9 @@ public class User implements Serializable {
     private String nombre;
     private String correo;
     private String fotoURL;
+    private int saldo;
     private ArrayList<String> gestiona = new ArrayList<>();
+    private ArrayList<String> lineafactura = new ArrayList<>();
 
     public User(){}
 

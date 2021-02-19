@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -35,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private static int GOOGLEIN = 100;
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    Button google;
+    Button google,registro,conect;
+    EditText email,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         google = findViewById(R.id.bgoogle);
-
+        registro = findViewById(R.id.loginReg);
+        conect = findViewById(R.id.loginCon);
+        email = findViewById(R.id.loginEmail);
+        password = findViewById(R.id.loginPassword);
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,9 +56,52 @@ public class LoginActivity extends AppCompatActivity {
                 registroConectoGoogle();
             }
         });
+        conect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    conecto(email.getText().toString(), password.getText().toString());
+                } catch (Exception e) {
+                    Toast.makeText(getBaseContext(), "Conexion fallida", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    createusuerbasic(email.getText().toString(), password.getText().toString());
+                } catch (Exception e) {
+                    Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
+    public void createusuerbasic(String email, String password) {
 
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+
+
+                            user = mAuth.getCurrentUser();
+                            Toast.makeText(getBaseContext(), "Registro valido", Toast.LENGTH_SHORT).show();
+                            toMainActivity(mAuth);
+
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+
+                            Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
+                            // updateUI(null);
+                        }
+                    }
+                });
+    }
     public void conecto(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
