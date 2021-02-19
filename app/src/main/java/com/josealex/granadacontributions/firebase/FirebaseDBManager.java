@@ -59,13 +59,20 @@ public class FirebaseDBManager {
                 Iterable<DataSnapshot> users = snapshot.child(USERS_PATH).getChildren();
                 GlobalInformation.USERS.clear();
 
+                boolean finded = false;
                 for (DataSnapshot userData : users) {
                     User tmpUser = userData.getValue(User.class);
 
-                    if(tmpUser.getCorreo().equals(user.getCorreo()))
+                    if(tmpUser.getCorreo().equals(user.getCorreo())) {
                         GlobalInformation.SIGN_IN_USER = tmpUser;
+                        finded = true;
+                    }
                     else
                         GlobalInformation.USERS.add(tmpUser);
+                }
+
+                if(!finded) {
+                    saveUserData(user);
                 }
 
                 //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS USUARIOS AL COMENZAR)
@@ -105,6 +112,7 @@ public class FirebaseDBManager {
                 //para que recoga los datos, pero si no se creo no hay problema, cuando se cree el comprobara
                 //una vez si hay datos
                 //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS MERCADOS AL COMENZAR)
+                GlobalInformation.mainActivity.update();
                 GlobalInformation.home.update();
                 GlobalInformation.preferences.update();
                 GlobalInformation.productosListFragment.update();
@@ -144,10 +152,10 @@ public class FirebaseDBManager {
                         GlobalInformation.USERS.set(searchedID, user);
 
                         //TODO (ACTUALIZA AQUI USO DE LISTAS)
+                        GlobalInformation.mainActivity.update();
                     }
                 }
-
-               GlobalInformation.preferences.update();
+                GlobalInformation.preferences.update();
             }
 
             @Override
@@ -198,6 +206,7 @@ public class FirebaseDBManager {
                     GlobalInformation.MERCADOS.set(searchedID, mercado);
 
                     //TODO (ACTUALIZA AQUI USO DE LISTAS)
+                    GlobalInformation.mainActivity.update();
                     GlobalInformation.home.update();
                 }
 

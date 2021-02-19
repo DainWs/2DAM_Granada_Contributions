@@ -134,7 +134,9 @@ public class PreferenceFragment extends Fragment {
                         String marketPassword = market.getPassword();
 
                         if(password.equals(marketPassword)) {
-                            user.addGestiones(market.getUid());
+                            ArrayList<String> gestiones = user.getGestiona();
+                            gestiones.add(market.getUid());
+                            user.setGestiona(gestiones);
                             market.addGestor(user.getUid());
 
                             FirebaseDBManager.saveUserData(user);

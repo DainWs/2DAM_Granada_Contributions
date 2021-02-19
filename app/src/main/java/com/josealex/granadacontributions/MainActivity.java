@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private User loggedUser;
 
     private MenuItem switchModeItem;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
         switchModeItem = menu.findItem(R.id.mode_user_switch);
         Switch switchView = ((Switch) switchModeItem.getActionView().findViewById(R.id.switch_view));
 
@@ -101,9 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if(loggedUser.getGestiona().size() <= 0) {
-            menu.removeItem(R.id.mode_user_switch);
-        }
+        update();
 
         return true;
     }
@@ -115,5 +115,17 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    public void update() {
+        loggedUser = GlobalInformation.SIGN_IN_USER;
+        if(menu != null) {
+            if (loggedUser.getGestiona().size() <= 0) {
+                switchModeItem.setEnabled(false);
+                switchModeItem.setVisible(false);
+            } else {
+                switchModeItem.setEnabled(true);
+                switchModeItem.setVisible(true);
+            }
+        }
+    }
 
 }
