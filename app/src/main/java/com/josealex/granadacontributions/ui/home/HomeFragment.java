@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
+import com.josealex.granadacontributions.adapters.ModelsSpinnerAdapter;
 import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
@@ -65,7 +67,7 @@ public class HomeFragment extends Fragment {
 
     private SpinnerAdapter mercadosSpinnerAdapter;
     private SpinnerAdapter categoriasSpinnerAdapter;
-
+    private ArrayList listaproducto;
     private Button addMercadoBtn;
     private Button filterBtn;
     private Button exploreBtn;
@@ -94,7 +96,12 @@ public class HomeFragment extends Fragment {
         viewRCWMercados = root.findViewById(R.id.rcw);
 
         filterMenuLinearlayout = root.findViewById(R.id.filter_menu_linearlayout);
-
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeFilter();
+            }
+        });
         Bundle b = getActivity().getIntent().getExtras();
 
         if(b != null) {
@@ -105,6 +112,8 @@ public class HomeFragment extends Fragment {
 
         viewRCWMercados.setLayoutManager(new LinearLayoutManager(getContext()));
         cargarMercado();
+
+        cargarSpinner();
         return root;
     }
 
@@ -174,6 +183,38 @@ public class HomeFragment extends Fragment {
         else viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
 
     }
+    public void cargarSpinner(){
+
+
+        SpinnerAdapter simpleSpinnerAdapter = new ArrayAdapter<Mercado>(
+                getContext(),
+                android.R.layout.simple_spinner_item,
+                GlobalInformation.MERCADOS);
+
+        mercadosSpinnerAdapter = new ModelsSpinnerAdapter(
+                simpleSpinnerAdapter,
+                getContext(),
+                ResourceManager.getString(R.string.spinner_select_market)
+        );
+
+
+
+
+
+        SpinnerAdapter simpleSpinnerAdapter2 = new ArrayAdapter<String>(
+                getContext(),
+                android.R.layout.simple_spinner_item,
+                ResourceManager.getArray(R.array.categorias));
+
+        categoriasSpinnerAdapter = new ModelsSpinnerAdapter(
+                simpleSpinnerAdapter2,
+                getContext(),
+                ""
+        );
+
+        mercadosSpinner.setAdapter(mercadosSpinnerAdapter);
+        categoriasSpinner.setAdapter(categoriasSpinnerAdapter);
+    }
 
     public void update() {
         if(hasStarted) {
@@ -181,6 +222,7 @@ public class HomeFragment extends Fragment {
                 mercadosList = Consulta.getMercadosWhere(mercadosDelUsuario);
                 recyclerViewMarketsAdapter.update(mercadosList);
                 viewRCWMercados.setAdapter(recyclerViewMarketsAdapter);
+
             } else {
                 productosList = new ArrayList<>();
                 for (Mercado mercado: GlobalInformation.MERCADOS) {
@@ -189,11 +231,32 @@ public class HomeFragment extends Fragment {
                 recyclerViewProductsAdapter.update(productosList);
                 viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
             }
+            cargarSpinner();
         }
+
     }
 
     public void makeFilter() {
-        //TODO(HACER FILTRO)
+        Mercado markselect = (Mercado) mercadosSpinner.getSelectedItem();
+        String catselect = categoriasSpinner.getSelectedItem().toString();
+        mercadosList = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+            @Override
+            public boolean comprueba(Mercado o) {
+                return o.getUid().equals(markselect.getUid());
+            }
+
+        });
+
+        if(mercadosList.size()>0){
+            listaproducto = mercadosList.get(0).getProductosWhere(new Consulta<Productos>() {
+                @Override
+                public boolean comprueba(Productos o) {
+                    return o.getCategoria().equals(catselect);
+                }
+            });
+        }
+        recyclerViewProductsAdapter.update(listaproducto);
+        viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
     }
 
     // si el Switch Button esta ON es true
