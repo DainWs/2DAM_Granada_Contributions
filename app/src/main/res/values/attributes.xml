@@ -3,4 +3,9 @@
     <attr format="color" name="colorText"/>
     <attr format="color" name="colorBackground"/>
     <attr format="color" name="colorContainer"/>
+
+    <attr format="color" name="colorNavigationItem" />
+    <attr format="color" name="colorNavigationItemSelected" />
+
+    <attr format="reference" name="drawableNavItemBackground" />
 </resources>

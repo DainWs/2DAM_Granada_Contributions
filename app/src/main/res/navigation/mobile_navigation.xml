@@ -22,9 +22,9 @@
     </fragment>
     <fragment
         android:id="@+id/productosFragment"
-        android:name="com.josealex.granadacontributions.ui.home.ProductosFragment"
-        android:label="fragment_productos"
-        tools:layout="@layout/fragment_productos" />
+        android:name="com.josealex.granadacontributions.ui.home.ProductosListFragment"
+        android:label="@string/products"
+        tools:layout="@layout/fragment_list_productos" />
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.josealex.granadacontributions.ui.setting.PreferenceFragment"
@@ -37,11 +37,16 @@
     <fragment
         android:id="@+id/makeMarketFragment"
         android:name="com.josealex.granadacontributions.ui.makers.MakeMarketFragment"
-        android:label="MakeMarketFragment" />
+        android:label="@string/new_market" />
     <fragment
         android:id="@+id/mercadoFragment"
         android:name="com.josealex.granadacontributions.ui.home.MercadoFragment"
-        android:label="fragment_mercado"
-        tools:layout="@layout/fragment_mercado" />
+        android:label="{title}"
+        tools:layout="@layout/fragment_mercado" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue=" " />
+    </fragment>
 
 </navigation>

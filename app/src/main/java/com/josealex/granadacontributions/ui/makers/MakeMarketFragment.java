@@ -102,6 +102,8 @@ public class MakeMarketFragment extends Fragment {
 
                 if(isValid) {
                     FirebaseDBManager.saveMercado(market);
+                    user.addGestiones(market.getUid());
+                    FirebaseDBManager.saveUserData(user);
                     GlobalInformation.mainActivity.onBackPressed();
                 }
                 else

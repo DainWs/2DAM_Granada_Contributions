@@ -1,4 +1,9 @@
 <resources>
+    <style name="RedColoredButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="backgroundTint">@color/design_default_color_error</item>
+        <item name="android:background">@color/design_default_color_error</item>
+    </style>
+
     <!--
     <style name="GranadaContributions" parent="Theme.AppCompat.Light.DarkActionBar">
 

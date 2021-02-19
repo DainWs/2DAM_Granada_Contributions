@@ -18,7 +18,7 @@ import com.josealex.granadacontributions.modules.Mercado;
 import java.util.ArrayList;
 
 
-public class ProductosFragment extends Fragment {
+public class ProductosListFragment extends Fragment {
 
     private View root;
     private View viewRCWProductos;
@@ -28,7 +28,7 @@ public class ProductosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_productos, container, false);
+        root = inflater.inflate(R.layout.fragment_list_productos, container, false);
         mercado = (Mercado) getArguments().getSerializable(MarketsRecyclerAdapter.BUNDLE_MERCADO_ID);
 
         viewRCWProductos = root.findViewById(R.id.include);
