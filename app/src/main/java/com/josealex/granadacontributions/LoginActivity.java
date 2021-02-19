@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getBaseContext(), "Conexion fallida", Toast.LENGTH_SHORT).show();
                 }
+                //TODO (cambiar los text de Toast por R.String...)
             }
         });
         registro.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
 
                             user = mAuth.getCurrentUser();
-                            Toast.makeText(getBaseContext(), "conecto", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Conecto", Toast.LENGTH_SHORT).show();
                             toMainActivity(mAuth);
                         } else {
                             Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
@@ -177,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
             String uid = currentUser.getUid();
 
             //(String uid, String nombre, String apellido, String correo, String fotoURL
-            User user =  new User(uid, displayName, mail, photoUrl.toString());
+            User user =  new User(uid, displayName, mail, (photoUrl == null) ? "" :  photoUrl.toString());
             intent.putExtra(MainActivity.USER_BUNDLE_ID, user);
             startActivity(intent);
         } else {
