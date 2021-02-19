@@ -50,4 +50,9 @@
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
     <string name="buy">Buy</string>
+    <string name="are_you_sure">Are you sure you do this?</string>
+    <string name="warnning">Warnning!!</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="remove_products">Remove products</string>
+    <string name="filter_button">Filter</string>
 </resources>

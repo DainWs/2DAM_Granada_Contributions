@@ -72,6 +72,12 @@ public class User implements Serializable {
         }
     }
 
+    public void  removeGestiones(String marketUID) {
+        if(gestiona.contains(marketUID)) {
+            gestiona.remove(marketUID);
+        }
+    }
+
     public ArrayList<String> getGestionesWhere(Consulta<String> where) {
         ArrayList<String> select = new ArrayList<>();
 
@@ -82,5 +88,14 @@ public class User implements Serializable {
         }
 
         return select;
+    }
+
+    public boolean hasGestionesWhere(Consulta<String> where) {
+        for (String gestiones : gestiona) {
+            if(where.comprueba(gestiones)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

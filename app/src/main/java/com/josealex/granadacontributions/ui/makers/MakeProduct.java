@@ -126,7 +126,7 @@ public class MakeProduct {
 
         if(!cantidad.isEmpty()) {
             try {
-                productos.setPrecio(Integer.parseInt(cantidad));
+                productos.setCantidad(Integer.parseInt(cantidad));
             }
             catch (Exception ex) {
                 isValid = false;

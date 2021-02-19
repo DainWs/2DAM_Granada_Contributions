@@ -63,6 +63,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
 
             Glide.with(GlobalInformation.mainActivity)
                     .load( mItem.getFotoURL() )
+                    .error(R.drawable.ic_launcher_foreground)
                     .circleCrop()
                     .into( imageURL );
         }

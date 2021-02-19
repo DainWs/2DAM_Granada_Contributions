@@ -14,32 +14,90 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
 import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
 import com.josealex.granadacontributions.modules.Mercado;
+import com.josealex.granadacontributions.modules.Productos;
+import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.ArrayList;
 
 
 public class ProductosListFragment extends Fragment {
 
+    public static final int ALL_PRODUCTS = 0;
+    public static final int ALL_PRODUCTS_FROM_ONE_MARKET = 1;
+
+    public static final String PRODUCTS_LIST_TITLE_BUNDLE_ID = "title";
+    public static final String PRODUCTS_LIST_MODE_BUNDLE_ID = "mode";
+    public static final String PRODUCTS_LIST_MARKET_BUNDLE_ID = "market";
+    public static final String PRODUCTS_LIST_USER_BUNDLE_ID = "user";
+
+    private boolean hasStarted = false;
+
     private View root;
     private View viewRCWProductos;
+    private int mode = 0;
     private Mercado mercado;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         root = inflater.inflate(R.layout.fragment_list_productos, container, false);
-        mercado = (Mercado) getArguments().getSerializable(MarketsRecyclerAdapter.BUNDLE_MERCADO_ID);
+
+        hasStarted = true;
+        GlobalInformation.productosListFragment = this;
+
+        Bundle arguments = getArguments();
+        int mode = arguments.getInt(PRODUCTS_LIST_MODE_BUNDLE_ID);
+        mercado = (Mercado) arguments.getSerializable(PRODUCTS_LIST_MARKET_BUNDLE_ID);
+        user = (User) arguments.getSerializable(PRODUCTS_LIST_USER_BUNDLE_ID);
 
         viewRCWProductos = root.findViewById(R.id.include);
 
-        verProductos(mercado.getProductos());
-        return  root;
+        if(mode == ALL_PRODUCTS_FROM_ONE_MARKET) {
+            verProductos(mercado.getProductos());
+        }
+        else {
+            ArrayList<Productos> productos = new ArrayList<>();
+            for (Mercado mercado:GlobalInformation.MERCADOS) {
+                productos.addAll(mercado.getProductos());
+            }
+            verProductos(productos);
+        }
+        return root;
     }
 
     public void verProductos(ArrayList Productos){
         RecyclerView recyclerView = (RecyclerView) viewRCWProductos;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new ProductsRecyclerAdapter(Productos));
+    }
+
+    public void update() {
+        if(hasStarted) {
+            RecyclerView recyclerView = (RecyclerView) viewRCWProductos;
+            if (mode == ALL_PRODUCTS_FROM_ONE_MARKET) {
+                ArrayList<Mercado> mercados = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+                    @Override
+                    public boolean comprueba(Mercado o) {
+                        return o.getUid().equals(mercado.getUid());
+                    }
+                });
+                if(mercados.size() > 0) {
+                    ((ProductsRecyclerAdapter) recyclerView.getAdapter())
+                            .update(mercados.get(0).getProductos());
+                }
+            }
+            else {
+                ArrayList<Productos> productos = new ArrayList<>();
+                for (Mercado mercado:GlobalInformation.MERCADOS) {
+                    productos.addAll(mercado.getProductos());
+                }
+
+                ((ProductsRecyclerAdapter) recyclerView.getAdapter())
+                        .update(productos);
+            }
+        }
     }
 }

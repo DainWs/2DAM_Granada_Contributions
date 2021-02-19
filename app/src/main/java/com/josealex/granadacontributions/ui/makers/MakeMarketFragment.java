@@ -1,5 +1,7 @@
 package com.josealex.granadacontributions.ui.makers;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -112,13 +114,43 @@ public class MakeMarketFragment extends Fragment {
             }
         });
 
-        addProductBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MakeProduct.makeProductWithAdapter(adapter);
-            }
-        });
+        root.findViewById(R.id.make_market_add_product).setOnClickListener(
+                v -> MakeProduct.makeProductWithAdapter(adapter)
+        );
 
+        root.findViewById(R.id.make_market_remove_product).setOnClickListener(v -> {
+            ArrayList<Productos> selectedProducts = new ArrayList<>();
+            ArrayList<Productos> productos = adapter.getList();
+            String[] list = new String[productos.size()];
+
+            for (int i = 0; i < productos.size(); i++) {
+                list[i] = productos.get(i).getNombre();
+            }
+
+            DialogInterface.OnMultiChoiceClickListener multiChoiceClickListener =
+                    (dialog, which, isChecked) -> {
+                        if (isChecked) {
+                            selectedProducts.add(productos.get(which));
+                        }
+                        else if (selectedProducts.contains(which)) {
+                            selectedProducts.remove(which);
+                        }
+                    };
+
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.remove_products)
+                    .setMultiChoiceItems(list, new boolean[list.length], multiChoiceClickListener)
+                    .setPositiveButton(R.string.apply_button_text, (dialog, id) -> {
+                        productos.removeAll(selectedProducts);
+                        adapter.update(productos);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(R.string.cancel_button_text, (dialog, id) -> {
+                        dialog.dismiss();
+                    })
+                    .create()
+                    .show();
+        });
 
         return root;
     }

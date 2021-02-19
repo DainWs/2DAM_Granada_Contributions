@@ -18,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="vertical">
 
         <TextView
@@ -49,6 +49,16 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="#99000000"
             tools:text="jose.ant....@gmail.com" />
+
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/delete_user_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:srcCompat="@mipmap/app_delete" />
 
 </LinearLayout>
