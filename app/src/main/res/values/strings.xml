@@ -33,4 +33,21 @@
     <string name="price_text">Price</string>
     <string name="amount_text">Amount</string>
     <string name="user_image">user image</string>
+    <string name="products">Products</string>
+    <string name="new_market">New Market</string>
+    <string name="managers">Managers</string>
+    <string name="general_information">General information</string>
+    <string name="market_uid">Market UID</string>
+    <string name="market_admin">Market Admin</string>
+    <string name="market_name">Market Name</string>
+    <string name="collapsed">collapsed</string>
+    <string name="product_uid">Product UID</string>
+    <string name="it_is_sold_in">It is sold in</string>
+    <string name="amount_in_stock">Amount in Stock</string>
+    <string name="price">Price</string>
+    <string name="remove_market">Remove Market</string>
+    <string name="contentDescription">contentDescription</string>
+    <string name="remove">Remove</string>
+    <string name="edit">Edit</string>
+    <string name="buy">Buy</string>
 </resources>

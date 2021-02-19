@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="#CDD0D3"
+    android:background="@color/nav_view_header_background"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         tools:text="@string/nav_header_title" />
 
     <TextView
         android:id="@+id/usuario_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#5E5E5E"
+        android:textColor="#CDCDCD"
         tools:text="@string/nav_header_subtitle" />
 </LinearLayout>
