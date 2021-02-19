@@ -137,6 +137,8 @@ public class Mercado implements Serializable {
         return select;
     }
 
-
-
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

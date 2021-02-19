@@ -90,12 +90,16 @@ public class MercadoFragment extends Fragment {
             }
         };
 
+        System.out.println(market.getUid() +" market uid");
+
         expandableUsersList = Consulta.getUsersWhere(new Consulta<User>() {
             @Override
             public boolean comprueba(User o) {
                 return (o.hasGestionesWhere(userIsGestorOfConsult));
             }
         });
+
+        System.out.println("expandable size "+expandableUsersList.size());
 
         expandableListAdapter =
                 new MyExpandableListAdapter<User>(
@@ -130,24 +134,18 @@ public class MercadoFragment extends Fragment {
 
     private void searchAdminUser() {
 
-        if(market.getUidOwner().equals(GlobalInformation.SIGN_IN_USER)) {
-            marketAdmin = GlobalInformation.SIGN_IN_USER;
+        ArrayList<User> admin = Consulta.getUsersWhere(new Consulta<User>() {
+            @Override
+            public boolean comprueba(User o) {
+                return market.getUidOwner().equals(o.getUid());
+            }
+        });
+
+        if (admin.size() > 0) {
+            marketAdmin = admin.get(0);
         }
         else {
-
-            ArrayList<User> admin = Consulta.getUsersWhere(new Consulta<User>() {
-                @Override
-                public boolean comprueba(User o) {
-                    return market.getUidOwner().equals(o.getUid());
-                }
-            });
-
-            if (admin.size() > 0) {
-                marketAdmin = admin.get(0);
-            }
-            else {
-                marketAdmin = new User("NONE", "NONE", "NONE", "");
-            }
+            marketAdmin = new User("NONE", "NONE", "NONE", "");
         }
     }
 

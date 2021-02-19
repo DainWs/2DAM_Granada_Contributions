@@ -234,9 +234,18 @@
 
         <com.josealex.granadacontributions.views.MyExpandableList
             android:id="@+id/expandable_list"
+            android:groupIndicator="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:listSelector="@android:color/transparent"
             tools:context=".list.ItemFragment"
+            tools:listheader="@layout/simple_expandable_list_group"
             tools:listitem="@layout/list_item_user" />
 
         <LinearLayout

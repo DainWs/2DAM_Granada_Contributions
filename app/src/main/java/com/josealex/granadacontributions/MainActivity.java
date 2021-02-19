@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         dbManager = new FirebaseDBManager(this, loggedUser);
 
-        loggedUser.addGestiones("1234");
-        FirebaseDBManager.saveUserData(loggedUser);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

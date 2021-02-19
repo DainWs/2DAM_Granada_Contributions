@@ -52,6 +52,8 @@ public abstract class MyExpandableListAdapter<T> extends BaseExpandableListAdapt
         return expandedListPosition;
     }
 
+
+
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -96,6 +98,13 @@ public abstract class MyExpandableListAdapter<T> extends BaseExpandableListAdapt
         String listTitle = (String) getGroup(listPosition);
 
         TextView listTitleTV = (TextView) convertView.findViewById(R.id.list_title);
+
+        final ImageView expandableState = ((ImageView) convertView.findViewById(R.id.expandable_state_image));
+
+        convertView.setOnClickListener(v -> {
+            if(isExpanded) expandableState.setImageResource(R.mipmap.ic_expanded);
+            else expandableState.setImageResource(R.mipmap.ic_collapsed);
+        });
 
         listTitleTV.setTypeface(null, Typeface.BOLD);
         listTitleTV.setText(listTitle);

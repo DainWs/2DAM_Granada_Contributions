@@ -40,6 +40,10 @@ public abstract class Consulta<T> {
     public static ArrayList<User> getUsersWhere(Consulta<User> where) {
         ArrayList<User> select = new ArrayList<>();
 
+        if(where.comprueba(GlobalInformation.SIGN_IN_USER)) {
+            select.add(GlobalInformation.SIGN_IN_USER);
+        }
+
         for (User user : GlobalInformation.USERS) {
             if(where.comprueba(user)) {
                 select.add(user);

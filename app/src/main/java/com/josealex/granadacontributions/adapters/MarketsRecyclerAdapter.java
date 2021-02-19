@@ -68,18 +68,12 @@ public abstract class MarketsRecyclerAdapter extends RecyclerView.Adapter<Market
         public void start(Mercado mItem) {
             this.mItem = mItem;
 
-            ArrayList<User> ownersUsers = new ArrayList<>();
-            if(mItem.getUidOwner().equals(GlobalInformation.SIGN_IN_USER.getUid())) {
-                ownersUsers.add(GlobalInformation.SIGN_IN_USER);
-            }
-            else {
-                ownersUsers = Consulta.getUsersWhere(new Consulta<User>() {
+            ArrayList<User>  ownersUsers = Consulta.getUsersWhere(new Consulta<User>() {
                     @Override
                     public boolean comprueba(User o) {
                         return (mItem.getUidOwner().equals(o.getUid()));
                     }
-                });
-            }
+            });
 
             String ownersNames = ResourceManager.getString(R.string.owners_text);
             if(ownersUsers.size() > 0)

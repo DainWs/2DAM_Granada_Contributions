@@ -67,9 +67,14 @@ public class User implements Serializable {
     }
 
     public void addGestiones(String newUidMercado) {
-        if(!gestiona.contains(newUidMercado)) {
-            gestiona.add(newUidMercado);
+        boolean finded= false;
+        for (String gestion : gestiona) {
+            if(!gestion.equals(newUidMercado)) {
+                finded = true;
+            }
         }
+
+        if(!finded) gestiona.add(newUidMercado);
     }
 
     public void  removeGestiones(String marketUID) {
@@ -92,6 +97,7 @@ public class User implements Serializable {
 
     public boolean hasGestionesWhere(Consulta<String> where) {
         for (String gestiones : gestiona) {
+            System.out.println("AAAAA " + gestiona.size() + " size "+gestiones + " " + where.comprueba(gestiones));
             if(where.comprueba(gestiones)) {
                 return true;
             }
