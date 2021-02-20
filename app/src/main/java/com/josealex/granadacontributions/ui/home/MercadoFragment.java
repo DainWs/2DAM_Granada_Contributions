@@ -1,6 +1,7 @@
 package com.josealex.granadacontributions.ui.home;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,9 @@ import com.josealex.granadacontributions.adapters.UsersRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.ui.makers.MakeProduct;
 import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.ArrayList;
@@ -37,7 +41,7 @@ public class MercadoFragment extends Fragment {
     private UsersRecyclerAdapter usersAdapter;
 
     private RecyclerView productsRecyclerView;
-    private ProductsRecyclerAdapter adapter;
+    private ProductsRecyclerAdapter productsAdapter;
 
     private View root;
     private User user;
@@ -57,27 +61,26 @@ public class MercadoFragment extends Fragment {
         market = (Mercado) getArguments().getSerializable(MARKET_BUNDLE_ID);
         searchAdminUser();
 
+        //ponemos el UID del mercado
         ((TextView)root.findViewById(R.id.market_uid_field))
             .setText(market.getUid());
 
+        //ponemos el nombre del mercado
         ((TextView)root.findViewById(R.id.market_name_field))
             .setText(market.getNombre());
 
+        //ponemos el nombre del admin del mercado
         ((TextView) root.findViewById(R.id.market_admin_name_field))
                 .setText(marketAdmin.getNombre());
 
+        //ponemos la password de acceso al mercado
         ((TextView)root.findViewById(R.id.market_password_field))
                 .setText(market.getPassword());
 
-        optionsLinearMenu = root.findViewById(R.id.options_linear_menu);
-        deleteMarketButton = root.findViewById(R.id.market_manager_remove_button);
 
+        boolean isAdmin = (user.getUid().equals(this.market.getUidOwner())) ? true : false ;
 
-        System.out.println("USER " + market.getGestores().size());
-        for (String s : market.getGestores()) {
-            System.out.println(s);
-        }
-
+        //Managers of market query
         usersList = Consulta.getUsersWhere(new Consulta<User>() {
             @Override
             public boolean comprueba(User o) {
@@ -85,19 +88,44 @@ public class MercadoFragment extends Fragment {
             }
         });
 
-        System.out.println(usersList.size());
-
-        usersAdapter = new UsersRecyclerAdapter(usersList);
-
-        System.out.println(usersAdapter.getItemCount());
+        //Managers of market adapter
+        usersAdapter = new UsersRecyclerAdapter(usersList, isAdmin) {
+            @Override
+            public void onDeleteButtonClick(User mItem) {
+                DialogsFactory.makeAreYouSureDialog(
+                        (dialog, which) -> {
+                            removeUser(user);
+                            dialog.dismiss();
+                        }
+                );
+            }
+        };
 
         usersListRecyclerView = root.findViewById(R.id.market_managers_recyclerview);
         usersListRecyclerView.setAdapter(usersAdapter);
 
-        adapter = new ProductsRecyclerAdapter(market.getProductos());
-        productsRecyclerView =
-                (RecyclerView) root.findViewById(R.id.market_products_list);
-        productsRecyclerView.setAdapter(adapter);
+        productsAdapter = new ProductsRecyclerAdapter(market.getProductos());
+
+        productsRecyclerView = root.findViewById(R.id.market_products_list);
+        productsRecyclerView.setAdapter(productsAdapter);
+
+        optionsLinearMenu = root.findViewById(R.id.options_linear_menu);
+        deleteMarketButton = root.findViewById(R.id.market_manager_remove_button);
+
+        //Add product button
+        root.findViewById(R.id.add_products_buton).setOnClickListener(v -> {
+            MakeProduct.makeProductWithAdapter(productsAdapter);
+        });
+
+        deleteMarketButton.setOnClickListener(v -> {
+            DialogsFactory.makeAreYouSureDialog(
+                    (dialog, which) -> {
+                        //TODO(TAL VEZ SE DEBAN COMPROBAR LOS METODOS DE PAGO ANTES DE BORRAR)
+                        Mercado.delete(market);
+                        GlobalInformation.mainActivity.onBackPressed();
+                    }
+            );
+        });
 
         updateOwner();
 
@@ -105,7 +133,6 @@ public class MercadoFragment extends Fragment {
     }
 
     private void searchAdminUser() {
-
         ArrayList<User> admin = Consulta.getUsersWhere(new Consulta<User>() {
             @Override
             public boolean comprueba(User o) {
@@ -113,54 +140,8 @@ public class MercadoFragment extends Fragment {
             }
         });
 
-        if (admin.size() > 0) {
-            marketAdmin = admin.get(0);
-        }
-        else {
-            marketAdmin = new User("NONE", "NONE", "NONE", "");
-        }
-    }
-
-    private void initExpandableValues(User model, View convertView) {
-        convertView.findViewById(R.id.delete_user_button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        makeDeleteManagerDialog(model);
-                    }
-                });
-
-        ((TextView) convertView.findViewById(R.id.item_user_name))
-                .setText(model.getNombre());
-
-        ((TextView) convertView.findViewById(R.id.item_user_correo))
-                .setText(model.getCorreo());
-
-        Glide.with(getContext())
-                .load( model.getFotoURL() )
-                .error(R.drawable.ic_launcher_foreground)
-                .circleCrop()
-                .into(
-                        (ImageView) convertView.findViewById(R.id.item_user_image)
-                );
-    }
-
-
-    private void makeDeleteManagerDialog(User user) {
-        new AlertDialog.Builder(GlobalInformation.mainActivity)
-                .setTitle(R.string.warnning)
-                .setMessage(R.string.are_you_sure)
-                .setPositiveButton(
-                        R.string.delete_button_text,
-                        (dialogD, id) -> {
-                            removeUser(user);
-                            dialogD.dismiss();
-                        })
-                .setNegativeButton(
-                        R.string.cancel_button_text,
-                        (dialogD, id) -> dialogD.dismiss()
-                ).create()
-                .show();
+        if (admin.size() > 0) marketAdmin = admin.get(0);
+        else marketAdmin = new User("NONE", "NONE", "NONE", "");
     }
 
     private void removeUser(User user) {
@@ -185,7 +166,7 @@ public class MercadoFragment extends Fragment {
     }
 
     private void updateList() {
-        adapter.update(this.market.getProductos());
+        productsAdapter.update(this.market.getProductos());
         if(usersList.size() != this.market.getGestores().size()) {
             usersList = Consulta.getUsersWhere(new Consulta<User>() {
                 @Override

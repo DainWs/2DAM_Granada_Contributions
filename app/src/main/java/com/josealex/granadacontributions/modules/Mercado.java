@@ -1,6 +1,8 @@
 package com.josealex.granadacontributions.modules;
 
+import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -140,5 +142,26 @@ public class Mercado implements Serializable {
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public static void delete(Mercado market) {
+        //Managers of market query
+        ArrayList<User> usersList = Consulta.getUsersWhere(new Consulta<User>() {
+            @Override
+            public boolean comprueba(User o) {
+                return (o.hasGestionesWhere(market.getUid()));
+            }
+        });
+
+        for (User manager: usersList) {
+            //TODO(PROBAR SI FUNCIONA)
+            manager.removeGestiones(market.getUid());
+            FirebaseDBManager.saveUserData(manager);
+        }
+
+        FirebaseDBManager.removeMercado(market);
+        if(GlobalInformation.MERCADOS.contains(market)) {
+            GlobalInformation.MERCADOS.remove(market);
+        }
     }
 }

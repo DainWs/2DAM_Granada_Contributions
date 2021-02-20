@@ -79,7 +79,6 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         GlobalInformation.home.update();
         GlobalInformation.home = this;
-        hasStarted = true;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -114,6 +113,7 @@ public class HomeFragment extends Fragment {
         cargarMercado();
 
         cargarSpinner();
+        hasStarted = true;
         return root;
     }
 

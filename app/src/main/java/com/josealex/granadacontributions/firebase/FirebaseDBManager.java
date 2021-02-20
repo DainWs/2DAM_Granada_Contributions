@@ -243,6 +243,10 @@ public class FirebaseDBManager {
         MERCADO_REF.child(mercado.getUid()).setValue(mercado);
     }
 
+    public static void removeMercado(Mercado mercado) {
+        MERCADO_REF.child(mercado.getUid()).setValue(null);
+    }
+
     public static void restartListeners() {
         if(USER_REF != null && USERS_EVENTS_LISTENER != null) {
             USER_REF.addChildEventListener(USERS_EVENTS_LISTENER);
