@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
 import com.josealex.granadacontributions.adapters.ModelsSpinnerAdapter;
+import com.josealex.granadacontributions.adapters.UsersRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
@@ -43,8 +45,10 @@ public class PreferenceFragment extends Fragment {
     View root;
     User user;
     ArrayList<Mercado> listaGestion;
+    Button addMoney;
     private RecyclerView userManagesRecyclerView;
     private MarketsRecyclerAdapter recyclerViewAdapter;
+    View dialogViewAddMoney;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,18 @@ public class PreferenceFragment extends Fragment {
 
         userManagesRecyclerView = root.findViewById(R.id.gestionpreference);
 
+        root.findViewById(R.id.market_addmoney).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
+
+                NavigationManager.navigateTo(
+                        R.id.action_nav_settings_to_userFragment,
+                        bundle
+                );
+            }
+        });
         ((TextView)root.findViewById(R.id.username_field)).setText(user.getNombre());
         ((TextView)root.findViewById(R.id.mail_field)).setText(user.getCorreo());
 

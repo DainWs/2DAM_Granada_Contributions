@@ -5,6 +5,7 @@ import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.ui.home.HomeFragment;
 import com.josealex.granadacontributions.ui.home.ProductosListFragment;
+import com.josealex.granadacontributions.ui.home.UserFragment;
 import com.josealex.granadacontributions.ui.setting.PreferenceFragment;
 import java.util.ArrayList;
 
@@ -19,4 +20,5 @@ public class GlobalInformation {
     public static HomeFragment home = new HomeFragment();
     public static PreferenceFragment preferences = new PreferenceFragment();
     public static ProductosListFragment productosListFragment = new ProductosListFragment();
+    public static UserFragment userFragment = new UserFragment();
 }

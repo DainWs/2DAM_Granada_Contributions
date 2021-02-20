@@ -96,6 +96,8 @@ public abstract class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRec
             }
             else {
                 System.out.println("max with to 0");
+
+                deleteUserBtn.setVisibility(View.INVISIBLE);
                 deleteUserBtn.setMaxWidth(0);
 
                 if (isPrimary) {
