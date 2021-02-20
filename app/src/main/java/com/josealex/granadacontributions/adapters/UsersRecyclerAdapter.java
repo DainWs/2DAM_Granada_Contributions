@@ -22,9 +22,11 @@ public abstract class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRec
 
     private List<User> mValues;
     private boolean isAdmin = false;
+    private boolean isPrimary = false;
 
     public UsersRecyclerAdapter(List<User> items) {
         mValues = items;
+        isPrimary = true;
     }
 
     public UsersRecyclerAdapter(List<User> items, boolean isAdmin) {
@@ -88,13 +90,22 @@ public abstract class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRec
                 deleteUserBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onDeleteButtonClick(mItem);
+                        onButtonClick(mItem);
                     }
                 });
             }
             else {
                 System.out.println("max with to 0");
                 deleteUserBtn.setMaxWidth(0);
+
+                if (isPrimary) {
+                    mView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onButtonClick(mItem);
+                        }
+                    });
+                }
             }
         }
 
@@ -104,5 +115,5 @@ public abstract class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRec
         }
     }
 
-    public abstract void onDeleteButtonClick(User mItem);
+    public abstract void onButtonClick(User mItem);
 }

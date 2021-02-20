@@ -91,7 +91,7 @@ public class MercadoFragment extends Fragment {
         //Managers of market adapter
         usersAdapter = new UsersRecyclerAdapter(usersList, isAdmin) {
             @Override
-            public void onDeleteButtonClick(User mItem) {
+            public void onButtonClick(User mItem) {
                 DialogsFactory.makeAreYouSureDialog(
                         (dialog, which) -> {
                             removeUser(user);

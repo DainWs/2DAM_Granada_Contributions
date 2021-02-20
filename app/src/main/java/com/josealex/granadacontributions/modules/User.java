@@ -13,7 +13,7 @@ public class User implements Serializable {
     private String fotoURL;
     private int saldo;
     private ArrayList<String> gestiona = new ArrayList<>();
-    private ArrayList<String> lineafactura = new ArrayList<>();
+    private ArrayList<Pedido> pedidosPendientes = new ArrayList<>();
 
     public User(){}
 
@@ -99,11 +99,34 @@ public class User implements Serializable {
 
     public boolean hasGestionesWhere(String where) {
         for (String gestiones : gestiona) {
-            System.out.println("AAAAA " + gestiona.size() + " size "+gestiones);
             if(where.equals(gestiones)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
+
+    public ArrayList<Pedido> getPedidosPendientes() {
+        return pedidosPendientes;
+    }
+
+    public void setPedidosPendientes(ArrayList<Pedido> pedidosPendientes) {
+        this.pedidosPendientes = pedidosPendientes;
+    }
+
+    public void addPedidos(Pedido pedido) {
+        pedidosPendientes.add(pedido);
+    }
+
+    public void removePedidos(Pedido pedido) {
+        pedidosPendientes.add(pedido);
     }
 }
