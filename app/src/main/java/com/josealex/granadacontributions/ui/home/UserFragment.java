@@ -42,7 +42,12 @@ public class UserFragment extends Fragment {
     EditText nameuser;
     View root;
     private RecyclerView viewRCWuser;
-    private UsersRecyclerAdapter usersRecyclerAdapter=new UsersRecyclerAdapter(USERS);
+    private UsersRecyclerAdapter usersRecyclerAdapter= new UsersRecyclerAdapter(USERS,false) {
+        @Override
+        public void onDeleteButtonClick(User mItem) {
+
+        }
+    };
 
     private User user;
     @Override
