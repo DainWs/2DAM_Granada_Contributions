@@ -24,7 +24,6 @@ import com.bumptech.glide.Glide;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
 import com.josealex.granadacontributions.adapters.ModelsSpinnerAdapter;
-import com.josealex.granadacontributions.adapters.UsersRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
@@ -49,6 +48,7 @@ public class PreferenceFragment extends Fragment {
     private RecyclerView userManagesRecyclerView;
     private MarketsRecyclerAdapter recyclerViewAdapter;
     View dialogViewAddMoney;
+    TextView salaryview;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,10 @@ public class PreferenceFragment extends Fragment {
         user = GlobalInformation.SIGN_IN_USER;
 
         userManagesRecyclerView = root.findViewById(R.id.gestionpreference);
+        salaryview = root.findViewById(R.id.textViewSalary);
 
+
+        salaryview.setText(user.getSaldo()+"");
         root.findViewById(R.id.market_addmoney).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,6 +197,7 @@ public class PreferenceFragment extends Fragment {
                 });
 
         cargarGestion();
+
         return root;
     }
 

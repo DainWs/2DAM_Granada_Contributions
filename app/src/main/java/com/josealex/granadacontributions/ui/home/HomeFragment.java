@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
         });
         Bundle b = getActivity().getIntent().getExtras();
 
-        if(b != null) {
+        if (b != null) {
             loggedUser = (User) b.getSerializable(USER_BUNDLE_ID);
         }
 
@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment {
         mercadosList = GlobalInformation.MERCADOS;
 
         productosList = new ArrayList<>();
-        for (Mercado mercado:GlobalInformation.MERCADOS) {
+        for (Mercado mercado : GlobalInformation.MERCADOS) {
             productosList.addAll(mercado.getProductos());
         }
 
@@ -141,7 +141,12 @@ public class HomeFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_USER_BUNDLE_ID, loggedUser);
             bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_TITLE_BUNDLE_ID, ResourceManager.getString(R.string.products));
-            bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_MODE_BUNDLE_ID, ProductosListFragment.ALL_PRODUCTS);
+            if (mercadosSpinner.getSelectedItem()==null) {
+                mercadosSpinner.setSelection(1);
+
+            }
+            bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_MARKET_BUNDLE_ID, (Mercado) mercadosSpinner.getSelectedItem());
+            bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_MODE_BUNDLE_ID, ProductosListFragment.ALL_PRODUCTS_FROM_ONE_MARKET);
 
             NavigationManager.navigateTo(
                     R.id.action_from_home_to_productosFragment,
@@ -174,7 +179,7 @@ public class HomeFragment extends Fragment {
         };
 
         productosList = new ArrayList<>();
-        for (Mercado mercado:GlobalInformation.MERCADOS) {
+        for (Mercado mercado : GlobalInformation.MERCADOS) {
             productosList.addAll(mercado.getProductos());
         }
         recyclerViewProductsAdapter = new ProductsRecyclerAdapter(productosList);
@@ -183,7 +188,8 @@ public class HomeFragment extends Fragment {
         else viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
 
     }
-    public void cargarSpinner(){
+
+    public void cargarSpinner() {
 
 
         SpinnerAdapter simpleSpinnerAdapter = new ArrayAdapter<Mercado>(
@@ -196,9 +202,6 @@ public class HomeFragment extends Fragment {
                 getContext(),
                 ResourceManager.getString(R.string.spinner_select_market)
         );
-
-
-
 
 
         SpinnerAdapter simpleSpinnerAdapter2 = new ArrayAdapter<String>(
@@ -217,7 +220,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void update() {
-        if(hasStarted) {
+        if (hasStarted) {
             if (inMode) {
                 mercadosList = Consulta.getMercadosWhere(mercadosDelUsuario);
                 recyclerViewMarketsAdapter.update(mercadosList);
@@ -225,7 +228,7 @@ public class HomeFragment extends Fragment {
 
             } else {
                 productosList = new ArrayList<>();
-                for (Mercado mercado: GlobalInformation.MERCADOS) {
+                for (Mercado mercado : GlobalInformation.MERCADOS) {
                     productosList.addAll(mercado.getProductos());
                 }
                 recyclerViewProductsAdapter.update(productosList);
@@ -247,7 +250,7 @@ public class HomeFragment extends Fragment {
 
         });
 
-        if(mercadosList.size()>0){
+        if (mercadosList.size() > 0) {
             listaproducto = mercadosList.get(0).getProductosWhere(new Consulta<Productos>() {
                 @Override
                 public boolean comprueba(Productos o) {
@@ -262,7 +265,7 @@ public class HomeFragment extends Fragment {
     // si el Switch Button esta ON es true
     // si el Switch Button esta OFF es false
     public void changeMode(boolean checked) {
-        if(inMode != checked) {
+        if (inMode != checked) {
             inMode = checked;
 
             update();
@@ -275,8 +278,7 @@ public class HomeFragment extends Fragment {
             filterMenuLinearlayout.addView(addMercadoBtn, 0);
 
             //TODO(FALTAN COSAS POR ACTUALIZAR)
-        }
-        else {
+        } else {
             filterMenuLinearlayout.removeView(
                     filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
             );
