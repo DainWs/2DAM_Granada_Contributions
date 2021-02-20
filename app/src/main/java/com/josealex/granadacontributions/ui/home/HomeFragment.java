@@ -189,13 +189,17 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void cargarSpinner() {
+    public void cargarSpinner(){
 
+        Mercado nothingSelected = new Mercado();
+        ArrayList<Mercado> mercados = new ArrayList<>();
+        mercados.add(nothingSelected);
+        mercados.addAll(GlobalInformation.MERCADOS);
 
         SpinnerAdapter simpleSpinnerAdapter = new ArrayAdapter<Mercado>(
                 getContext(),
                 android.R.layout.simple_spinner_item,
-                GlobalInformation.MERCADOS);
+                mercados);
 
         mercadosSpinnerAdapter = new ModelsSpinnerAdapter(
                 simpleSpinnerAdapter,
@@ -203,11 +207,18 @@ public class HomeFragment extends Fragment {
                 ResourceManager.getString(R.string.spinner_select_market)
         );
 
+        String[] categorias = ResourceManager.getArray(R.array.categorias);
+        String[] spinnerCategorias = new String[categorias.length+1];
+        spinnerCategorias[0] = "";
+        for (int i = 1; i < categorias.length + 1; i++) {
+            spinnerCategorias[i] =
+                    categorias[i-1];
+        }
 
         SpinnerAdapter simpleSpinnerAdapter2 = new ArrayAdapter<String>(
                 getContext(),
                 android.R.layout.simple_spinner_item,
-                ResourceManager.getArray(R.array.categorias));
+                spinnerCategorias);
 
         categoriasSpinnerAdapter = new ModelsSpinnerAdapter(
                 simpleSpinnerAdapter2,
@@ -220,7 +231,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void update() {
-        if (hasStarted) {
+        if(hasStarted) {
             if (inMode) {
                 mercadosList = Consulta.getMercadosWhere(mercadosDelUsuario);
                 recyclerViewMarketsAdapter.update(mercadosList);
@@ -228,7 +239,7 @@ public class HomeFragment extends Fragment {
 
             } else {
                 productosList = new ArrayList<>();
-                for (Mercado mercado : GlobalInformation.MERCADOS) {
+                for (Mercado mercado: GlobalInformation.MERCADOS) {
                     productosList.addAll(mercado.getProductos());
                 }
                 recyclerViewProductsAdapter.update(productosList);
@@ -241,22 +252,32 @@ public class HomeFragment extends Fragment {
 
     public void makeFilter() {
         Mercado markselect = (Mercado) mercadosSpinner.getSelectedItem();
-        String catselect = categoriasSpinner.getSelectedItem().toString();
-        mercadosList = Consulta.getMercadosWhere(new Consulta<Mercado>() {
-            @Override
-            public boolean comprueba(Mercado o) {
-                return o.getUid().equals(markselect.getUid());
-            }
+        String catselect = (categoriasSpinner.getSelectedItem()==null)?"":categoriasSpinner.getSelectedItem().toString();
 
-        });
-
-        if (mercadosList.size() > 0) {
-            listaproducto = mercadosList.get(0).getProductosWhere(new Consulta<Productos>() {
+        if(markselect == null || markselect.getUid().isEmpty()) {
+            mercadosList = GlobalInformation.MERCADOS;
+        } else {
+            mercadosList = Consulta.getMercadosWhere(new Consulta<Mercado>() {
                 @Override
-                public boolean comprueba(Productos o) {
-                    return o.getCategoria().equals(catselect);
+                public boolean comprueba(Mercado o) {
+                    return o.getUid().equals(markselect.getUid());
                 }
+
             });
+        }
+
+        if(mercadosList.size()>0){
+            listaproducto = new ArrayList<Productos>();
+            for (Mercado mercado : mercadosList) {
+                listaproducto.addAll(
+                        mercado.getProductosWhere(new Consulta<Productos>() {
+                            @Override
+                            public boolean comprueba(Productos o) {
+                                return catselect.isEmpty() || o.getCategoria().equals(catselect);
+                            }
+                        })
+                );
+            }
         }
         recyclerViewProductsAdapter.update(listaproducto);
         viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
