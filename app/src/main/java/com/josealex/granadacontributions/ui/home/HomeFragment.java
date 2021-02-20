@@ -143,7 +143,6 @@ public class HomeFragment extends Fragment {
             bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_TITLE_BUNDLE_ID, ResourceManager.getString(R.string.products));
             if (mercadosSpinner.getSelectedItem()==null) {
                 mercadosSpinner.setSelection(1);
-
             }
             bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_MARKET_BUNDLE_ID, (Mercado) mercadosSpinner.getSelectedItem());
             bundle.putSerializable(ProductosListFragment.PRODUCTS_LIST_MODE_BUNDLE_ID, ProductosListFragment.ALL_PRODUCTS_FROM_ONE_MARKET);
