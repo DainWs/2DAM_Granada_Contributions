@@ -57,4 +57,6 @@
     <string name="filter_button">Filter</string>
     <string name="total">Total</string>
     <string name="salaryerror">Salary not valid</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 </resources>

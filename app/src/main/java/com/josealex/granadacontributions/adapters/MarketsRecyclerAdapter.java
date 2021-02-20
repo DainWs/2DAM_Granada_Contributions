@@ -1,6 +1,5 @@
 package com.josealex.granadacontributions.adapters;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
-import com.josealex.granadacontributions.utils.GlobalInformation;
-import com.josealex.granadacontributions.utils.NavigationManager;
 import com.josealex.granadacontributions.utils.ResourceManager;
 
 import java.util.ArrayList;
@@ -61,8 +58,8 @@ public abstract class MarketsRecyclerAdapter extends RecyclerView.Adapter<Market
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mName = view.findViewById(R.id.item_number);
-            mContentView = view.findViewById(R.id.content);
+            mName = view.findViewById(R.id.item_id_linea);
+            mContentView = view.findViewById(R.id.item_nombre_linea);
         }
 
         public void start(Mercado mItem) {
