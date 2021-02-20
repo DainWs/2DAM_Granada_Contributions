@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
 
-    private String uid;
-    private String nombre;
-    private String correo;
-    private String fotoURL;
-    private int saldo;
+    private String uid="";
+    private String nombre="";
+    private String correo="";
+    private String fotoURL="";
+    private int saldo=0;
     private ArrayList<String> gestiona = new ArrayList<>();
     private ArrayList<String> lineafactura = new ArrayList<>();
 

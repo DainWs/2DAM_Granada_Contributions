@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_from_settings_to_mercadoFragment"
             app:destination="@id/mercadoFragment" />
+        <action
+            android:id="@+id/action_nav_settings_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/makeMarketFragment"
@@ -79,5 +82,10 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.josealex.granadacontributions.ui.home.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
 
 </navigation>
