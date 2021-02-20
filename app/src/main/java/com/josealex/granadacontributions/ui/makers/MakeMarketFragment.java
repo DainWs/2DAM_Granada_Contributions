@@ -144,7 +144,9 @@ public class MakeMarketFragment extends Fragment {
                     .setMultiChoiceItems(list, new boolean[list.length], multiChoiceClickListener)
                     .setPositiveButton(R.string.apply_button_text, (dialog, id) -> {
                         productos.removeAll(selectedProducts);
-                        adapter.update(productos);
+                        if(productos !=null) {
+                            adapter.update(productos);
+                        }
                         dialog.dismiss();
                     })
                     .setNegativeButton(R.string.cancel_button_text, (dialog, id) -> {
