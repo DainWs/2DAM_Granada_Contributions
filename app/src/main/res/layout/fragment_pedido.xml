@@ -67,7 +67,7 @@
 
     <include
         android:id="@+id/include2"
-        layout="@layout/fragment_pedidos__list"
+        layout="@layout/list_lineas_pedidos"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

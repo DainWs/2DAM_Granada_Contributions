@@ -56,4 +56,6 @@
     <string name="remove_products">Remove products</string>
     <string name="filter_button">Filter</string>
     <string name="total">Total</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 </resources>

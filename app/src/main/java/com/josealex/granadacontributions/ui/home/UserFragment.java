@@ -44,7 +44,7 @@ public class UserFragment extends Fragment {
     private RecyclerView viewRCWuser;
     private UsersRecyclerAdapter usersRecyclerAdapter= new UsersRecyclerAdapter(USERS,false) {
         @Override
-        public void onDeleteButtonClick(User mItem) {
+        public void onButtonClick(User mItem) {
 
         }
     };

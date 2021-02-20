@@ -1,25 +1,23 @@
 package com.josealex.granadacontributions.adapters;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
-import com.josealex.granadacontributions.modules.LineaPedido;
+import com.josealex.granadacontributions.modules.Pedido;
 
 import java.util.List;
 
 
-public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAdapter.ViewHolder> {
+public class MyPedidoAdapter extends RecyclerView.Adapter<MyPedidoAdapter.ViewHolder> {
 
-    private List<LineaPedido> mValues;
+    private List<Pedido> mValues;
 
-    public MyLineaspedidoAdapter(List<LineaPedido> items) {
+    public MyPedidoAdapter(List<Pedido> items) {
         mValues = items;
     }
 
@@ -32,10 +30,10 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.start(mValues.get(position), position);
+
     }
 
-    public void update(List<LineaPedido> pedidos) {
+    public void update(List<Pedido> pedidos) {
         mValues = pedidos;
         notifyDataSetChanged();
     }
@@ -49,33 +47,13 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        private final TextView mCantidadView;
-        private final Button mMinusButton;
-        private final Button mPlusButton;
-        public LineaPedido lineaPedido;
+
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_id_linea);
             mContentView = (TextView) view.findViewById(R.id.item_nombre_linea);
-            mCantidadView = (TextView) view.findViewById(R.id.item_cantidad);
-            mMinusButton = (Button) view.findViewById(R.id.item_minus_button);
-            mPlusButton = (Button) view.findViewById(R.id.item_plus_button);
-        }
-
-        public void start(LineaPedido lineaPedido, int position) {
-            this.lineaPedido = lineaPedido;
-            mIdView.setText(position);
-            mContentView.setText(lineaPedido.getNombreProducto());
-            mCantidadView.setText(lineaPedido.getCantidad());
-            mPlusButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    lineaPedido.addCantidad(1);
-
-                }
-            });
         }
 
         @Override
