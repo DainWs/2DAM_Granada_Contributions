@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,8 @@ public class ShoppingCardFragment extends Fragment {
     private MyLineaspedidoAdapter adapter;
     private RecyclerView rcwlineas;
 
+    public TextView totalpedido;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class ShoppingCardFragment extends Fragment {
         GlobalInformation.mainActivity.setShoppingItemState(false);
         rcwlineas = root.findViewById(R.id.include2);
         adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
+
+        totalpedido = root.findViewById(R.id.textViewTOTAL);
 
         root.findViewById(R.id.buy_button).setOnClickListener(v -> {
             User cliente = PedidosFactory.getCliente();
@@ -52,13 +57,22 @@ public class ShoppingCardFragment extends Fragment {
         });
 
         update();
+        GlobalInformation.userShopping = this;
         return root;
     }
+
+    public TextView getTotalpedido() {
+        return totalpedido;
+    }
+
+    public void setTotalpedido(TextView totalpedido) {
+        this.totalpedido = totalpedido;
+    }
+
     public void update(){
-
-            adapter.update(PedidosFactory.get().getLineas());
-            rcwlineas.setAdapter(adapter);
-
+        totalpedido.setText(PedidosFactory.getTotal()+"€");
+        adapter.update(PedidosFactory.get().getLineas());
+        rcwlineas.setAdapter(adapter);
     }
 
     @Override
