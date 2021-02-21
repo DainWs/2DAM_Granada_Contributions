@@ -67,7 +67,7 @@ public class ClientPendingOrdersFragment extends Fragment {
                     }
 
                     if(mercado != null) {
-                        mercado.addPedido(mItem);
+                        mercado.removePedido(mItem);
                         FirebaseDBManager.saveMercado(mercado);
                     }
 
