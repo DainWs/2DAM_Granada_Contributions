@@ -7,7 +7,7 @@
         app:actionLayout="@layout/single_switch_item"
         app:showAsAction="always" />
     <item
-        android:id="@+id/carritoimg"
+        android:id="@+id/shoping_cart_menuitem"
         android:icon="@mipmap/ic_carrito"
         android:title=""
         android:visible="true"

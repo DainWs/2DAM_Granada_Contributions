@@ -13,8 +13,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.ui.home.PedidosFragment;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.NavigationManager;
+import com.josealex.granadacontributions.utils.PedidosFactory;
+import com.josealex.granadacontributions.utils.ResourceManager;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private User loggedUser;
 
     private MenuItem switchModeItem;
+    private MenuItem shopingCartItem;
     private Menu menu;
 
     @Override
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 );
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings,R.id.pedidosFragment)
+                R.id.nav_home, R.id.nav_settings, R.id.pending_order, R.id.nav_pending_orders)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -104,19 +108,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        /*
-        MenuItem item = menu.findItem(R.id.carritoimg);
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Bundle b = new Bundle();
-                NavigationManager.navigateTo(R.id.action_nav_home_to_pedidosFragment2,b);
 
-                return false;
-            }
-        });
-
-         */
+        shopingCartItem = menu.findItem(R.id.shoping_cart_menuitem);
         update();
 
         return true;
@@ -124,17 +117,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId==R.id.carritoimg) {
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    Bundle b = new Bundle();
-                    NavigationManager.navigateTo(R.id.pedidosFragment,b);
-                    //navController.navigate(R.id.pedidosFragment);
-                    return false;
-                }
-            });
+        if(itemId==R.id.shoping_cart_menuitem) {
+            NavigationManager.navigateTo(R.id.nav_shopping_cart);
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -162,5 +148,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         GlobalInformation.reset();
+    }
+
+    public void setShoppingItemState(boolean state) {
+        shopingCartItem.setVisible(state);
+        shopingCartItem.setEnabled(state);
     }
 }

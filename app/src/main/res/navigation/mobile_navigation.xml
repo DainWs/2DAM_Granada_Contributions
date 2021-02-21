@@ -23,8 +23,11 @@
             android:id="@+id/action_from_home_to_productoFragment"
             app:destination="@id/productoFragment" />
         <action
-            android:id="@+id/action_nav_home_to_pedidosFragment2"
-            app:destination="@id/pedidosFragment" />
+            android:id="@+id/action_nav_home_to_nav_shopping_card"
+            app:destination="@id/nav_shopping_cart" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_pending_orders"
+            app:destination="@id/nav_pending_orders" />
     </fragment>
     <fragment
         android:id="@+id/productosFragment"
@@ -76,8 +79,8 @@
             android:id="@+id/action_from_mercadoFragment_to_productoFragment"
             app:destination="@id/productoFragment" />
         <action
-            android:id="@+id/action_mercadoFragment_to_listPedidosFragment"
-            app:destination="@id/listPedidosFragment" />
+            android:id="@+id/action_from_mercado_to_listPedidos"
+            app:destination="@id/list_pending_orders" />
     </fragment>
     <fragment
         android:id="@+id/productoFragment"
@@ -94,7 +97,7 @@
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
     <fragment
-        android:id="@+id/pedidosFragment"
+        android:id="@+id/pending_order"
         android:name="com.josealex.granadacontributions.ui.home.PedidosFragment"
         android:label="PedidosFragment" >
         <argument
@@ -107,25 +110,28 @@
             android:defaultValue="@null" />
     </fragment>
     <fragment
-        android:id="@+id/listPedidosFragment"
+        android:id="@+id/list_pending_orders"
         android:name="com.josealex.granadacontributions.ui.home.ListPedidosFragment"
         android:label="{title}">
-        <action
-            android:id="@+id/action_listPedidosFragment_to_pedidosFragment"
-            app:destination="@id/pedidosFragment" />
         <argument
             android:name="market"
             android:defaultValue="@null"
             app:argType="com.josealex.granadacontributions.modules.Mercado"
             app:nullable="true" />
         <argument
-            android:name="user"
-            android:defaultValue="@null"
-            app:argType="com.josealex.granadacontributions.modules.User"
-            app:nullable="true" />
-        <argument
             android:name="title"
             app:argType="string" />
+        <action
+            android:id="@+id/action_list_pending_orders_to_pending_order"
+            app:destination="@id/pending_order" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_pending_orders"
+        android:name="com.josealex.granadacontributions.ui.home.ClientPendingOrdersFragment"
+        android:label="@string/pending_orders" />
+    <fragment
+        android:id="@+id/nav_shopping_cart"
+        android:name="com.josealex.granadacontributions.ui.home.ShoppingCardFragment"
+        android:label="@string/shopping_cart" />
 
 </navigation>

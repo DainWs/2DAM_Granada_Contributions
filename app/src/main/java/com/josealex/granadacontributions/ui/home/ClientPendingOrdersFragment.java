@@ -14,38 +14,32 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MyPedidoAdapter;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
-import com.josealex.granadacontributions.utils.NavigationManager;
-import com.josealex.granadacontributions.utils.ResourceManager;
+import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 
-public class ListPedidosFragment extends Fragment {
+public class ClientPendingOrdersFragment extends Fragment {
 
-    public static final String PEDIDO_TITLE_BUNDLE_ID = "title";
-    public static final String PEDIDO_MARKET_BUNDLE_ID = "market";
+    public static final String PEDIDO_USER_BUNDLE_ID = "user";
 
     private View root;
     private RecyclerView recycler;
     private MyPedidoAdapter adapter;
 
-    private Mercado market;
+    private User user;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_list_pedidos, container, false);
 
-        Bundle arguments = getArguments();
-        market = (Mercado) arguments.getSerializable(PEDIDO_MARKET_BUNDLE_ID);
+        user = GlobalInformation.SIGN_IN_USER;
 
         recycler = root.findViewById(R.id.include);
 
-        adapter = new MyPedidoAdapter(market.getPedidos()) {
+        adapter = new MyPedidoAdapter(user.getPedidosPendientes()) {
             @Override
             public void onViewClick(View view, Pedido mItem, int position) {
-                Bundle bundle = new Bundle();
-                String title = ResourceManager.getString(R.string.orders_of) + market.getNombre();
-                bundle.putString(PedidosFragment.PEDIDOS_TITLE_BUNDLE_ID, title);
-                bundle.putSerializable(PedidosFragment.PEDIDOS_BUNDLE_ID, mItem);
-                NavigationManager.navigateTo(R.id.action_from_mercado_to_listPedidos, bundle);
+
             }
         };
 

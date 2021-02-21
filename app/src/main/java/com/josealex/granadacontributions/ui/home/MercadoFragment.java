@@ -25,6 +25,8 @@ import com.josealex.granadacontributions.ui.makers.MakeProduct;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
+import com.josealex.granadacontributions.utils.NavigationManager;
+import com.josealex.granadacontributions.utils.ResourceManager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -50,18 +52,11 @@ public class MercadoFragment extends Fragment {
 
     private ViewGroup optionsLinearMenu;
     private Button deleteMarketButton;
+    private Button pendingOrdersMarketButton;
 
     private boolean generalExpanded = true;
-    private boolean managersExpanded = true;
-    private boolean productsExpanded = true;
-
     private View generalContent;
-    private View managersContent;
-    private View productsContent;
-
     private int oldHeightOfGenerals;
-    private int oldHeightOfManagers;
-    private int oldHeightOfProducts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -162,6 +157,7 @@ public class MercadoFragment extends Fragment {
 
         optionsLinearMenu = root.findViewById(R.id.options_linear_menu);
         deleteMarketButton = root.findViewById(R.id.market_manager_remove_button);
+        pendingOrdersMarketButton = root.findViewById(R.id.market_order_button);
 
         //Add product button
         root.findViewById(R.id.add_products_buton).setOnClickListener(v -> {
@@ -178,9 +174,15 @@ public class MercadoFragment extends Fragment {
             );
         });
 
+        pendingOrdersMarketButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            String title = ResourceManager.getString(R.string.orders_of) + market.getNombre();
+            bundle.putString(ListPedidosFragment.PEDIDO_TITLE_BUNDLE_ID, title);
+            bundle.putSerializable(ListPedidosFragment.PEDIDO_MARKET_BUNDLE_ID, market);
+            NavigationManager.navigateTo(R.id.action_from_mercado_to_listPedidos, bundle);
+        });
+
         generalContent = root.findViewById(R.id.general_content);
-        productsContent = root.findViewById(R.id.products_content);
-        managersContent = root.findViewById(R.id.managers_content);
 
         root.findViewById(R.id.general_title).setOnClickListener(v -> {
             ViewGroup.LayoutParams layoutParams = generalContent.getLayoutParams();

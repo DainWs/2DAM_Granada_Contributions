@@ -1,6 +1,8 @@
 package com.josealex.granadacontributions.modules;
 
-public class LineaPedido {
+import java.io.Serializable;
+
+public class LineaPedido implements Serializable {
 
     private String uid = "";
     private String uidPedido = "";

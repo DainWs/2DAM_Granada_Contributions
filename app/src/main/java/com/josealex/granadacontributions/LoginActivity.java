@@ -3,17 +3,13 @@ package com.josealex.granadacontributions;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -36,9 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private static int GOOGLEIN = 100;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private Button google;
-    private Button registro;
-    private Button conect;
     private EditText email;
     private EditText password;
 
@@ -48,25 +41,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
-        google = findViewById(R.id.bgoogle);
-        registro = findViewById(R.id.loginReg);
-        conect = findViewById(R.id.loginCon);
         email = findViewById(R.id.loginEmail);
         password = findViewById(R.id.loginPassword);
 
-        google = findViewById(R.id.bgoogle);
-        registro = findViewById(R.id.loginReg);
-        conect = findViewById(R.id.loginCon);
-        email = findViewById(R.id.loginEmail);
-        password = findViewById(R.id.loginPassword);
-        google.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bgoogle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 registroConectoGoogle();
             }
         });
-        conect.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.loginCon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -77,11 +63,12 @@ public class LoginActivity extends AppCompatActivity {
                 //TODO (cambiar los text de Toast por R.String...)
             }
         });
-        registro.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.loginReg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    createusuerbasic(email.getText().toString(), password.getText().toString());
+                    createUserBasic(email.getText().toString(), password.getText().toString());
                 } catch (Exception e) {
                     Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
                 }
@@ -89,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void createusuerbasic(String email, String password) {
+    public void createUserBasic(String email, String password) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

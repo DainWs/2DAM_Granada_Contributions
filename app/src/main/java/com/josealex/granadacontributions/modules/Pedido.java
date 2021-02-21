@@ -13,6 +13,7 @@ public class Pedido implements Serializable, Comparable {
     private String uidMercado = "";
     private String nombreCliente = "";
     private String date = "";
+    private boolean isPending = true;
     private ArrayList<LineaPedido> lineas = new ArrayList<>();
 
     public Pedido() {
@@ -43,6 +44,14 @@ public class Pedido implements Serializable, Comparable {
 
     public void setUidCliente(String uidCliente) {
         this.uidCliente = uidCliente;
+    }
+
+    public boolean isPending() {
+        return isPending;
+    }
+
+    public void setPending(boolean pending) {
+        isPending = pending;
     }
 
     public String getUidMercado() {

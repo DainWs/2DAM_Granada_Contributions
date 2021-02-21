@@ -294,14 +294,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateMode() {
-        if (inMode) {
-            filterMenuLinearlayout.addView(addMercadoBtn, 0);
+        if(filterMenuLinearlayout != null) {
+            if (inMode) {
+                filterMenuLinearlayout.addView(addMercadoBtn, 0);
 
-            //TODO(FALTAN COSAS POR ACTUALIZAR)
-        } else {
-            filterMenuLinearlayout.removeView(
-                    filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
-            );
+                //TODO(FALTAN COSAS POR ACTUALIZAR)
+            } else {
+                filterMenuLinearlayout.removeView(
+                        filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
+                );
 
             /*Consulta.getMercadosWhere(new Consulta<Mercado>() {
                 @Override
@@ -310,7 +311,8 @@ public class HomeFragment extends Fragment {
                 }
             });*/
 
-            //TODO(FALTAN COSAS POR ACTUALIZAR)
+                //TODO(FALTAN COSAS POR ACTUALIZAR)
+            }
         }
         update();
     }

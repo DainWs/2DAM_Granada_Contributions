@@ -8,7 +8,7 @@ import com.josealex.granadacontributions.modules.User;
 
 public class PedidosFactory {
 
-    private static Pedido pedido;
+    private static Pedido pedido = new Pedido();
 
     public static void make(User cliente, Mercado mercado) {
         pedido = new Pedido(cliente, mercado);

@@ -72,4 +72,6 @@
     <string name="make_a_new_market">Make a new market</string>
     <string name="gestiones">Gestiones</string>
     <string name="salary">Salary</string>
+    <string name="pending_orders">Pending orders</string>
+    <string name="orders_of">"Orders of "</string>
 </resources>

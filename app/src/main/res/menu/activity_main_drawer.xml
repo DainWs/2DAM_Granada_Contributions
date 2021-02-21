@@ -10,9 +10,13 @@
             android:title="@string/menu_home" />
 
         <item
-            android:id="@+id/pedidosFragment"
+            android:id="@+id/nav_shopping_cart"
             android:icon="@mipmap/ic_carritodraw"
             android:title="@string/shopping_cart" />
+        <item
+            android:id="@+id/nav_pending_orders"
+            android:icon="@mipmap/ic_pending_orders"
+            android:title="@string/pending_orders" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@mipmap/ic_settings"
