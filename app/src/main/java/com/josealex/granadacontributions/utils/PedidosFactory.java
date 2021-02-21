@@ -77,6 +77,9 @@ public class PedidosFactory {
 
     public static void cancel() {
         pedido = null;
+        mercadoActual = new Mercado();
+        cliente = new User();
+        productosMap = new HashMap<>();
     }
 
     public static Pedido get() {

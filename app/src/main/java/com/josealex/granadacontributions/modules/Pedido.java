@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Objects;
 
 public class Pedido implements Serializable, Comparable {
 
@@ -22,10 +23,11 @@ public class Pedido implements Serializable, Comparable {
     }
 
     public Pedido(User cliente, Mercado mercado) {
+        date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         this.uidCliente = cliente.getUid();
         this.uidMercado = mercado.getUid();
+        this.uid = uidCliente+uidMercado+date;
         this.nombreCliente = cliente.getNombre();
-        date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
 
     public String getUid() {
@@ -34,9 +36,6 @@ public class Pedido implements Serializable, Comparable {
 
     public void setUid(String uid) {
         this.uid = uid;
-        for (LineaPedido linea: lineas) {
-            linea.setUidProducto(uid);
-        }
     }
 
     public String getUidCliente() {
@@ -45,6 +44,7 @@ public class Pedido implements Serializable, Comparable {
 
     public void setUidCliente(String uidCliente) {
         this.uidCliente = uidCliente;
+        this.uid = uidCliente+uidMercado+date;
     }
 
     public float getTotal() {
@@ -69,6 +69,7 @@ public class Pedido implements Serializable, Comparable {
 
     public void setUidMercado(String uidMercado) {
         this.uidMercado = uidMercado;
+        this.uid = uidCliente+uidMercado+date;
     }
 
     public ArrayList<LineaPedido> getLineas() {
@@ -104,6 +105,7 @@ public class Pedido implements Serializable, Comparable {
 
     public void setDate(String date) {
         this.date = date;
+        this.uid = uidCliente+uidMercado+date;
     }
 
     public String getNombreCliente() {
@@ -125,5 +127,13 @@ public class Pedido implements Serializable, Comparable {
             return -1;
         }
         return dateOne.compareTo(dateTwo);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pedido pedido = (Pedido) o;
+        return pedido.getUid()==uid;
     }
 }

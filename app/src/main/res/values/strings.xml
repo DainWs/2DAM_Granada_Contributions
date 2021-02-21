@@ -81,4 +81,5 @@
     <string name="total_pedido">Total :</string>
     <string name="are_you_sure_delete">Are you sure you want to cancel this order?</string>
     <string name="do_not_cancel">Do not Cancel</string>
+    <string name="you_cant_delete_market_if">You cannot delete a market if it still has pending orders</string>
 </resources>

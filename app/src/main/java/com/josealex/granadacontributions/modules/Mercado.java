@@ -151,19 +151,12 @@ public class Mercado implements Serializable {
     public void addPedido(Pedido pedido) {
         if(!pedidos.contains(pedido)) {
 
-            ArrayList<Productos> list = getProductosWhere(new Consulta<Productos>() {
-                @Override
-                public boolean comprueba(Productos o) {
-                    return pedido.getLineas().contains(o.getUid());
-                }
-            });
-
             for (LineaPedido lineas: pedido.getLineas()) {
-                for (int i = 0; i < list.size(); i++) {
-                    Productos producto = list.get(i);
+                for (int i = 0; i < productos.size(); i++) {
+                    Productos producto = productos.get(i);
                     if(lineas.getUidProducto().equals(producto.getUid())) {
                         producto.setCantidad(producto.getCantidad() - lineas.getCantidad());
-                        list.set(i, producto);
+                        productos.set(i, producto);
                     }
                 }
             }
@@ -174,20 +167,12 @@ public class Mercado implements Serializable {
 
     public void removePedido(Pedido pedido) {
         if(pedidos.contains(pedido)) {
-
-            ArrayList<Productos> list = getProductosWhere(new Consulta<Productos>() {
-                @Override
-                public boolean comprueba(Productos o) {
-                    return pedido.getLineas().contains(o.getUid());
-                }
-            });
-
             for (LineaPedido lineas: pedido.getLineas()) {
-                for (int i = 0; i < list.size(); i++) {
-                    Productos producto = list.get(i);
+                for (int i = 0; i < productos.size(); i++) {
+                    Productos producto = productos.get(i);
                     if(lineas.getUidProducto().equals(producto.getUid())) {
                         producto.setCantidad(producto.getCantidad() + lineas.getCantidad());
-                        list.set(i, producto);
+                        productos.set(i, producto);
                     }
                 }
             }

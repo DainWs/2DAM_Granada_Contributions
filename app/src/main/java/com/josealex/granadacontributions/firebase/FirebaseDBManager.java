@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.josealex.granadacontributions.MainActivity;
 import com.josealex.granadacontributions.modules.Mercado;
+import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
@@ -94,6 +95,15 @@ public class FirebaseDBManager {
                     newMercado.setUidOwner((String) mercado.child("uidOwner").getValue());
                     newMercado.setNombre((String) mercado.child("nombre").getValue());
                     newMercado.setPassword((String) mercado.child("password").getValue());
+
+
+                    //PILLAMOS LOS PEDIDOS
+                    ArrayList<Pedido> pedidos = new ArrayList<>();
+                    for (DataSnapshot pedido : mercado.child("pedidos").getChildren()) {
+                        pedidos.add(pedido.getValue(Pedido.class));
+                    }
+
+                    newMercado.setPedidos(pedidos);
 
                     //PILLAMOS LOS GESTORES
                     ArrayList<String> gestores = new ArrayList<>();

@@ -167,9 +167,15 @@ public class MercadoFragment extends Fragment {
         deleteMarketButton.setOnClickListener(v -> {
             DialogsFactory.makeAreYouSureDialog(
                     (dialog, which) -> {
-                        //TODO(TAL VEZ SE DEBAN COMPROBAR LOS METODOS DE PAGO ANTES DE BORRAR)
-                        Mercado.delete(market);
-                        GlobalInformation.mainActivity.onBackPressed();
+                        if (market.getPedidos().size() <= 0) {
+                            Mercado.delete(market);
+                            GlobalInformation.mainActivity.onBackPressed();
+                        }
+                        else {
+                            DialogsFactory.makeWarnningDialog(
+                                    ResourceManager.getString(R.string.you_cant_delete_market_if)
+                            );
+                        }
                     }
             );
         });
