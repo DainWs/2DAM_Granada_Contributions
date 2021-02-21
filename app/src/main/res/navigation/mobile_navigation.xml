@@ -99,15 +99,15 @@
     <fragment
         android:id="@+id/pending_order"
         android:name="com.josealex.granadacontributions.ui.home.PedidosFragment"
-        android:label="PedidosFragment" >
+        android:label="PedidosFragment">
         <argument
             android:name="title"
             app:argType="string" />
         <argument
             android:name="pedido"
+            android:defaultValue="@null"
             app:argType="com.josealex.granadacontributions.modules.Pedido"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/list_pending_orders"

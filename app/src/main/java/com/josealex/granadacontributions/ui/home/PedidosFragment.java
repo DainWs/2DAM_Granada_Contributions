@@ -41,15 +41,15 @@ public class PedidosFragment extends Fragment {
 
         ((TextView)root.findViewById(R.id.textViewTOTAL)).setText(pedido.getTotal()+"");
         rcwlineas = root.findViewById(R.id.include22);
-        adapter = new MyLineaspedidoAdapter(pedido.getLineas());
+        adapter = new MyLineaspedidoAdapter(pedido.getLineas(), R.layout.list_item_linea_pedidos_manages);
         rcwlineas.setAdapter(adapter);
 
         root.findViewById(R.id.refuse_button).setOnClickListener(v -> {
-
+            //TODO(AQUI)
         });
 
         root.findViewById(R.id.accept_button).setOnClickListener(v -> {
-
+            //TODO(AQUI)
         });
 
 

@@ -28,6 +28,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
 
     private List<LineaPedido> mValues;
     DecimalFormatSymbols separadoresPersonalizados = new DecimalFormatSymbols();
+    private int res = R.layout.list_item_linea_pedidos;
 
     public MyLineaspedidoAdapter(List<LineaPedido> items ) {
         mValues = items;
@@ -35,10 +36,16 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
 
     }
 
+    public MyLineaspedidoAdapter(List<LineaPedido> items, int id ) {
+        mValues = items;
+        separadoresPersonalizados.setDecimalSeparator('.');
+        res = id;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_linea_pedidos, parent, false);
+                .inflate(res, parent, false);
         return new ViewHolder(view);
     }
 
