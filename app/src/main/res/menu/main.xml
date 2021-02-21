@@ -6,4 +6,11 @@
         android:title="@string/change_user_mode"
         app:actionLayout="@layout/single_switch_item"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/carritoimg"
+        android:icon="@mipmap/ic_carrito"
+        android:title=""
+        android:visible="true"
+        app:showAsAction="always" />
+
 </menu>

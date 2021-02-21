@@ -26,4 +26,5 @@ public class NavigationManager {
             ).navigate(to, bundle);
         }
     }
+
 }

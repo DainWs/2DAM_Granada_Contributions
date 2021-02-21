@@ -14,7 +14,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
+import com.josealex.granadacontributions.utils.NavigationManager;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle b = getIntent().getExtras();
 
-        if(b != null) {
+        if (b != null) {
             loggedUser = (User) b.getSerializable(USER_BUNDLE_ID);
         }
 
@@ -58,23 +60,23 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        View headerView = navigationView.getHeaderView(navigationView.getHeaderCount()-1);
+        View headerView = navigationView.getHeaderView(navigationView.getHeaderCount() - 1);
 
-        ((TextView)headerView.findViewById(R.id.usuario_nombre))
+        ((TextView) headerView.findViewById(R.id.usuario_nombre))
                 .setText(loggedUser.getNombre());
-        ((TextView)headerView.findViewById(R.id.usuario_mail))
+        ((TextView) headerView.findViewById(R.id.usuario_mail))
                 .setText(loggedUser.getCorreo());
 
         Glide.with(getBaseContext())
-                .load( loggedUser.getFotoURL() )
+                .load(loggedUser.getFotoURL())
                 .circleCrop()
                 .error(R.drawable.ic_launcher_foreground)
                 .into(
-                        (ImageView)headerView.findViewById(R.id.usuario_image)
+                        (ImageView) headerView.findViewById(R.id.usuario_image)
                 );
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home,R.id.nav_settings)
+                R.id.nav_home, R.id.nav_settings)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -102,11 +104,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        MenuItem item = menu.findItem(R.id.carritoimg);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Bundle b = new Bundle();
+                NavigationManager.navigateTo(R.id.action_nav_home_to_pedidosFragment,b);
 
+                return false;
+            }
+        });
         update();
 
         return true;
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -117,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void update() {
         loggedUser = GlobalInformation.SIGN_IN_USER;
-        if(menu != null) {
+        if (menu != null) {
             if (loggedUser.getGestiona().size() <= 0) {
                 switchModeItem.setEnabled(false);
                 switchModeItem.setVisible(false);
