@@ -42,19 +42,20 @@ public class ShoppingCardFragment extends Fragment {
         totalpedido = root.findViewById(R.id.textViewTOTAL);
 
         root.findViewById(R.id.buy_button).setOnClickListener(v -> {
-            User cliente = PedidosFactory.getCliente();
-            Mercado market = PedidosFactory.getMercadoActual();
-            Pedido pedido = PedidosFactory.get();
-            pedido.setTotal(PedidosFactory.getTotal());
+            if(PedidosFactory.initialized) {
+                User cliente = PedidosFactory.getCliente();
+                Mercado market = PedidosFactory.getMercadoActual();
+                Pedido pedido = PedidosFactory.get();
+                pedido.setTotal(PedidosFactory.getTotal());
 
-            cliente.addPedidos(pedido);
-            market.addPedido(pedido);
+                cliente.addPedidos(pedido);
+                market.addPedido(pedido);
 
-            FirebaseDBManager.saveUserData(cliente);
-            FirebaseDBManager.saveMercado(market);
-            PedidosFactory.cancel();
-            GlobalInformation.mainActivity.onBackPressed();
-            
+                FirebaseDBManager.saveUserData(cliente);
+                FirebaseDBManager.saveMercado(market);
+                PedidosFactory.cancel();
+                GlobalInformation.mainActivity.onBackPressed();
+            }
         });
 
         update();

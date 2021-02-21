@@ -17,9 +17,12 @@ public class PedidosFactory {
     private static User cliente = new User();
     private static Mercado mercadoActual = new Mercado();
 
+    public static boolean initialized = false;
+
     private static Map<String, Productos> productosMap = new HashMap<>();
 
     public static void make(User nCliente, Mercado mercado) {
+        initialized = true;
         mercadoActual = mercado;
         cliente = nCliente;
         productosMap = new HashMap<>();
@@ -76,7 +79,8 @@ public class PedidosFactory {
     }
 
     public static void cancel() {
-        pedido = null;
+        initialized = false;
+        pedido = new Pedido();
         mercadoActual = new Mercado();
         cliente = new User();
         productosMap = new HashMap<>();
