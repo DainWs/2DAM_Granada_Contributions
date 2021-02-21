@@ -62,7 +62,13 @@ public class FirebaseDBManager {
                 boolean finded = false;
                 for (DataSnapshot userData : users) {
                     User tmpUser = userData.getValue(User.class);
-
+                    /*
+                    tmpUser.setCorreo(userData.child("correo").getValue(String.class));
+                    tmpUser.setFotoURL(userData.child("fotoURL").getValue(String.class));
+                    tmpUser.setNombre(userData.child("nombre").getValue(String.class));
+                    tmpUser.setSaldo(userData.child("saldo").getValue(Integer.class));
+                    tmpUser.setCorreo(userData.child("correo").getValue(String.class));
+                    */
                     if(tmpUser.getCorreo().equals(user.getCorreo())) {
                         GlobalInformation.SIGN_IN_USER = tmpUser;
                         finded = true;

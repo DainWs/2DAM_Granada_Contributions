@@ -56,14 +56,14 @@ public class MyPedidoAdapter extends RecyclerView.Adapter<MyPedidoAdapter.ViewHo
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_id);
             mClienteView = (TextView) view.findViewById(R.id.item_client_name);
-            mDateView = (TextView) view.findViewById(R.id.item_client_name);
+            mDateView = (TextView) view.findViewById(R.id.item_date);
         }
 
         public void start(Pedido mItem, int position) {
             this.mItem = mItem;
-            mIdView.setText(position);
+            mIdView.setText(position+"");
             mClienteView.setText(mItem.getNombreCliente());
-            mDateView.setText(mItem.getDate());
+            mDateView.setText(mItem.getDate()+"");
 
             mView.setOnClickListener(v -> {
                 onViewClick(mView, mItem, position);

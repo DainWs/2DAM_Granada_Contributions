@@ -123,10 +123,22 @@ public class User implements Serializable {
     }
 
     public void addPedidos(Pedido pedido) {
-        pedidosPendientes.add(pedido);
+        if(!pedidosPendientes.contains(pedido)) pedidosPendientes.add(pedido);
     }
 
     public void removePedidos(Pedido pedido) {
-        pedidosPendientes.add(pedido);
+        if(pedidosPendientes.contains(pedido)) pedidosPendientes.remove(pedido);
+    }
+
+    public void removePedidosWhere(Consulta<Pedido> where) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+
+        for (Pedido pedido : pedidosPendientes) {
+            if(where.comprueba(pedido)) {
+                pedidos.add(pedido);
+            }
+        }
+
+        pedidosPendientes.removeAll(pedidos);
     }
 }

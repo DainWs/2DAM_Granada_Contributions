@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MyLineaspedidoAdapter;
+import com.josealex.granadacontributions.firebase.FirebaseDBManager;
+import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
@@ -23,6 +27,7 @@ public class ShoppingCardFragment extends Fragment {
 
     private MyLineaspedidoAdapter adapter;
     private RecyclerView rcwlineas;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,6 +35,22 @@ public class ShoppingCardFragment extends Fragment {
         GlobalInformation.mainActivity.setShoppingItemState(false);
         rcwlineas = root.findViewById(R.id.include2);
         adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
+
+        root.findViewById(R.id.buy_button).setOnClickListener(v -> {
+            User cliente = PedidosFactory.getCliente();
+            Mercado market = PedidosFactory.getMercadoActual();
+            Pedido pedido = PedidosFactory.get();
+            pedido.setTotal(PedidosFactory.getTotal());
+
+            cliente.addPedidos(pedido);
+            market.addPedido(pedido);
+
+            FirebaseDBManager.saveUserData(cliente);
+            FirebaseDBManager.saveMercado(market);
+
+            GlobalInformation.mainActivity.onBackPressed();
+        });
+
         update();
         return root;
     }

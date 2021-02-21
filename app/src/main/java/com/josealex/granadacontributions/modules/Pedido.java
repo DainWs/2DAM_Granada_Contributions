@@ -14,6 +14,7 @@ public class Pedido implements Serializable, Comparable {
     private String nombreCliente = "";
     private String date = "";
     private boolean isPending = true;
+    private float total = 0;
     private ArrayList<LineaPedido> lineas = new ArrayList<>();
 
     public Pedido() {
@@ -46,6 +47,14 @@ public class Pedido implements Serializable, Comparable {
         this.uidCliente = uidCliente;
     }
 
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
     public boolean isPending() {
         return isPending;
     }
@@ -71,7 +80,10 @@ public class Pedido implements Serializable, Comparable {
     }
 
     public void addLineas(LineaPedido lineaPedido) {
-        if(!lineas.contains(lineaPedido)) lineas.add(lineaPedido);
+        if(!lineas.contains(lineaPedido)) {
+            lineaPedido.setUid(lineas.size()+"");
+            lineas.add(lineaPedido);
+        }
     }
 
     public void removeLineas(LineaPedido lineaPedido) {

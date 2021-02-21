@@ -77,4 +77,8 @@
     <string name="duplicated_warnning">you already have this product in your cart</string>
     <string name="not_equals_market">The product you have selected belongs to another         market, remember that an order must only have products from a single market</string>
     <string name="ok_dialog_button">Ok</string>
+    <string name="products_already_exist">" This product already exists"</string>
+    <string name="total_pedido">Total :</string>
+    <string name="are_you_sure_delete">Are you sure you want to cancel this order?</string>
+    <string name="do_not_cancel">Do not Cancel</string>
 </resources>
