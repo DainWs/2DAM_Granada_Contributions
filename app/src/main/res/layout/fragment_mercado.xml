@@ -197,7 +197,6 @@
                                 android:adjustViewBounds="true"
                                 android:background="@android:color/transparent"
                                 android:contentDescription="@string/contentDescription"
-                                android:paddingStart="5dp"
                                 android:scaleType="centerInside"
                                 android:src="@mipmap/ic_show_password" />
 

@@ -52,8 +52,9 @@ public class ShoppingCardFragment extends Fragment {
 
             FirebaseDBManager.saveUserData(cliente);
             FirebaseDBManager.saveMercado(market);
-
+            PedidosFactory.cancel();
             GlobalInformation.mainActivity.onBackPressed();
+            
         });
 
         update();

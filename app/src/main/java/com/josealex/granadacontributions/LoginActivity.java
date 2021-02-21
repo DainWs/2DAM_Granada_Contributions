@@ -58,9 +58,9 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     conecto(email.getText().toString(), password.getText().toString());
                 } catch (Exception e) {
-                    Toast.makeText(getBaseContext(), "Conexion fallida", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Fail conect", Toast.LENGTH_SHORT).show();
                 }
-                //TODO (cambiar los text de Toast por R.String...)
+
             }
         });
 
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     createUserBasic(email.getText().toString(), password.getText().toString());
                 } catch (Exception e) {
-                    Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Registri fail", Toast.LENGTH_SHORT).show();
                 }
             }
         });
