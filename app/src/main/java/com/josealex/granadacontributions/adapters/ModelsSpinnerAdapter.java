@@ -25,8 +25,10 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
         if(firstText.isEmpty()){
             nothingText = context.getString(R.string.spinner_nothing_selected);
         }else{
-            nothingText = firstText;
+            nothingText = context.getString(R.string.spinner_nothing_selected);
         }
+
+
 
         this.adapter = spinnerAdapter;
         layoutInflater = LayoutInflater.from(context);
@@ -40,7 +42,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
             tv.setText(nothingText);
             return view;
         }
-        View view = adapter.getView(pos, null, group);
+        View view = adapter.getView((pos - EXTRA_ITEMS), null, group);
 
         return view;
     }
@@ -64,7 +66,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public Object getItem(int pos) {
-        return adapter.getItem(pos);
+        return adapter.getItem((pos - EXTRA_ITEMS));
     }
 
     @Override
@@ -79,7 +81,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public long getItemId(int position) {
-        return adapter.getItemId(position);
+        return adapter.getItemId(position - EXTRA_ITEMS);
     }
 
     @Override
