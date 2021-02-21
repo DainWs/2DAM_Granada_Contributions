@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.josealex.granadacontributions.R;
+
 public class PedidosFragment extends Fragment {
 
     private View root;
@@ -16,8 +18,7 @@ public class PedidosFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = super.onCreateView(inflater, container, savedInstanceState);
-
+        root = inflater.inflate(R.layout.fragment_pedido, container, false);
 
 
         return root;

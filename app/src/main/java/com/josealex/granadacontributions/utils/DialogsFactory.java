@@ -22,4 +22,20 @@ public class DialogsFactory {
                 .create()
                 .show();
     }
+
+    public static void makeAddToShoppingCartDialog(DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(GlobalInformation.mainActivity)
+                .setTitle(R.string.shopping_cart)
+                .setMessage(R.string.add_to_shopping_cart)
+                .setPositiveButton(
+                        R.string.add,
+                        okListener
+                )
+                .setNegativeButton(
+                        R.string.cancel_button_text,
+                        (dialogD, id) -> dialogD.dismiss()
+                )
+                .create()
+                .show();
+    }
 }

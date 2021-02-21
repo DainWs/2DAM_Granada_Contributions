@@ -158,4 +158,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        GlobalInformation.reset();
+    }
 }

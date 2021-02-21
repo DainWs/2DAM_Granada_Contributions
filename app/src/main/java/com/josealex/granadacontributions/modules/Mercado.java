@@ -15,6 +15,7 @@ public class Mercado implements Serializable {
     private String password = "";
     private ArrayList<String> gestores = new ArrayList<>();
     private ArrayList<Productos> productos = new ArrayList<>();
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
 
     public Mercado(){}
 
@@ -133,6 +134,38 @@ public class Mercado implements Serializable {
         for (Productos producto : productos) {
             if(where.comprueba(producto)) {
                 select.add(producto);
+            }
+        }
+
+        return select;
+    }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(ArrayList<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public void addPedido(Pedido pedido) {
+        if(!pedidos.contains(pedido)) {
+            pedidos.add(pedido);
+        }
+    }
+
+    public void removePedido(Pedido pedido) {
+        if(pedidos.contains(pedido)) {
+            pedidos.remove(pedido);
+        }
+    }
+
+    public ArrayList<Pedido> getPedidosWhere(Consulta<Pedido> where) {
+        ArrayList<Pedido> select = new ArrayList<>();
+
+        for (Pedido pedido : pedidos) {
+            if(where.comprueba(pedido)) {
+                select.add(pedido);
             }
         }
 

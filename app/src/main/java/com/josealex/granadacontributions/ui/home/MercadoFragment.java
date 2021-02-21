@@ -129,6 +129,7 @@ public class MercadoFragment extends Fragment {
                                         ArrayList<Productos> productosList = productsAdapter.getList();
                                         productosList.set(position, editedProducto);
                                         productsAdapter.update(productosList);
+                                        dialog.dismiss();
                                     });
                                 });
                                 return true;
@@ -164,7 +165,7 @@ public class MercadoFragment extends Fragment {
 
         //Add product button
         root.findViewById(R.id.add_products_buton).setOnClickListener(v -> {
-            MakeProduct.makeProductWithAdapter(productsAdapter);
+            MakeProduct.makeProductWithAdapter(productsAdapter, market);
         });
 
         deleteMarketButton.setOnClickListener(v -> {

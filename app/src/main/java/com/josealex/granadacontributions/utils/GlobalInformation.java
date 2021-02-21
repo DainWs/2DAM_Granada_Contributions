@@ -21,4 +21,18 @@ public class GlobalInformation {
     public static PreferenceFragment preferences = new PreferenceFragment();
     public static ProductosListFragment productosListFragment = new ProductosListFragment();
     public static UserFragment userFragment = new UserFragment();
+
+    public static void reset() {
+        SIGN_IN_USER = new User();
+        MERCADOS = new ArrayList<>();
+        USERS = new ArrayList<>();
+
+        ON_MANAGER_MODE = false;
+
+        mainActivity = null;
+        home = new HomeFragment();
+        preferences = new PreferenceFragment();
+        productosListFragment = new ProductosListFragment();
+        userFragment = new UserFragment();
+    }
 }

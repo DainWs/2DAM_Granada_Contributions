@@ -11,13 +11,15 @@ public class PedidosFactory {
     private static Pedido pedido;
 
     public static void make(User cliente, Mercado mercado) {
-        pedido = new Pedido(cliente.getUid(), mercado.getUid());
+        pedido = new Pedido(cliente, mercado);
     }
 
-    public static void addLinea(Productos producto) {
-        if(pedido != null) {
-            pedido.addLineas(new LineaPedido(pedido, producto, 1));
+    public static void addLinea(Mercado mercado, Productos producto) {
+        if(pedido == null) {
+            make(GlobalInformation.SIGN_IN_USER, mercado);
         }
+
+        pedido.addLineas(new LineaPedido(pedido, producto, 1));
     }
 
     public static void removeLinea(LineaPedido lineaPedido) {

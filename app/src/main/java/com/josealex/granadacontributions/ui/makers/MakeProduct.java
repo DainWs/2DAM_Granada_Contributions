@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.ModelsSpinnerAdapter;
 import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
+import com.josealex.granadacontributions.firebase.FirebaseDBManager;
+import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.ResourceManager;
@@ -31,7 +33,7 @@ public class MakeProduct {
     private static EditText cantidadField;
     private static ModelsSpinnerAdapter adapter;
 
-    public static void makeProductWithAdapter(ProductsRecyclerAdapter productsRecyclerAdapter) {
+    public static void makeProductWithAdapter(ProductsRecyclerAdapter adapter, Mercado mercado) {
         View dialogView =
                 GlobalInformation.mainActivity
                         .getLayoutInflater()
@@ -48,13 +50,13 @@ public class MakeProduct {
                 CATEGORIAS
         );
 
-        adapter = new ModelsSpinnerAdapter(
+        MakeProduct.adapter = new ModelsSpinnerAdapter(
                 simpleSpinnerAdapter,
                 GlobalInformation.mainActivity,
                 ""
         );
 
-        categorySpinner.setAdapter(adapter);
+        categorySpinner.setAdapter(MakeProduct.adapter);
         categorySpinner.setSelection(2);
         AlertDialog dialog = new AlertDialog.Builder(GlobalInformation.mainActivity)
                 .setView(dialogView)
@@ -73,9 +75,15 @@ public class MakeProduct {
                     .setOnClickListener(view -> {
                         Productos newProduct = userApplyToMarket();
                         if(newProduct != null) {
-                            ArrayList<Productos> listProductos = productsRecyclerAdapter.getList();
+                            ArrayList<Productos> listProductos = adapter.getList();
                             listProductos.add(newProduct);
-                            productsRecyclerAdapter.update(listProductos);
+
+                            if (mercado != null) {
+                                mercado.addProducto(newProduct);
+                                FirebaseDBManager.saveMercado(mercado);
+                            }
+
+                            adapter.update(listProductos);
                             it.dismiss();
                         }
                     });
@@ -148,8 +156,6 @@ public class MakeProduct {
         String precio = precioField.getText().toString();
         String cantidad = cantidadField.getText().toString();
 
-
-
         if(!nombre.isEmpty()) {
             productos.setNombre(nombre);
         }
@@ -166,11 +172,13 @@ public class MakeProduct {
             errorMessage += "Error, invalid category";
         }
 
+        System.out.println("-----------------------------------"+precio.isEmpty());
         if(!precio.isEmpty()) {
             try {
-                productos.setPrecio(Integer.parseInt(precio.replace(".",",")));
+                productos.setPrecio(Float.parseFloat(precio.replaceAll(",",".")));
             }
             catch (Exception ex) {
+                ex.printStackTrace();
                 isValid = false;
                 errorMessage += "Error, invalid price";
             }

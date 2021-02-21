@@ -24,13 +24,13 @@ public class MyPedidoAdapter extends RecyclerView.Adapter<MyPedidoAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_linea_pedidos, parent, false);
+                .inflate(R.layout.list_item_pedidos, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-
+        holder.start(mValues.get(position), position);
     }
 
     public void update(List<Pedido> pedidos) {
@@ -46,19 +46,35 @@ public class MyPedidoAdapter extends RecyclerView.Adapter<MyPedidoAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mClienteView;
+        public final TextView mDateView;
+        private Pedido mItem;
 
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_id_linea);
-            mContentView = (TextView) view.findViewById(R.id.item_nombre_linea);
+            mIdView = (TextView) view.findViewById(R.id.item_id);
+            mClienteView = (TextView) view.findViewById(R.id.item_client_name);
+            mDateView = (TextView) view.findViewById(R.id.item_client_name);
+        }
+
+        public void start(Pedido mItem, int position) {
+            this.mItem = mItem;
+            mIdView.setText(position);
+            mClienteView.setText(mItem.getNombreCliente());
+            mDateView.setText(mItem.getDate());
+
+            mView.setOnClickListener(v -> {
+                onViewClick(mView, mItem, position);
+            });
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mClienteView.getText() + "'";
         }
     }
+
+    public void onViewClick(View view, Pedido mItem, int position) {}
 }
