@@ -28,6 +28,7 @@ public class Mercado implements Serializable {
     ) {
         this.uid = uid;
         this.nombre = nombre;
+        this.password = password;
         this.uidOwner = gestores.get(0);
         this.gestores = gestores;
         this.productos = productos;
@@ -50,11 +51,11 @@ public class Mercado implements Serializable {
     }
 
     public String getUidOwner() {
-        return (uidOwner == null) ? gestores.get(0) : uidOwner;
+        return (uidOwner != null && uidOwner.isEmpty()) ? uidOwner : gestores.get(0);
     }
 
     public void setUidOwner(String uidOwner) {
-        if(uidOwner != null && !uidOwner.isEmpty()) this.uidOwner = uidOwner;
+        this.uidOwner = uidOwner;
     }
 
     public void updateUidOwner(String newUIDOwner) {

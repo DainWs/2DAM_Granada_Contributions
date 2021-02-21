@@ -45,7 +45,7 @@ public class ListPedidosFragment extends Fragment {
                 String title = ResourceManager.getString(R.string.orders_of) + market.getNombre();
                 bundle.putString(PedidosFragment.PEDIDOS_TITLE_BUNDLE_ID, title);
                 bundle.putSerializable(PedidosFragment.PEDIDOS_BUNDLE_ID, mItem);
-                NavigationManager.navigateTo(R.id.action_from_mercado_to_listPedidos, bundle);
+                NavigationManager.navigateTo(R.id.action_list_pending_orders_to_pending_order, bundle);
             }
         };
 

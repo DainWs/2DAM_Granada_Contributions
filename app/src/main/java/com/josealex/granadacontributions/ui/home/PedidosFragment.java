@@ -26,7 +26,7 @@ public class PedidosFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_pedido, container, false);
 
-        pedido = (Pedido) getArguments().getSerializable(PEDIDOS_TITLE_BUNDLE_ID);
+        pedido = (Pedido) getArguments().getSerializable(PEDIDOS_BUNDLE_ID);
 
         return root;
     }

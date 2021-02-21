@@ -92,7 +92,7 @@ public class MakeMarketFragment extends Fragment {
                 if(!password.isEmpty()) market.setPassword(password);
                 else {
                     isValid = false;
-                    errorMessage += ResourceManager.getString(R.string.password_market_error_message);;
+                    errorMessage += ResourceManager.getString(R.string.password_market_error_message);
                 }
 
                 market.addGestor(user.getUid());
