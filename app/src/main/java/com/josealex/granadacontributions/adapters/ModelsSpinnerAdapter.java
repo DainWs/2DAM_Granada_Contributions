@@ -34,13 +34,13 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public final View getView(int pos, View convertView, ViewGroup group) {
-        if (pos == 0) {
+        /*if (pos == 0) {
             View view = layoutInflater.inflate(R.layout.single_spinner_item, group, false);
             TextView tv = view.findViewById(R.id.spinner_item_text);
             tv.setText(nothingText);
             return view;
-        }
-        View view = adapter.getView((pos - EXTRA_ITEMS), null, group);
+        }*/
+        View view = adapter.getView(pos, null, group);
 
         return view;
     }
@@ -109,7 +109,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return (position != 0);
+        return true;
     }
 
 }

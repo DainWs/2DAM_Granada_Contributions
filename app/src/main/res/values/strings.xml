@@ -74,4 +74,7 @@
     <string name="salary">Salary</string>
     <string name="pending_orders">Pending orders</string>
     <string name="orders_of">"Orders of "</string>
+    <string name="duplicated_warnning">you already have this product in your cart</string>
+    <string name="not_equals_market">The product you have selected belongs to another         market, remember that an order must only have products from a single market</string>
+    <string name="ok_dialog_button">Ok</string>
 </resources>

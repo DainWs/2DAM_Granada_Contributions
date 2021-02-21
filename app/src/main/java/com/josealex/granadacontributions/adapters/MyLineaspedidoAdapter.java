@@ -13,6 +13,7 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.LineaPedido;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
@@ -57,6 +58,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
         private final Button mMinusButton;
         private final Button mPlusButton;
         public LineaPedido lineaPedido;
+        public Productos producto;
 
         public ViewHolder(View view) {
             super(view);
@@ -70,6 +72,8 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
 
         public void start(LineaPedido lineaPedido, int position) {
             this.lineaPedido = lineaPedido;
+            producto = PedidosFactory.getProducto(lineaPedido.getUidProducto());
+
             mIdView.setText(position+"");
 
             mContentView.setText(lineaPedido.getNombreProducto());
@@ -77,14 +81,15 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
             mPlusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    lineaPedido.addCantidad(1);
-                    notifyDataSetChanged();
+                    if(lineaPedido.getCantidad() <= producto.getCantidad()) {
+                        lineaPedido.addCantidad(1);
+                        notifyDataSetChanged();
+                    }
                 }
             });
             mMinusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     if(lineaPedido.getCantidad()>0) {
                         lineaPedido.removeCantidad(1);
                         notifyDataSetChanged();
