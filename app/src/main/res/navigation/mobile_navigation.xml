@@ -23,7 +23,7 @@
             android:id="@+id/action_from_home_to_productoFragment"
             app:destination="@id/productoFragment" />
         <action
-            android:id="@+id/action_nav_home_to_pedidosFragment"
+            android:id="@+id/action_nav_home_to_pedidosFragment2"
             app:destination="@id/pedidosFragment" />
     </fragment>
     <fragment
