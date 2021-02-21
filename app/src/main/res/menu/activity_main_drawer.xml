@@ -10,6 +10,10 @@
             android:title="@string/menu_home" />
 
         <item
+            android:id="@+id/pedidosFragment"
+            android:icon="@mipmap/ic_carritodraw"
+            android:title="@string/shopping_cart" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@mipmap/ic_settings"
             android:title="@string/action_settings" />

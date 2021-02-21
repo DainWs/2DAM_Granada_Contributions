@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 );
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings)
+                R.id.nav_home, R.id.nav_settings,R.id.pedidosFragment)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -104,21 +104,39 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        /*
         MenuItem item = menu.findItem(R.id.carritoimg);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Bundle b = new Bundle();
-                NavigationManager.navigateTo(R.id.action_nav_home_to_pedidosFragment,b);
+                NavigationManager.navigateTo(R.id.action_nav_home_to_pedidosFragment2,b);
 
                 return false;
             }
         });
+
+         */
         update();
 
         return true;
     }
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId==R.id.carritoimg) {
+            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Bundle b = new Bundle();
+                    NavigationManager.navigateTo(R.id.pedidosFragment,b);
+                    //navController.navigate(R.id.pedidosFragment);
+                    return false;
+                }
+            });
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
