@@ -1,19 +1,29 @@
 package com.josealex.granadacontributions.modules;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 
-public class Pedido {
+public class Pedido implements Serializable, Comparable {
 
     private String uid = "";
     private String uidCliente = "";
     private String uidMercado = "";
+    private String nombreCliente = "";
+    private String date = "";
     private ArrayList<LineaPedido> lineas = new ArrayList<>();
 
-    public Pedido() {}
+    public Pedido() {
+        date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+    }
 
-    public Pedido(String uidCliente, String uidMercado) {
-        this.uidCliente = uidCliente;
-        this.uidMercado = uidMercado;
+    public Pedido(User cliente, Mercado mercado) {
+        this.uidCliente = cliente.getUid();
+        this.uidMercado = mercado.getUid();
+        this.nombreCliente = cliente.getNombre();
+        date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
 
     public String getUid() {
@@ -67,5 +77,32 @@ public class Pedido {
         return lineas.get(index);
     }
 
+    public String getDate() {
+        return date;
+    }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Date dateOne;
+        Date dateTwo;
+        try {
+            dateOne = new SimpleDateFormat().parse(((Pedido)o).getDate());
+            dateTwo = new SimpleDateFormat().parse(date);
+        }catch (Exception e) {
+            return -1;
+        }
+        return dateOne.compareTo(dateTwo);
+    }
 }

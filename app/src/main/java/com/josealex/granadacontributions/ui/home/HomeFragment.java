@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void startHome() {
-        mercadosList = GlobalInformation.MERCADOS;
+        mercadosList = Consulta.getMercadosWhere(mercadosDelUsuario);
 
         productosList = new ArrayList<>();
         for (Mercado mercado : GlobalInformation.MERCADOS) {
@@ -303,14 +303,15 @@ public class HomeFragment extends Fragment {
                     filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
             );
 
-            Consulta.getMercadosWhere(new Consulta<Mercado>() {
+            /*Consulta.getMercadosWhere(new Consulta<Mercado>() {
                 @Override
                 public boolean comprueba(Mercado o) {
                     return false;
                 }
-            });
+            });*/
 
             //TODO(FALTAN COSAS POR ACTUALIZAR)
         }
+        update();
     }
 }

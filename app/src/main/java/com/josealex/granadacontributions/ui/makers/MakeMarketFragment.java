@@ -38,8 +38,6 @@ public class MakeMarketFragment extends Fragment {
     private RecyclerView productList;
     private ProductsRecyclerAdapter adapter;
 
-    private Button addProductBtn;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,8 +50,6 @@ public class MakeMarketFragment extends Fragment {
         productList = root.findViewById(R.id.make_market_product_list);
         adapter = new ProductsRecyclerAdapter(new ArrayList<>());
         productList.setAdapter(adapter);
-
-        addProductBtn = root.findViewById(R.id.make_market_add_product);
 
         root.findViewById(R.id.buttonCancelmercado).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +113,7 @@ public class MakeMarketFragment extends Fragment {
         });
 
         root.findViewById(R.id.make_market_add_product).setOnClickListener(
-                v -> MakeProduct.makeProductWithAdapter(adapter)
+                v -> MakeProduct.makeProductWithAdapter(adapter, null)
         );
 
         root.findViewById(R.id.make_market_remove_product).setOnClickListener(v -> {

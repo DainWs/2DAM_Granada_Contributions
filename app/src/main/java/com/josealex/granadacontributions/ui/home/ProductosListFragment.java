@@ -17,6 +17,7 @@ import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.ArrayList;
@@ -71,7 +72,14 @@ public class ProductosListFragment extends Fragment {
     public void verProductos(ArrayList Productos){
         RecyclerView recyclerView = (RecyclerView) viewRCWProductos;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ProductsRecyclerAdapter(Productos));
+        recyclerView.setAdapter(new ProductsRecyclerAdapter(Productos) {
+            @Override
+            protected void onViewClick(View v, Productos producto, int position) {
+                DialogsFactory.makeAddToShoppingCartDialog((dialog, which) -> {
+
+                });
+            }
+        });
     }
 
     public void update() {
