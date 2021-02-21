@@ -19,6 +19,7 @@ import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
+import com.josealex.granadacontributions.utils.PedidosFactory;
 
 import java.util.ArrayList;
 
@@ -76,7 +77,7 @@ public class ProductosListFragment extends Fragment {
             @Override
             protected void onViewClick(View v, Productos producto, int position) {
                 DialogsFactory.makeAddToShoppingCartDialog((dialog, which) -> {
-
+                    PedidosFactory.addLinea(mercado,producto);
                 });
             }
         });

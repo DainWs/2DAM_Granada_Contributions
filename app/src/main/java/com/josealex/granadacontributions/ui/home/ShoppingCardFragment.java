@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
+import com.josealex.granadacontributions.adapters.MyLineaspedidoAdapter;
 import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.PedidosFactory;
@@ -18,22 +20,30 @@ import com.josealex.granadacontributions.utils.PedidosFactory;
 public class ShoppingCardFragment extends Fragment {
 
     private View root;
-    private Pedido pedido;
 
+    private MyLineaspedidoAdapter adapter;
+    private RecyclerView rcwlineas;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_pedido, container, false);
         GlobalInformation.mainActivity.setShoppingItemState(false);
-        pedido = PedidosFactory.get();
-
+        rcwlineas = root.findViewById(R.id.include2);
+        adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
+        update();
         return root;
     }
+    public void update(){
 
+            adapter.update(PedidosFactory.get().getLineas());
+            rcwlineas.setAdapter(adapter);
+
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
         GlobalInformation.mainActivity.setShoppingItemState(false);
     }
 

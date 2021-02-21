@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.LineaPedido;
+import com.josealex.granadacontributions.modules.Mercado;
+import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.PedidosFactory;
 
 import java.util.List;
 
@@ -19,7 +23,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
 
     private List<LineaPedido> mValues;
 
-    public MyLineaspedidoAdapter(List<LineaPedido> items) {
+    public MyLineaspedidoAdapter(List<LineaPedido> items ) {
         mValues = items;
     }
 
@@ -66,14 +70,25 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
 
         public void start(LineaPedido lineaPedido, int position) {
             this.lineaPedido = lineaPedido;
-            mIdView.setText(position);
+            mIdView.setText(position+"");
+
             mContentView.setText(lineaPedido.getNombreProducto());
-            mCantidadView.setText(lineaPedido.getCantidad());
+            mCantidadView.setText(lineaPedido.getCantidad()+"");
             mPlusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     lineaPedido.addCantidad(1);
+                    notifyDataSetChanged();
+                }
+            });
+            mMinusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    if(lineaPedido.getCantidad()>0) {
+                        lineaPedido.removeCantidad(1);
+                        notifyDataSetChanged();
+                    }
                 }
             });
         }
