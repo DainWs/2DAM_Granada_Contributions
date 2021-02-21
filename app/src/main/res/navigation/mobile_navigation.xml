@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_from_home_to_productoFragment"
             app:destination="@id/productoFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_pedidosFragment"
+            app:destination="@id/pedidosFragment" />
     </fragment>
     <fragment
         android:id="@+id/productosFragment"
@@ -87,5 +90,9 @@
         android:name="com.josealex.granadacontributions.ui.home.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/pedidosFragment"
+        android:name="com.josealex.granadacontributions.ui.home.PedidosFragment"
+        android:label="PedidosFragment" />
 
 </navigation>
