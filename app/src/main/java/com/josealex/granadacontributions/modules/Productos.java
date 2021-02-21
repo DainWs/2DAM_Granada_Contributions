@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Productos implements Serializable {
 
-    private String uid;
-    private String nombre;
-    private String fotoURL;
-    private String categoria;
-    private float precio;
-    private int cantidad;
+    private String uid="";
+    private String nombre="";
+    private String fotoURL="";
+    private String categoria="";
+    private float precio=0;
+    private int cantidad=0;
 
     public Productos() {
     }

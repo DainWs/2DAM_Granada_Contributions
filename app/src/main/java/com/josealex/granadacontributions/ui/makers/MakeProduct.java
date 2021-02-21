@@ -2,7 +2,9 @@ package com.josealex.granadacontributions.ui.makers;
 
 import android.app.AlertDialog;
 
+import android.content.DialogInterface;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -81,7 +83,61 @@ public class MakeProduct {
         dialog.show();
     }
 
-    private static Productos userApplyToMarket() {
+    public static void editProductWithAdapter(
+            Productos producto,
+            DialogInterface.OnShowListener listener
+    ) {
+        View dialogView =
+                GlobalInformation.mainActivity
+                        .getLayoutInflater()
+                        .inflate(R.layout.dialog_make_product, null);
+
+        nombreField = dialogView.findViewById(R.id.editProductnombre);
+        categorySpinner = dialogView.findViewById(R.id.editProductspinner);
+        precioField = dialogView.findViewById(R.id.editProductprice);
+        cantidadField = dialogView.findViewById(R.id.editProductCantidad);
+
+        nombreField.setText(producto.getNombre());
+
+        precioField.setText(""+producto.getPrecio());
+        cantidadField.setText(""+producto.getCantidad());
+
+        int productCategoryIndex = 0;
+        for (int i = 0; i < CATEGORIAS.length; i++) {
+            if(CATEGORIAS[i].equalsIgnoreCase(producto.getCategoria())) {
+                productCategoryIndex = i;
+                break;
+            }
+        }
+
+        SpinnerAdapter simpleSpinnerAdapter = new ArrayAdapter<String>(
+                GlobalInformation.mainActivity,
+                android.R.layout.simple_spinner_item,
+                CATEGORIAS
+        );
+
+        adapter = new ModelsSpinnerAdapter(
+                simpleSpinnerAdapter,
+                GlobalInformation.mainActivity,
+                ""
+        );
+
+        categorySpinner.setAdapter(adapter);
+        categorySpinner.setSelection(productCategoryIndex);
+
+        AlertDialog dialog = new AlertDialog.Builder(GlobalInformation.mainActivity)
+                .setView(dialogView)
+                .setPositiveButton(R.string.apply_button_text, null)
+                .setNegativeButton(
+                        R.string.cancel_button_text,
+                        (dialog12, id) -> dialog12.dismiss()
+                ).create();
+
+        dialog.setOnShowListener(listener);
+        dialog.show();
+    }
+
+    public static Productos userApplyToMarket() {
         Productos productos = new Productos();
 
         String errorMessage = "";
@@ -99,7 +155,7 @@ public class MakeProduct {
         }
         else {
             isValid = false;
-            errorMessage += "a";
+            errorMessage += "Error, invalid name";
         }
 
         if(!categoria.isEmpty()) {
@@ -107,21 +163,21 @@ public class MakeProduct {
         }
         else {
             isValid = false;
-            errorMessage += "a";
+            errorMessage += "Error, invalid category";
         }
 
         if(!precio.isEmpty()) {
             try {
-                productos.setPrecio(Integer.parseInt(precio));
+                productos.setPrecio(Integer.parseInt(precio.replace(".",",")));
             }
             catch (Exception ex) {
                 isValid = false;
-                errorMessage += "a";
+                errorMessage += "Error, invalid price";
             }
         }
         else {
             isValid = false;
-            errorMessage += "a";
+            errorMessage += "Error, invalid price";
         }
 
         if(!cantidad.isEmpty()) {
@@ -130,12 +186,12 @@ public class MakeProduct {
             }
             catch (Exception ex) {
                 isValid = false;
-                errorMessage += "a";
+                errorMessage += "Error, invalid amount";
             }
         }
         else {
             isValid = false;
-            errorMessage += "a";
+            errorMessage += "Error, invalid amount";
         }
 
 

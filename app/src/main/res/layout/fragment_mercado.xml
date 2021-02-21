@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/general_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_activity_background_color"
@@ -38,241 +39,190 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
 
-        <TableLayout
+        <LinearLayout
+            android:id="@+id/general_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:gravity="start"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/market_uid"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:gravity="start"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="@string/market_uid"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:background="@color/toolbar_background_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
-
-                    <TextView
-                        android:id="@+id/market_uid_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="end"
-                        tools:text="1234533esda" />
-                </LinearLayout>
-
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="2dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@color/toolbar_background_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:gravity="start"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="@string/name_text"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/market_uid_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="end"
+                    tools:text="1234533esda" />
+            </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:background="@color/toolbar_background_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
-
-                    <TextView
-                        android:id="@+id/market_name_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="end"
-                        tools:text="PedroPicapiedra" />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:gravity="start"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="@string/market_admin"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                </TableRow>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:background="@color/toolbar_background_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
-
-                    <TextView
-                        android:id="@+id/market_admin_name_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="end"
-                        tools:text="Jose Antonio" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:gravity="start"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="@string/password_hint"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                </TableRow>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:background="@color/toolbar_background_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="end"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/show_password_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:adjustViewBounds="true"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="@string/contentDescription"
-                            android:paddingStart="5dp"
-                            android:scaleType="centerInside"
-                            android:src="@mipmap/ic_show_password" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/market_password_field"
-                            android:layout_width="0dp"
-                            android:layout_height="20dp"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:inputType="textPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:gravity="start"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
+                            android:text="@string/market_admin"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:background="@color/toolbar_background_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
+
+                        <TextView
+                            android:id="@+id/market_admin_name_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="end"
                             tools:text="Jose Antonio" />
 
                     </LinearLayout>
 
-                </LinearLayout>
-            </TableRow>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-        </TableLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:gravity="start"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="@string/password_hint"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:background="@color/toolbar_background_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="end"
+                            android:orientation="horizontal">
 
-            </LinearLayout>
+                            <ImageButton
+                                android:id="@+id/show_password_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:adjustViewBounds="true"
+                                android:background="@android:color/transparent"
+                                android:contentDescription="@string/contentDescription"
+                                android:paddingStart="5dp"
+                                android:scaleType="centerInside"
+                                android:src="@mipmap/ic_show_password" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/market_password_field"
+                                android:layout_width="0dp"
+                                android:layout_height="20dp"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:inputType="textPassword"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                tools:text="Jose Antonio" />
 
-            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </TableRow>
+
+            </TableLayout>
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/managers_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -304,18 +254,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
 
-        <include
-            android:id="@+id/market_managers_recyclerview"
-            layout="@layout/list_users"
+        <FrameLayout
+            android:id="@+id/managers_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+            <include
+                android:id="@+id/market_managers_recyclerview"
+                layout="@layout/list_users"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/products_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -345,8 +303,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/collapsed"
                 android:scaleType="fitEnd"
-                android:src="@mipmap/ic_collapsed"
-                app:srcCompat="@mipmap/ic_add" />
+                android:src="@mipmap/ic_add" />
         </LinearLayout>
 
         <View
@@ -357,16 +314,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filter_menu_linearlayout" />
 
-        <include
-            android:id="@+id/market_products_list"
-            layout="@layout/list_products"
+        <FrameLayout
+            android:id="@+id/products_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+            <include
+                android:id="@+id/market_products_list"
+                layout="@layout/list_products"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"

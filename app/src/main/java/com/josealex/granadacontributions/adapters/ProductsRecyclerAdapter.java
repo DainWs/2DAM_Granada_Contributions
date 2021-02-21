@@ -17,9 +17,17 @@ import java.util.List;
 public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapter.ViewHolder> {
 
     private List<Productos> mValues;
+    private boolean isPrincipal = false;
+    private boolean isAdmin = false;
 
     public ProductsRecyclerAdapter(List<Productos> items) {
         mValues = items;
+        isPrincipal = true;
+    }
+
+    public ProductsRecyclerAdapter(List<Productos> items, boolean isAdmin) {
+        mValues = items;
+        this.isAdmin = isAdmin;
     }
 
     @Override
@@ -31,7 +39,7 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.start(mValues.get(position));
+        if(mValues.get(position)!=null) holder.start(mValues.get(position), position);
     }
 
     public ArrayList<Productos> getList() {
@@ -61,16 +69,28 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
             mContentView = view.findViewById(R.id.item_product_name);
         }
 
-        public void start(Productos mItem) {
-            //TODO (ACORDARSE DE MODIFICAR EL LAYOUT list_item_product)
+        public void start(Productos mItem, int position) {
             this.mItem = mItem;
             mIdView.setText(mItem.getPrecio()+"€");
             mContentView.setText(mItem.getNombre());
+
+            if(isPrincipal) {
+                mView.setOnClickListener( v -> onViewClick(mView, mItem, position) );
+            }
+            else {
+                if (isAdmin) {
+                    mView.setOnClickListener(v -> onViewClick(mView, mItem, position));
+                }
+            }
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+    }
+
+    protected void onViewClick(View v, Productos producto, int position) {
+
     }
 }

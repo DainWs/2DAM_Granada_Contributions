@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/item_product_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:gravity="start"
+        android:gravity="start|center_vertical"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="14sp"
         tools:text="product name" />
 
     <TextView
         android:id="@+id/item_product_price"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center|start"
         android:minWidth="50dp"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="14sp"
         tools:text="0€" />
 
-    <Button
-        android:id="@+id/baddproducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="Add" />
 </LinearLayout>

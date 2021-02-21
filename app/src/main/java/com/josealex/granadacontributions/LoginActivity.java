@@ -35,15 +35,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private static int GOOGLEIN = 100;
     private FirebaseAuth mAuth;
-    FirebaseUser user;
-    Button google,registro,conect;
-    EditText email,password;
+    private FirebaseUser user;
+    private Button google;
+    private Button registro;
+    private Button conect;
+    private EditText email;
+    private EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
+
         google = findViewById(R.id.bgoogle);
         registro = findViewById(R.id.loginReg);
         conect = findViewById(R.id.loginCon);

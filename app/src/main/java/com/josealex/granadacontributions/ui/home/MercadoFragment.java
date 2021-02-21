@@ -1,9 +1,9 @@
 package com.josealex.granadacontributions.ui.home;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,22 +11,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
 import com.josealex.granadacontributions.adapters.UsersRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
+import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.ui.makers.MakeProduct;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 
@@ -51,6 +51,18 @@ public class MercadoFragment extends Fragment {
     private ViewGroup optionsLinearMenu;
     private Button deleteMarketButton;
 
+    private boolean generalExpanded = true;
+    private boolean managersExpanded = true;
+    private boolean productsExpanded = true;
+
+    private View generalContent;
+    private View managersContent;
+    private View productsContent;
+
+    private int oldHeightOfGenerals;
+    private int oldHeightOfManagers;
+    private int oldHeightOfProducts;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,10 +77,6 @@ public class MercadoFragment extends Fragment {
         ((TextView)root.findViewById(R.id.market_uid_field))
             .setText(market.getUid());
 
-        //ponemos el nombre del mercado
-        ((TextView)root.findViewById(R.id.market_name_field))
-            .setText(market.getNombre());
-
         //ponemos el nombre del admin del mercado
         ((TextView) root.findViewById(R.id.market_admin_name_field))
                 .setText(marketAdmin.getNombre());
@@ -77,6 +85,7 @@ public class MercadoFragment extends Fragment {
         ((TextView)root.findViewById(R.id.market_password_field))
                 .setText(market.getPassword());
 
+        //TODO (BOTON DE MOSTRAR CONTRASENIA)
 
         boolean isAdmin = (user.getUid().equals(this.market.getUidOwner())) ? true : false ;
 
@@ -104,7 +113,48 @@ public class MercadoFragment extends Fragment {
         usersListRecyclerView = root.findViewById(R.id.market_managers_recyclerview);
         usersListRecyclerView.setAdapter(usersAdapter);
 
-        productsAdapter = new ProductsRecyclerAdapter(market.getProductos());
+        productsAdapter = new ProductsRecyclerAdapter(market.getProductos(), true) {
+            @Override
+            public void onViewClick(View v, Productos producto, int position) {
+                PopupMenu popup = new PopupMenu(getContext(), v);
+
+                popup.setOnMenuItemClickListener(
+                        (PopupMenu.OnMenuItemClickListener) item ->
+                    {
+                        switch (item.getItemId()) {
+                            case R.id.popup_edit:
+                                MakeProduct.editProductWithAdapter(producto, dialog -> {
+                                    ((AlertDialog)dialog).getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
+                                        Productos editedProducto = MakeProduct.userApplyToMarket();
+                                        ArrayList<Productos> productosList = productsAdapter.getList();
+                                        productosList.set(position, editedProducto);
+                                        productsAdapter.update(productosList);
+                                    });
+                                });
+                                return true;
+                            case R.id.popup_remove:
+                                DialogsFactory.makeAreYouSureDialog((dialog, which) -> {
+                                    ArrayList<Productos> productos = productsAdapter.getList();
+                                    productos.remove(producto);
+                                    productsAdapter.update(productos);
+                                    dialog.dismiss();
+                                });
+                                return true;
+                        }
+                        return false;
+                    }
+                );
+
+                popup.inflate(R.menu.user_popup_menu);
+                try {
+                    Field mFieldPopup=popup.getClass().getDeclaredField("mPopup");
+                    mFieldPopup.setAccessible(true);
+                    MenuPopupHelper mPopup = (MenuPopupHelper) mFieldPopup.get(popup);
+                }
+                catch (Exception e) {}
+                popup.show();
+            }
+        };
 
         productsRecyclerView = root.findViewById(R.id.market_products_list);
         productsRecyclerView.setAdapter(productsAdapter);
@@ -127,6 +177,59 @@ public class MercadoFragment extends Fragment {
             );
         });
 
+        generalContent = root.findViewById(R.id.general_content);
+        productsContent = root.findViewById(R.id.products_content);
+        managersContent = root.findViewById(R.id.managers_content);
+
+        root.findViewById(R.id.general_title).setOnClickListener(v -> {
+            ViewGroup.LayoutParams layoutParams = generalContent.getLayoutParams();
+            if(generalExpanded) {
+                oldHeightOfGenerals = layoutParams.height;
+                layoutParams.height = 0;
+                generalContent.setLayoutParams(layoutParams);
+                generalContent.setEnabled(false);
+            }
+            else {
+                layoutParams.height = oldHeightOfGenerals;
+                generalContent.setLayoutParams(layoutParams);
+                generalContent.setEnabled(true);
+            }
+            generalExpanded = !generalExpanded;
+        });
+
+        /*
+        root.findViewById(R.id.managers_title).setOnClickListener(v -> {
+            ViewGroup.LayoutParams layoutParams = managersContent.getLayoutParams();
+            if(managersExpanded) {
+                oldHeightOfManagers = layoutParams.height;
+                layoutParams.height = 0;
+                managersContent.setLayoutParams(layoutParams);
+                managersContent.setEnabled(false);
+            }
+            else {
+                layoutParams.height = oldHeightOfManagers;
+                managersContent.setLayoutParams(layoutParams);
+                managersContent.setEnabled(true);
+            }
+            managersExpanded = !managersExpanded;
+        });
+
+        root.findViewById(R.id.products_title).setOnClickListener(v -> {
+            ViewGroup.LayoutParams layoutParams = productsContent.getLayoutParams();
+            if(productsExpanded) {
+                oldHeightOfProducts = layoutParams.height;
+                layoutParams.height = 0;
+                productsContent.setLayoutParams(layoutParams);
+                productsContent.setEnabled(false);
+            }
+            else {
+                layoutParams.height = oldHeightOfProducts;
+                productsContent.setLayoutParams(layoutParams);
+                productsContent.setEnabled(true);
+            }
+            productsExpanded = !productsExpanded;
+        });
+        */
         updateOwner();
 
         return root;
@@ -190,3 +293,4 @@ public class MercadoFragment extends Fragment {
         //TODO(FALTAN LOS GESTORES SI ES ADMIN)
     }
 }
+
