@@ -24,7 +24,16 @@ public class ShoppingCardFragment extends Fragment {
 
     private MyLineaspedidoAdapter adapter;
     private RecyclerView rcwlineas;
-    private TextView totalpedido;
+    public TextView totalpedido;
+
+    public TextView getTotalpedido() {
+        return totalpedido;
+    }
+
+    public void setTotalpedido(TextView totalpedido) {
+        this.totalpedido = totalpedido;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,9 +43,11 @@ public class ShoppingCardFragment extends Fragment {
         totalpedido = root.findViewById(R.id.textViewTOTAL);
         adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
         update();
+        GlobalInformation.userShopping = this;
         return root;
     }
     public void update(){
+
             totalpedido.setText(PedidosFactory.getTotal()+"€");
             adapter.update(PedidosFactory.get().getLineas());
             rcwlineas.setAdapter(adapter);

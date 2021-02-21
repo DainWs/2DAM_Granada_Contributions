@@ -14,7 +14,9 @@ import com.josealex.granadacontributions.modules.LineaPedido;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.modules.Productos;
+import com.josealex.granadacontributions.ui.home.ShoppingCardFragment;
 import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
 import java.text.DecimalFormat;
@@ -30,6 +32,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
     public MyLineaspedidoAdapter(List<LineaPedido> items ) {
         mValues = items;
         separadoresPersonalizados.setDecimalSeparator('.');
+
     }
 
     @Override
@@ -88,6 +91,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
                 public void onClick(View v) {
 
                     lineaPedido.addCantidad(1);
+                    GlobalInformation.userShopping.update();
                     notifyDataSetChanged();
                 }
             });
@@ -96,7 +100,9 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
                 public void onClick(View v) {
 
                     if(lineaPedido.getCantidad()>1) {
+
                         lineaPedido.removeCantidad(1);
+                        GlobalInformation.userShopping.update();
                         notifyDataSetChanged();
                     }
                 }
