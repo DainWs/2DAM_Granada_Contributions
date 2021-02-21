@@ -55,7 +55,8 @@ public class UserFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int id) {
                             EditText salary = inflate.findViewById(R.id.editSalaryadd);
                            try {
-                               mItem.setSaldo(Integer.valueOf(salary.getText().toString()));
+
+                               mItem.setSaldo(mItem.getSaldo()+Integer.valueOf( salary.getText().toString()));
                                FirebaseDBManager.saveUserData(mItem);
                            }catch (Exception e){
                                 Toast.makeText(getContext(),R.string.salaryerror,Toast.LENGTH_LONG).show();

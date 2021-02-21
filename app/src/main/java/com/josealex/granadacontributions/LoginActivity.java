@@ -53,6 +53,12 @@ public class LoginActivity extends AppCompatActivity {
         conect = findViewById(R.id.loginCon);
         email = findViewById(R.id.loginEmail);
         password = findViewById(R.id.loginPassword);
+
+        google = findViewById(R.id.bgoogle);
+        registro = findViewById(R.id.loginReg);
+        conect = findViewById(R.id.loginCon);
+        email = findViewById(R.id.loginEmail);
+        password = findViewById(R.id.loginPassword);
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

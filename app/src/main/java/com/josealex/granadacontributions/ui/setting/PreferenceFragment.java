@@ -68,7 +68,7 @@ public class PreferenceFragment extends Fragment {
         salaryview = root.findViewById(R.id.textViewSalary);
 
 
-        salaryview.setText(user.getSaldo()+"");
+        salaryview.setText(user.getSaldo()+" €");
         root.findViewById(R.id.market_addmoney).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

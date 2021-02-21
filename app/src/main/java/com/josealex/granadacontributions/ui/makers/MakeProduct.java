@@ -55,7 +55,7 @@ public class MakeProduct {
         );
 
         categorySpinner.setAdapter(adapter);
-
+        categorySpinner.setSelection(2);
         AlertDialog dialog = new AlertDialog.Builder(GlobalInformation.mainActivity)
                 .setView(dialogView)
                 // poniendo el listener positivo a nulo e iniciandolo mas tarde,
@@ -148,7 +148,7 @@ public class MakeProduct {
         String precio = precioField.getText().toString();
         String cantidad = cantidadField.getText().toString();
 
-        System.out.println(nombre + " , " + categoria + " , " + precio + " , " + cantidad);
+
 
         if(!nombre.isEmpty()) {
             productos.setNombre(nombre);
