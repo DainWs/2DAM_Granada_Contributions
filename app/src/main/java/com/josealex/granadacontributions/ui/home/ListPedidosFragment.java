@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MyPedidoAdapter;
 import com.josealex.granadacontributions.modules.Mercado;
-import com.josealex.granadacontributions.modules.Productos;
-import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.modules.Pedido;
 
 public class ListPedidosFragment extends Fragment {
 
@@ -38,9 +37,20 @@ public class ListPedidosFragment extends Fragment {
 
         recycler = root.findViewById(R.id.include);
 
-        adapter = new MyPedidoAdapter(market.getPedidos());
+        adapter = new MyPedidoAdapter(market.getPedidos()) {
+            @Override
+            public void onViewClick(View view, Pedido mItem, int position) {
 
+            }
+        };
+
+        recycler.setAdapter(adapter);
 
         return root;
     }
+
+    public void update() {
+
+    }
+
 }

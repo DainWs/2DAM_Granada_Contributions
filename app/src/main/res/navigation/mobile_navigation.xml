@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_from_mercadoFragment_to_productoFragment"
             app:destination="@id/productoFragment" />
+        <action
+            android:id="@+id/action_mercadoFragment_to_listPedidosFragment"
+            app:destination="@id/listPedidosFragment" />
     </fragment>
     <fragment
         android:id="@+id/productoFragment"
@@ -93,6 +96,36 @@
     <fragment
         android:id="@+id/pedidosFragment"
         android:name="com.josealex.granadacontributions.ui.home.PedidosFragment"
-        android:label="PedidosFragment" />
+        android:label="PedidosFragment" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="pedido"
+            app:argType="com.josealex.granadacontributions.modules.Pedido"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/listPedidosFragment"
+        android:name="com.josealex.granadacontributions.ui.home.ListPedidosFragment"
+        android:label="{title}">
+        <action
+            android:id="@+id/action_listPedidosFragment_to_pedidosFragment"
+            app:destination="@id/pedidosFragment" />
+        <argument
+            android:name="market"
+            android:defaultValue="@null"
+            app:argType="com.josealex.granadacontributions.modules.Mercado"
+            app:nullable="true" />
+        <argument
+            android:name="user"
+            android:defaultValue="@null"
+            app:argType="com.josealex.granadacontributions.modules.User"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
