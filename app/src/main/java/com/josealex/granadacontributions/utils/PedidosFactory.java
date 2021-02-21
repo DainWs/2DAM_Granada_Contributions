@@ -9,8 +9,10 @@ import com.josealex.granadacontributions.modules.User;
 public class PedidosFactory {
 
     private static Pedido pedido = new Pedido();
+    private static Mercado mercadoActual = new Mercado();
 
     public static void make(User cliente, Mercado mercado) {
+        mercadoActual = mercado;
         pedido = new Pedido(cliente, mercado);
     }
 
@@ -35,6 +37,8 @@ public class PedidosFactory {
     public static Pedido get() {
         return pedido;
     }
+
+    public static Mercado getMercadoActual() {return mercadoActual;}
 
 
 

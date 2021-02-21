@@ -47,24 +47,24 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public View getDropDownView(int pos, View convertView, ViewGroup group) {
-        if (pos == 0) {
+        /*if (pos == 0) {
             View view = layoutInflater.inflate(R.layout.single_spinner_item, group, false);
             TextView tv = view.findViewById(R.id.spinner_item_text);
             tv.setText(nothingText);
             return view;
-        }
-        return adapter.getDropDownView(pos - EXTRA_ITEMS, null, group);
+        }*/
+        return adapter.getDropDownView(pos, null, group);
     }
 
     @Override
     public int getCount() {
         int count = adapter.getCount();
-        return (count != 0) ? count + EXTRA_ITEMS : count;
+        return count;
     }
 
     @Override
     public Object getItem(int pos) {
-        return (pos != 0) ? adapter.getItem((pos - EXTRA_ITEMS)) : null;
+        return adapter.getItem(pos);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position >= EXTRA_ITEMS ? adapter.getItemId(position - EXTRA_ITEMS) : position - EXTRA_ITEMS;
+        return adapter.getItemId(position);
     }
 
     @Override
