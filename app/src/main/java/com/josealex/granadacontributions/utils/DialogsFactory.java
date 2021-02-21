@@ -23,6 +23,17 @@ public class DialogsFactory {
                 .show();
     }
 
+    public static void makeWarnningDialog(String warning) {
+        new AlertDialog.Builder(GlobalInformation.mainActivity)
+                .setMessage(warning)
+                .setNegativeButton(
+                        R.string.ok_dialog_button,
+                        (dialogD, id) -> dialogD.dismiss()
+                )
+                .create()
+                .show();
+    }
+
     public static void makeAddToShoppingCartDialog(DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(GlobalInformation.mainActivity)
                 .setTitle(R.string.shopping_cart)

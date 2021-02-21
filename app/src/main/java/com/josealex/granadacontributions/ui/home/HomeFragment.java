@@ -191,6 +191,7 @@ public class HomeFragment extends Fragment {
     public void cargarSpinner(){
 
         Mercado nothingSelected = new Mercado();
+        nothingSelected.setNombre(ResourceManager.getString(R.string.spinner_nothing_selected));
         ArrayList<Mercado> mercados = new ArrayList<>();
         mercados.add(nothingSelected);
         mercados.addAll(GlobalInformation.MERCADOS);
@@ -198,7 +199,8 @@ public class HomeFragment extends Fragment {
         SpinnerAdapter simpleSpinnerAdapter = new ArrayAdapter<Mercado>(
                 getContext(),
                 android.R.layout.simple_spinner_item,
-                mercados);
+                mercados
+        );
 
         mercadosSpinnerAdapter = new ModelsSpinnerAdapter(
                 simpleSpinnerAdapter,
@@ -298,6 +300,7 @@ public class HomeFragment extends Fragment {
             if (inMode) {
                 filterMenuLinearlayout.addView(addMercadoBtn, 0);
 
+                categoriasSpinner.setEnabled(false);
                 //TODO(FALTAN COSAS POR ACTUALIZAR)
             } else {
                 filterMenuLinearlayout.removeView(

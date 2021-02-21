@@ -13,6 +13,7 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.LineaPedido;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
@@ -62,7 +63,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
         private final Button mMinusButton;
         private final Button mPlusButton;
         public LineaPedido lineaPedido;
-
+        public Productos producto;
         public ViewHolder(View view) {
             super(view);
             mView = view;
@@ -78,6 +79,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
         public void start(LineaPedido lineaPedido, int position) {
             this.lineaPedido = lineaPedido;
             mIdView.setText(position+"");
+            producto = PedidosFactory.getProducto(lineaPedido.getUidProducto());
             precioTotalLinea.setText(new DecimalFormat("#.00", separadoresPersonalizados ).format(lineaPedido.getPrecio())+"€");
             mContentView.setText(lineaPedido.getNombreProducto());
             mCantidadView.setText(lineaPedido.getCantidad()+"");
