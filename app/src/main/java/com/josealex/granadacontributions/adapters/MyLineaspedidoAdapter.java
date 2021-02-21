@@ -100,7 +100,6 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
                 public void onClick(View v) {
 
                     if(lineaPedido.getCantidad()>1) {
-
                         lineaPedido.removeCantidad(1);
                         GlobalInformation.userShopping.update();
                         notifyDataSetChanged();
