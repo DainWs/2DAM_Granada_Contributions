@@ -62,6 +62,7 @@ public class PreferenceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_preferences, container, false);
+
         user = GlobalInformation.SIGN_IN_USER;
 
         userManagesRecyclerView = root.findViewById(R.id.gestionpreference);

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.utils.PedidosFactory;
 
 public class PedidosFragment extends Fragment {
 
@@ -27,6 +28,8 @@ public class PedidosFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_pedido, container, false);
 
         pedido = (Pedido) getArguments().getSerializable(PEDIDOS_BUNDLE_ID);
+
+
 
         return root;
     }

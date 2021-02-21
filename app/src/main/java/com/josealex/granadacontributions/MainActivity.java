@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         GlobalInformation.mainActivity = this;
+        GlobalInformation.SIGN_IN_USER = loggedUser;
 
         dbManager = new FirebaseDBManager(this, loggedUser);
 
