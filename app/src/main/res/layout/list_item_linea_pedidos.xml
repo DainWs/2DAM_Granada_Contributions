@@ -28,13 +28,6 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/item_minus_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="@string/minus" />
-
         <TextView
             android:id="@+id/item_cantidad"
             android:layout_width="wrap_content"
@@ -44,11 +37,28 @@
             tools:text="0" />
 
         <Button
-            android:id="@+id/item_plus_button"
+            android:id="@+id/item_minus_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:text="@string/minus" />
+
+        <Button
+            android:id="@+id/item_plus_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:text="@string/plus" />
+
+        <TextView
+            android:id="@+id/textPtlinea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
