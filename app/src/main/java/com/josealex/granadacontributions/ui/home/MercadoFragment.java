@@ -102,7 +102,7 @@ public class MercadoFragment extends Fragment {
             public void onButtonClick(User mItem) {
                 DialogsFactory.makeAreYouSureDialog(
                         (dialog, which) -> {
-                            removeUser(user);
+                            removeUser(mItem);
                             dialog.dismiss();
                         }
                 );

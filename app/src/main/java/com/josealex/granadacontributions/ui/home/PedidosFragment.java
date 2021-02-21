@@ -17,6 +17,8 @@ import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
+import org.w3c.dom.Text;
+
 public class PedidosFragment extends Fragment {
 
     public static final String PEDIDOS_BUNDLE_ID = "pedido";
@@ -37,11 +39,18 @@ public class PedidosFragment extends Fragment {
 
         pedido = (Pedido) getArguments().getSerializable(PEDIDOS_BUNDLE_ID);
 
-        totalpedido = root.findViewById(R.id.textViewTOTAL);
+        ((TextView)root.findViewById(R.id.textViewTOTAL)).setText(pedido.getTotal()+"");
         rcwlineas = root.findViewById(R.id.include22);
         adapter = new MyLineaspedidoAdapter(pedido.getLineas());
-        root.findViewById(R.id.refuse_button);
-        root.findViewById(R.id.accept_button);
+        rcwlineas.setAdapter(adapter);
+
+        root.findViewById(R.id.refuse_button).setOnClickListener(v -> {
+
+        });
+
+        root.findViewById(R.id.accept_button).setOnClickListener(v -> {
+
+        });
 
 
         return root;

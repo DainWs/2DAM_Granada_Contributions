@@ -210,7 +210,7 @@ public class HomeFragment extends Fragment {
 
         String[] categorias = ResourceManager.getArray(R.array.categorias);
         String[] spinnerCategorias = new String[categorias.length+1];
-        spinnerCategorias[0] = "";
+        spinnerCategorias[0] = ResourceManager.getString(R.string.spinner_nothing_selected);
         for (int i = 1; i < categorias.length + 1; i++) {
             spinnerCategorias[i] =
                     categorias[i-1];
@@ -301,12 +301,14 @@ public class HomeFragment extends Fragment {
                 filterMenuLinearlayout.addView(addMercadoBtn, 0);
 
                 categoriasSpinner.setEnabled(false);
+                categoriasSpinner.setVisibility(View.INVISIBLE);
             } else {
                 filterMenuLinearlayout.removeView(
                         filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
                 );
 
                 categoriasSpinner.setEnabled(true);
+                categoriasSpinner.setVisibility(View.VISIBLE);
             }
         }
         update();

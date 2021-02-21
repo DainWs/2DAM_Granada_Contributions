@@ -45,6 +45,7 @@ public class User implements Serializable {
     }
 
     public void setCorreo(String correo) {
+        if(nombre.isEmpty()) nombre = correo;
         this.correo = correo;
     }
 
