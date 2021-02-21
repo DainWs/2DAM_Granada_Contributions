@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MyLineaspedidoAdapter;
+import com.josealex.granadacontributions.firebase.FirebaseDBManager;
+import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
@@ -24,7 +28,38 @@ public class ShoppingCardFragment extends Fragment {
 
     private MyLineaspedidoAdapter adapter;
     private RecyclerView rcwlineas;
+
     public TextView totalpedido;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_pedido, container, false);
+        GlobalInformation.mainActivity.setShoppingItemState(false);
+        rcwlineas = root.findViewById(R.id.include2);
+        adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
+
+        totalpedido = root.findViewById(R.id.textViewTOTAL);
+
+        root.findViewById(R.id.buy_button).setOnClickListener(v -> {
+            User cliente = PedidosFactory.getCliente();
+            Mercado market = PedidosFactory.getMercadoActual();
+            Pedido pedido = PedidosFactory.get();
+            pedido.setTotal(PedidosFactory.getTotal());
+
+            cliente.addPedidos(pedido);
+            market.addPedido(pedido);
+
+            FirebaseDBManager.saveUserData(cliente);
+            FirebaseDBManager.saveMercado(market);
+
+            GlobalInformation.mainActivity.onBackPressed();
+        });
+
+        update();
+        GlobalInformation.userShopping = this;
+        return root;
+    }
 
     public TextView getTotalpedido() {
         return totalpedido;
@@ -34,24 +69,10 @@ public class ShoppingCardFragment extends Fragment {
         this.totalpedido = totalpedido;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_pedido, container, false);
-        GlobalInformation.mainActivity.setShoppingItemState(false);
-        rcwlineas = root.findViewById(R.id.include2);
-        totalpedido = root.findViewById(R.id.textViewTOTAL);
-        adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
-        update();
-        GlobalInformation.userShopping = this;
-        return root;
-    }
     public void update(){
-
-            totalpedido.setText(PedidosFactory.getTotal()+"€");
-            adapter.update(PedidosFactory.get().getLineas());
-            rcwlineas.setAdapter(adapter);
-
+        totalpedido.setText(PedidosFactory.getTotal()+"€");
+        adapter.update(PedidosFactory.get().getLineas());
+        rcwlineas.setAdapter(adapter);
     }
 
     @Override

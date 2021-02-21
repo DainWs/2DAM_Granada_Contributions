@@ -23,6 +23,22 @@ public class DialogsFactory {
                 .show();
     }
 
+    public static void makeAreYouSureDeleteThisDialog(DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(GlobalInformation.mainActivity)
+                .setTitle(R.string.warnning)
+                .setMessage(R.string.are_you_sure_delete)
+                .setPositiveButton(
+                        R.string.cancel_button_text,
+                        okListener
+                )
+                .setNegativeButton(
+                        R.string.do_not_cancel,
+                        (dialogD, id) -> dialogD.dismiss()
+                )
+                .create()
+                .show();
+    }
+
     public static void makeWarnningDialog(String warning) {
         new AlertDialog.Builder(GlobalInformation.mainActivity)
                 .setMessage(warning)

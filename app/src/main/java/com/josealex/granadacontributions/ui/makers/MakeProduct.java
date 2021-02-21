@@ -17,6 +17,8 @@ import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
+import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.ResourceManager;
 
@@ -75,16 +77,28 @@ public class MakeProduct {
                     .setOnClickListener(view -> {
                         Productos newProduct = userApplyToMarket();
                         if(newProduct != null) {
-                            ArrayList<Productos> listProductos = adapter.getList();
-                            listProductos.add(newProduct);
-
-                            if (mercado != null) {
-                                mercado.addProducto(newProduct);
-                                FirebaseDBManager.saveMercado(mercado);
+                            if(mercado.getProductosWhere(new Consulta<Productos>() {
+                                @Override
+                                public boolean comprueba(Productos o) {
+                                    return newProduct.getNombre().equals(o.getNombre());
+                                }
+                            }).size() > 0) {
+                                DialogsFactory.makeWarnningDialog(
+                                        ResourceManager.getString(R.string.products_already_exist)
+                                );
                             }
+                            else {
+                                ArrayList<Productos> listProductos = adapter.getList();
+                                listProductos.add(newProduct);
 
-                            adapter.update(listProductos);
-                            it.dismiss();
+                                if (mercado != null) {
+                                    mercado.addProducto(newProduct);
+                                    FirebaseDBManager.saveMercado(mercado);
+                                }
+
+                                adapter.update(listProductos);
+                                it.dismiss();
+                            }
                         }
                     });
         });

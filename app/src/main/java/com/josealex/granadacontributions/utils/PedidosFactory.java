@@ -14,12 +14,14 @@ import java.util.Map;
 public class PedidosFactory {
 
     private static Pedido pedido = new Pedido();
+    private static User cliente = new User();
     private static Mercado mercadoActual = new Mercado();
 
     private static Map<String, Productos> productosMap = new HashMap<>();
 
-    public static void make(User cliente, Mercado mercado) {
+    public static void make(User nCliente, Mercado mercado) {
         mercadoActual = mercado;
+        cliente = nCliente;
         productosMap = new HashMap<>();
         pedido = new Pedido(cliente, mercado);
     }
@@ -80,6 +82,8 @@ public class PedidosFactory {
     public static Pedido get() {
         return pedido;
     }
+
+    public static User getCliente() {return cliente;}
 
     public static Mercado getMercadoActual() {return mercadoActual;}
 

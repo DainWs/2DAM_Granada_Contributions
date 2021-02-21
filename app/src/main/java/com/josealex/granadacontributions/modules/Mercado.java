@@ -150,12 +150,48 @@ public class Mercado implements Serializable {
 
     public void addPedido(Pedido pedido) {
         if(!pedidos.contains(pedido)) {
+
+            ArrayList<Productos> list = getProductosWhere(new Consulta<Productos>() {
+                @Override
+                public boolean comprueba(Productos o) {
+                    return pedido.getLineas().contains(o.getUid());
+                }
+            });
+
+            for (LineaPedido lineas: pedido.getLineas()) {
+                for (int i = 0; i < list.size(); i++) {
+                    Productos producto = list.get(i);
+                    if(lineas.getUidProducto().equals(producto.getUid())) {
+                        producto.setCantidad(producto.getCantidad() - lineas.getCantidad());
+                        list.set(i, producto);
+                    }
+                }
+            }
+
             pedidos.add(pedido);
         }
     }
 
     public void removePedido(Pedido pedido) {
         if(pedidos.contains(pedido)) {
+
+            ArrayList<Productos> list = getProductosWhere(new Consulta<Productos>() {
+                @Override
+                public boolean comprueba(Productos o) {
+                    return pedido.getLineas().contains(o.getUid());
+                }
+            });
+
+            for (LineaPedido lineas: pedido.getLineas()) {
+                for (int i = 0; i < list.size(); i++) {
+                    Productos producto = list.get(i);
+                    if(lineas.getUidProducto().equals(producto.getUid())) {
+                        producto.setCantidad(producto.getCantidad() + lineas.getCantidad());
+                        list.set(i, producto);
+                    }
+                }
+            }
+
             pedidos.remove(pedido);
         }
     }

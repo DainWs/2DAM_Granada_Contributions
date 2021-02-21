@@ -1,5 +1,7 @@
 package com.josealex.granadacontributions.modules;
 
+import com.josealex.granadacontributions.firebase.FirebaseDBManager;
+
 import java.io.Serializable;
 
 public class Productos implements Serializable {
@@ -11,11 +13,10 @@ public class Productos implements Serializable {
     private float precio=0;
     private int cantidad=0;
 
-    public Productos() {
-    }
+    public Productos() { }
 
-    public Productos(String uid, String nombre, String categoria, float precio) {
-        this.uid = uid;
+    public Productos(String nombre, String categoria, float precio) {
+        this.uid = nombre;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -34,6 +35,7 @@ public class Productos implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        this.uid = nombre;
         this.nombre = nombre;
     }
 

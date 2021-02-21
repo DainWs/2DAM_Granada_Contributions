@@ -301,20 +301,12 @@ public class HomeFragment extends Fragment {
                 filterMenuLinearlayout.addView(addMercadoBtn, 0);
 
                 categoriasSpinner.setEnabled(false);
-                //TODO(FALTAN COSAS POR ACTUALIZAR)
             } else {
                 filterMenuLinearlayout.removeView(
                         filterMenuLinearlayout.findViewById(R.id.add_mercado_btn)
                 );
 
-            /*Consulta.getMercadosWhere(new Consulta<Mercado>() {
-                @Override
-                public boolean comprueba(Mercado o) {
-                    return false;
-                }
-            });*/
-
-                //TODO(FALTAN COSAS POR ACTUALIZAR)
+                categoriasSpinner.setEnabled(true);
             }
         }
         update();

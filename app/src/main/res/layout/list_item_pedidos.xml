@@ -58,12 +58,34 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/item_date"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            tools:text="01-01-2021" />
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_pedido"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/item_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text=" 143141€" />
+
+            <TextView
+                android:id="@+id/item_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                tools:text="01-01-2021" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
