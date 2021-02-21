@@ -86,6 +86,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
             mPlusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     lineaPedido.addCantidad(1);
                     notifyDataSetChanged();
                 }

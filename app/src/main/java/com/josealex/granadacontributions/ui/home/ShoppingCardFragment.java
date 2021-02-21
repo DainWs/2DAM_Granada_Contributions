@@ -37,7 +37,7 @@ public class ShoppingCardFragment extends Fragment {
         return root;
     }
     public void update(){
-         //  totalpedido.setText(PedidosFactory.get().);
+            totalpedido.setText(PedidosFactory.getTotal()+"€");
             adapter.update(PedidosFactory.get().getLineas());
             rcwlineas.setAdapter(adapter);
 
