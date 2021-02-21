@@ -24,6 +24,7 @@ public class ShoppingCardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_pedido, container, false);
+        GlobalInformation.mainActivity.setShoppingItemState(false);
         pedido = PedidosFactory.get();
 
         return root;
