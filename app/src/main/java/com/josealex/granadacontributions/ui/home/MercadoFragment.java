@@ -7,10 +7,13 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -53,11 +56,12 @@ public class MercadoFragment extends Fragment {
     private ViewGroup optionsLinearMenu;
     private Button deleteMarketButton;
     private Button pendingOrdersMarketButton;
-
+    private ImageButton show_pass;
     private boolean generalExpanded = true;
     private View generalContent;
     private int oldHeightOfGenerals;
-
+    private TextView showpasstext;
+    private boolean showing;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +84,7 @@ public class MercadoFragment extends Fragment {
         ((TextView)root.findViewById(R.id.market_password_field))
                 .setText(market.getPassword());
 
-        //TODO (BOTON DE MOSTRAR CONTRASENIA)
+
 
         boolean isAdmin = (user.getUid().equals(this.market.getUidOwner())) ? true : false ;
 
@@ -234,6 +238,22 @@ public class MercadoFragment extends Fragment {
         });
         */
         updateOwner();
+        show_pass = root.findViewById(R.id.show_password_button);
+        showpasstext = root.findViewById(R.id.market_password_field);
+
+        show_pass.setOnClickListener(v -> {
+            if(showing){
+                showpasstext.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else{
+                showpasstext.setTransformationMethod( PasswordTransformationMethod.getInstance());
+            }
+            showing = !showing;
+
+        });
+
+        showing = false;
+
 
         return root;
     }
@@ -289,11 +309,11 @@ public class MercadoFragment extends Fragment {
         if (user.getUid().equals(this.market.getUidOwner())) {
             if(optionsLinearMenu.findViewById(R.id.market_manager_remove_button) == null) {
                 optionsLinearMenu.addView(deleteMarketButton);
-                //TODO(FALTAN LOS GESTORES SI ES ADMIN)
+
             }
         }
         else optionsLinearMenu.removeView(deleteMarketButton);
-        //TODO(FALTAN LOS GESTORES SI ES ADMIN)
+
     }
 }
 

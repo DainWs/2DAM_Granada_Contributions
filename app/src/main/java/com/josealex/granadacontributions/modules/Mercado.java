@@ -223,7 +223,7 @@ public class Mercado implements Serializable {
         });
 
         for (User manager: usersList) {
-            //TODO(PROBAR SI FUNCIONA)
+
             manager.removeGestiones(market.getUid());
             FirebaseDBManager.saveUserData(manager);
         }

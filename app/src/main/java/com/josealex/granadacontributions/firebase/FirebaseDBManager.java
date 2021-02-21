@@ -81,7 +81,7 @@ public class FirebaseDBManager {
                     saveUserData(user);
                 }
 
-                //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS USUARIOS AL COMENZAR)
+
                 GlobalInformation.userFragment.update();
                 //RECOGEMOS LOS MERCADOS
                 Iterable<DataSnapshot> mercados = snapshot.child(MARKETS_PATH).getChildren();

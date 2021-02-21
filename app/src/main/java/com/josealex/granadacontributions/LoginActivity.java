@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getBaseContext(), "Fail conect", Toast.LENGTH_SHORT).show();
                 }
-                //TODO (cambiar los text de Toast por R.String...)
+
             }
         });
 
