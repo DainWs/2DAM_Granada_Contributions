@@ -128,6 +128,10 @@ public class MercadoFragment extends Fragment {
                                         ArrayList<Productos> productosList = productsAdapter.getList();
                                         productosList.set(position, editedProducto);
                                         productsAdapter.update(productosList);
+
+                                        market.setProductos(productosList);
+                                        FirebaseDBManager.saveMercado(market);
+
                                         dialog.dismiss();
                                     });
                                 });
@@ -137,6 +141,10 @@ public class MercadoFragment extends Fragment {
                                     ArrayList<Productos> productos = productsAdapter.getList();
                                     productos.remove(producto);
                                     productsAdapter.update(productos);
+
+                                    market.setProductos(productos);
+                                    FirebaseDBManager.saveMercado(market);
+
                                     dialog.dismiss();
                                 });
                                 return true;
