@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,18 +24,20 @@ public class ShoppingCardFragment extends Fragment {
 
     private MyLineaspedidoAdapter adapter;
     private RecyclerView rcwlineas;
+    private TextView totalpedido;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_pedido, container, false);
         GlobalInformation.mainActivity.setShoppingItemState(false);
         rcwlineas = root.findViewById(R.id.include2);
+        totalpedido = root.findViewById(R.id.textViewTOTAL);
         adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
         update();
         return root;
     }
     public void update(){
-
+         //  totalpedido.setText(PedidosFactory.get().);
             adapter.update(PedidosFactory.get().getLineas());
             rcwlineas.setAdapter(adapter);
 

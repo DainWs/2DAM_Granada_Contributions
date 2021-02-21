@@ -16,15 +16,19 @@ import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 
 public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAdapter.ViewHolder> {
 
     private List<LineaPedido> mValues;
+    DecimalFormatSymbols separadoresPersonalizados = new DecimalFormatSymbols();
 
     public MyLineaspedidoAdapter(List<LineaPedido> items ) {
         mValues = items;
+        separadoresPersonalizados.setDecimalSeparator('.');
     }
 
     @Override
@@ -54,6 +58,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
         public final TextView mIdView;
         public final TextView mContentView;
         private final TextView mCantidadView;
+        private final TextView precioTotalLinea;
         private final Button mMinusButton;
         private final Button mPlusButton;
         public LineaPedido lineaPedido;
@@ -66,12 +71,14 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
             mCantidadView = (TextView) view.findViewById(R.id.item_cantidad);
             mMinusButton = (Button) view.findViewById(R.id.item_minus_button);
             mPlusButton = (Button) view.findViewById(R.id.item_plus_button);
+            precioTotalLinea = view.findViewById(R.id.textPtlinea);
+
         }
 
         public void start(LineaPedido lineaPedido, int position) {
             this.lineaPedido = lineaPedido;
             mIdView.setText(position+"");
-
+            precioTotalLinea.setText(new DecimalFormat("#.00", separadoresPersonalizados ).format(lineaPedido.getPrecio())+"€");
             mContentView.setText(lineaPedido.getNombreProducto());
             mCantidadView.setText(lineaPedido.getCantidad()+"");
             mPlusButton.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +92,7 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
                 @Override
                 public void onClick(View v) {
 
-                    if(lineaPedido.getCantidad()>0) {
+                    if(lineaPedido.getCantidad()>1) {
                         lineaPedido.removeCantidad(1);
                         notifyDataSetChanged();
                     }
