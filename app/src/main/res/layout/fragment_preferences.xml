@@ -180,17 +180,18 @@
                 android:contentDescription="@string/user_image"
                 android:src="@android:drawable/ic_menu_add" />
         </LinearLayout>
-    </LinearLayout>
 
-    <View
-        android:id="@+id/hr3"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/colorPrimary" />
+        <View
+            android:id="@+id/hr3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/colorPrimary" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

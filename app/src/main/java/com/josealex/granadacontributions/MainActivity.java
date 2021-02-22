@@ -151,9 +151,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseDBManager.restartListeners();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         GlobalInformation.reset();
+        FirebaseDBManager.stopListeners();
+    }
+
+    @Override
+    public void onBackPressed() {
+        GlobalInformation.reset();
+        super.onBackPressed();
     }
 
     public void setShoppingItemState(boolean state) {

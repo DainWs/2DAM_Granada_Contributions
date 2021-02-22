@@ -89,4 +89,5 @@
     <string name="cannot_undo_this_action">You cannot undo this action</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="refuse_order_title">Are you sure to refuse this order?</string>
 </resources>

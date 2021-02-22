@@ -220,7 +220,6 @@ public class FirebaseDBManager {
         MERCADOS_EVENTS_LISTENER = MERCADO_REF.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                System.out.println("AADDDEDD -----------------------------------------------");
                 if (marketStarted) {
 
                     String uid = (String) snapshot.child("uid").getValue();
@@ -238,7 +237,6 @@ public class FirebaseDBManager {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                System.out.println("MODIFIED -----------------------------------------------");
                 Mercado mercado = new Mercado();
                 mercado.setUid((String) snapshot.child("uid").getValue());
                 mercado.setNombre((String) snapshot.child("nombre").getValue());
@@ -338,6 +336,9 @@ public class FirebaseDBManager {
     }
 
     public static void stopListeners() {
+        userStarted = false;
+        marketStarted = false;
+
         if(USER_REF != null && USERS_EVENTS_LISTENER != null) {
             USER_REF.removeEventListener(USERS_EVENTS_LISTENER);
         }
