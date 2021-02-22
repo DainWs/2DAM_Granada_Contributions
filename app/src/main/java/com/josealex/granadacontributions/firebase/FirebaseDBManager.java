@@ -206,6 +206,8 @@ public class FirebaseDBManager {
                 Mercado mercado = new Mercado();
                 mercado.setUid((String) snapshot.child("uid").getValue());
                 mercado.setNombre((String) snapshot.child("nombre").getValue());
+                mercado.setUidOwner((String) snapshot.child("uidOwner").getValue());
+                mercado.setPassword((String) snapshot.child("password").getValue());
 
                 //PILLAMOS LOS GESTORES
                 ArrayList<String> gestores = new ArrayList<>();
