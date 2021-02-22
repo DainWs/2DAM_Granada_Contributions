@@ -44,6 +44,11 @@ public class ClientPendingOrdersFragment extends Fragment {
         adapter = new MyPedidoAdapter(user.getPedidosPendientes()) {
             @Override
             public void onViewClick(View view, Pedido mItem, int position) {
+
+            }
+
+            @Override
+            public void onViewLongClick(View view, Pedido mItem, int position) {
                 DialogsFactory.makeAreYouSureDialog((dialog, which) -> {
 
                     ArrayList<Mercado> mercados = Consulta.getMercadosWhere(new Consulta<Mercado>() {
@@ -79,6 +84,7 @@ public class ClientPendingOrdersFragment extends Fragment {
 
         recycler.setAdapter(adapter);
 
+        GlobalInformation.clientPendingListFragment = this;
         return root;
     }
 

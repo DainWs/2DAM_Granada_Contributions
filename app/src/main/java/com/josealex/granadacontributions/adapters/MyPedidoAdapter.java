@@ -68,6 +68,11 @@ public class MyPedidoAdapter extends RecyclerView.Adapter<MyPedidoAdapter.ViewHo
             mView.setOnClickListener(v -> {
                 onViewClick(mView, mItem, position);
             });
+
+            mView.setOnLongClickListener(v -> {
+                onViewLongClick(mView, mItem, position);
+                return true;
+            });
         }
 
         @Override
@@ -77,4 +82,6 @@ public class MyPedidoAdapter extends RecyclerView.Adapter<MyPedidoAdapter.ViewHo
     }
 
     public void onViewClick(View view, Pedido mItem, int position) {}
+
+    public void onViewLongClick(View view, Pedido mItem, int position) {}
 }

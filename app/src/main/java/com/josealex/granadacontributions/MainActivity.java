@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem shopingCartItem;
     private Menu menu;
 
+    private View headerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,18 +61,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //toolbar.getMenu()
-        //        .add(Menu.NONE, R.id.mode_user_switch, Menu.FIRST, R.string.change_user_mode);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        View headerView = navigationView.getHeaderView(navigationView.getHeaderCount() - 1);
+        headerView = navigationView.getHeaderView(navigationView.getHeaderCount() - 1);
 
-        ((TextView) headerView.findViewById(R.id.usuario_nombre))
-                .setText(loggedUser.getNombre());
-        ((TextView) headerView.findViewById(R.id.usuario_mail))
-                .setText(loggedUser.getCorreo());
+        updateGraphics();
 
         Glide.with(getBaseContext())
                 .load(loggedUser.getFotoURL())
@@ -99,14 +95,11 @@ public class MainActivity extends AppCompatActivity {
         switchModeItem = menu.findItem(R.id.mode_user_switch);
         Switch switchView = ((Switch) switchModeItem.getActionView().findViewById(R.id.switch_view));
 
-        switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked != GlobalInformation.ON_MANAGER_MODE) {
-                    GlobalInformation.ON_MANAGER_MODE = isChecked;
-                    GlobalInformation.home.changeMode(isChecked);
+        switchView.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked != GlobalInformation.ON_MANAGER_MODE) {
+                GlobalInformation.ON_MANAGER_MODE = isChecked;
+                GlobalInformation.home.changeMode(isChecked);
 
-                }
             }
         });
 
@@ -134,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void update() {
         loggedUser = GlobalInformation.SIGN_IN_USER;
+
+        updateGraphics();
+
         if (menu != null) {
             if (loggedUser.getGestiona().size() <= 0) {
                 switchModeItem.setEnabled(false);
@@ -143,6 +139,15 @@ public class MainActivity extends AppCompatActivity {
                 switchModeItem.setVisible(true);
             }
         }
+    }
+
+    public void updateGraphics() {
+        ((TextView) headerView.findViewById(R.id.usuario_nombre))
+                .setText(loggedUser.getNombre());
+        ((TextView) headerView.findViewById(R.id.usuario_mail))
+                .setText(loggedUser.getCorreo());
+        ((TextView) headerView.findViewById(R.id.salary_text))
+                .setText(loggedUser.getSaldo());
     }
 
     @Override

@@ -67,18 +67,6 @@
                     android:textStyle="bold|italic"
                     tools:text="1234€" />
 
-                <View
-                    android:id="@+id/hr3"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimary" />
-
-                <View
-                    android:id="@+id/hr8"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@color/colorSecondaryTransparent" />
             </LinearLayout>
 
         </LinearLayout>
@@ -98,7 +86,7 @@
                 android:paddingTop="5dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="5dp"
-                android:text="@string/usename"
+                android:text="@string/username"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
@@ -167,7 +155,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
             android:background="@color/colorSecondaryTransparent"
             android:orientation="horizontal">
 
@@ -192,6 +179,17 @@
                 android:contentDescription="@string/user_image"
                 android:src="@android:drawable/ic_menu_add" />
         </LinearLayout>
+
+        <View
+            android:id="@+id/hr3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -228,7 +226,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="18dp"
             android:layout_marginRight="18dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="15dp"
             android:background="@color/colorPrimary" />
 
         <LinearLayout

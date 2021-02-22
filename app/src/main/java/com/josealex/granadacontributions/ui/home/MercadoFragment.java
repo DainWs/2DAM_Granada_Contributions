@@ -184,7 +184,7 @@ public class MercadoFragment extends Fragment {
                             GlobalInformation.mainActivity.onBackPressed();
                         }
                         else {
-                            DialogsFactory.makeWarnningDialog(
+                            DialogsFactory.makeWarningDialog(
                                     ResourceManager.getString(R.string.you_cant_delete_market_if)
                             );
                         }
@@ -218,39 +218,6 @@ public class MercadoFragment extends Fragment {
             generalExpanded = !generalExpanded;
         });
 
-        /*
-        root.findViewById(R.id.managers_title).setOnClickListener(v -> {
-            ViewGroup.LayoutParams layoutParams = managersContent.getLayoutParams();
-            if(managersExpanded) {
-                oldHeightOfManagers = layoutParams.height;
-                layoutParams.height = 0;
-                managersContent.setLayoutParams(layoutParams);
-                managersContent.setEnabled(false);
-            }
-            else {
-                layoutParams.height = oldHeightOfManagers;
-                managersContent.setLayoutParams(layoutParams);
-                managersContent.setEnabled(true);
-            }
-            managersExpanded = !managersExpanded;
-        });
-
-        root.findViewById(R.id.products_title).setOnClickListener(v -> {
-            ViewGroup.LayoutParams layoutParams = productsContent.getLayoutParams();
-            if(productsExpanded) {
-                oldHeightOfProducts = layoutParams.height;
-                layoutParams.height = 0;
-                productsContent.setLayoutParams(layoutParams);
-                productsContent.setEnabled(false);
-            }
-            else {
-                layoutParams.height = oldHeightOfProducts;
-                productsContent.setLayoutParams(layoutParams);
-                productsContent.setEnabled(true);
-            }
-            productsExpanded = !productsExpanded;
-        });
-        */
         updateOwner();
         show_pass = root.findViewById(R.id.show_password_button);
         showpasstext = root.findViewById(R.id.market_password_field);
@@ -268,7 +235,7 @@ public class MercadoFragment extends Fragment {
 
         showing = false;
 
-
+        GlobalInformation.mercadoFragment = this;
         return root;
     }
 
@@ -300,6 +267,22 @@ public class MercadoFragment extends Fragment {
         if(market == null) return;
 
         if(this.market.getUid().equals(market.getUid())) {this.market = market;}
+
+        update();
+    }
+
+    public void update() {
+        //ponemos el UID del mercado
+        ((TextView)root.findViewById(R.id.market_uid_field))
+                .setText(market.getUid());
+
+        //ponemos el nombre del admin del mercado
+        ((TextView) root.findViewById(R.id.market_admin_name_field))
+                .setText(marketAdmin.getNombre());
+
+        //ponemos la password de acceso al mercado
+        ((TextView)root.findViewById(R.id.market_password_field))
+                .setText(market.getPassword());
 
         updateOwner();
         updateList();

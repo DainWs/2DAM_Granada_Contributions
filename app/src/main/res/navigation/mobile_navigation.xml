@@ -20,9 +20,6 @@
             android:id="@+id/action_from_home_to_mercadoFragment"
             app:destination="@id/mercadoFragment" />
         <action
-            android:id="@+id/action_from_home_to_productoFragment"
-            app:destination="@id/productoFragment" />
-        <action
             android:id="@+id/action_nav_home_to_nav_shopping_card"
             app:destination="@id/nav_shopping_cart" />
         <action
@@ -34,9 +31,6 @@
         android:name="com.josealex.granadacontributions.ui.home.ProductosListFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_list_productos">
-        <action
-            android:id="@+id/action_from_productosFragment_to_productoFragment"
-            app:destination="@id/productoFragment" />
         <argument
             android:name="title"
             app:argType="string" />
@@ -76,20 +70,8 @@
             android:name="market"
             app:argType="com.josealex.granadacontributions.modules.Mercado" />
         <action
-            android:id="@+id/action_from_mercadoFragment_to_productoFragment"
-            app:destination="@id/productoFragment" />
-        <action
             android:id="@+id/action_from_mercado_to_listPedidos"
             app:destination="@id/list_pending_orders" />
-    </fragment>
-    <fragment
-        android:id="@+id/productoFragment"
-        android:name="com.josealex.granadacontributions.ui.home.ProductoFragment"
-        android:label="{title}"
-        tools:layout="@layout/fragment_producto" >
-        <argument
-            android:name="title"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"

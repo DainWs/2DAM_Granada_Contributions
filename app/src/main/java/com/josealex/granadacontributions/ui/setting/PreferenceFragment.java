@@ -41,14 +41,14 @@ public class PreferenceFragment extends Fragment {
 
     private boolean hasStarted = false;
 
-    View root;
-    User user;
-    ArrayList<Mercado> listaGestion;
-    Button addMoney;
+    private View root;
+    private User user;
+    private ArrayList<Mercado> listaGestion;
+    private Button addMoney;
     private RecyclerView userManagesRecyclerView;
     private MarketsRecyclerAdapter recyclerViewAdapter;
-    View dialogViewAddMoney;
-    TextView salaryview;
+    private View dialogViewAddMoney;
+    private TextView salaryview;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,20 +68,17 @@ public class PreferenceFragment extends Fragment {
         userManagesRecyclerView = root.findViewById(R.id.gestionpreference);
         salaryview = root.findViewById(R.id.textViewSalary);
 
-
         salaryview.setText(user.getSaldo()+" €");
-        root.findViewById(R.id.market_addmoney).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
+        root.findViewById(R.id.market_addmoney).setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
 
-                NavigationManager.navigateTo(
-                        R.id.action_nav_settings_to_userFragment,
-                        bundle
-                );
-            }
+            NavigationManager.navigateTo(
+                    R.id.action_nav_settings_to_userFragment,
+                    bundle
+            );
         });
+
         ((TextView)root.findViewById(R.id.username_field)).setText(user.getNombre());
         ((TextView)root.findViewById(R.id.mail_field)).setText(user.getCorreo());
 
@@ -183,19 +180,15 @@ public class PreferenceFragment extends Fragment {
                 }
             });
 
-        // Boton para aplicar a gestiones del mercado
-        root.findViewById(R.id.market_button).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
+        root.findViewById(R.id.market_button).setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
 
-                        NavigationManager.navigateTo(
-                                R.id.action_from_settings_to_makeMarketFragment,
-                                bundle
-                        );
-                    }
-                });
+            NavigationManager.navigateTo(
+                    R.id.action_from_settings_to_makeMarketFragment,
+                    bundle
+            );
+        });
 
         cargarGestion();
 

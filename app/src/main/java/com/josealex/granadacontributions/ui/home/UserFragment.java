@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.UsersRecyclerAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
@@ -59,7 +58,7 @@ public class UserFragment extends Fragment {
                                mItem.setSaldo(mItem.getSaldo()+Integer.valueOf( salary.getText().toString()));
                                FirebaseDBManager.saveUserData(mItem);
                            }catch (Exception e){
-                                Toast.makeText(getContext(),R.string.salaryerror,Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),R.string.salary_error,Toast.LENGTH_LONG).show();
                            }
                         }
                     })

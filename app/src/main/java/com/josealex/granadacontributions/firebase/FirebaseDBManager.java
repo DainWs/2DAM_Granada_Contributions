@@ -256,7 +256,14 @@ public class FirebaseDBManager {
             mercado.setUid(MERCADO_REF.push().getKey());
         }
 
-        MERCADO_REF.child(mercado.getUid()).setValue(mercado);
+        try {
+            if (mercado.getPassword().isEmpty()) throw new Exception();
+            MERCADO_REF.child(mercado.getUid()).setValue(mercado);
+        }
+        catch (Exception ex) {
+            System.err.println(mercado.toDetailsString());
+            ex.printStackTrace();
+        }
     }
 
     public static void removeMercado(Mercado mercado) {

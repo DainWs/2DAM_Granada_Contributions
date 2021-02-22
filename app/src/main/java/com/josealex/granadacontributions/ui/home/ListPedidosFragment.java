@@ -14,6 +14,7 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MyPedidoAdapter;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.NavigationManager;
 import com.josealex.granadacontributions.utils.ResourceManager;
 
@@ -51,6 +52,7 @@ public class ListPedidosFragment extends Fragment {
 
         recycler.setAdapter(adapter);
 
+        GlobalInformation.marketPendingListFragment = this;
         return root;
     }
 

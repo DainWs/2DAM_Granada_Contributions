@@ -199,6 +199,18 @@ public class Mercado implements Serializable {
         return nombre;
     }
 
+    public String toDetailsString() {
+        return "Mercado{" +
+                "uid='" + uid + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", uidOwner='" + uidOwner + '\'' +
+                ", password='" + password + '\'' +
+                ", gestores=" + gestores +
+                ", productos=" + productos +
+                ", pedidos=" + pedidos +
+                '}';
+    }
+
     public static void delete(Mercado market) {
         //Managers of market query
         ArrayList<User> usersList = Consulta.getUsersWhere(new Consulta<User>() {

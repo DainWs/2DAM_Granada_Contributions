@@ -36,14 +36,14 @@ public class PedidosFactory {
         }
         else {
             if(!mercadoActual.getUid().equals(mercado.getUid())) {
-                DialogsFactory.makeWarnningDialog(
+                DialogsFactory.makeWarningDialog(
                         ResourceManager.getString(R.string.not_equals_market)
                 );
                 return;
             }
             else if(productosMap.containsKey(producto.getUid())) {
-                DialogsFactory.makeWarnningDialog(
-                        ResourceManager.getString(R.string.duplicated_warnning)
+                DialogsFactory.makeWarningDialog(
+                        ResourceManager.getString(R.string.duplicated_warning)
                 );
                 return;
             }

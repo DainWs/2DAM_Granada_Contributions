@@ -3,7 +3,10 @@ package com.josealex.granadacontributions.utils;
 import com.josealex.granadacontributions.MainActivity;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.ui.home.ClientPendingOrdersFragment;
 import com.josealex.granadacontributions.ui.home.HomeFragment;
+import com.josealex.granadacontributions.ui.home.ListPedidosFragment;
+import com.josealex.granadacontributions.ui.home.MercadoFragment;
 import com.josealex.granadacontributions.ui.home.ProductosListFragment;
 import com.josealex.granadacontributions.ui.home.ShoppingCardFragment;
 import com.josealex.granadacontributions.ui.home.UserFragment;
@@ -22,6 +25,9 @@ public class GlobalInformation {
     public static ProductosListFragment productosListFragment = new ProductosListFragment();
     public static UserFragment userFragment = new UserFragment();
     public static ShoppingCardFragment userShopping = new ShoppingCardFragment();
+    public static MercadoFragment mercadoFragment = new MercadoFragment();
+    public static ClientPendingOrdersFragment clientPendingListFragment = new ClientPendingOrdersFragment();
+    public static ListPedidosFragment marketPendingListFragment = new ListPedidosFragment();
 
     public static void reset() {
         SIGN_IN_USER = new User();
@@ -35,5 +41,8 @@ public class GlobalInformation {
         preferences = new PreferenceFragment();
         productosListFragment = new ProductosListFragment();
         userFragment = new UserFragment();
+        mercadoFragment = new MercadoFragment();
+        clientPendingListFragment = new ClientPendingOrdersFragment();
+        marketPendingListFragment = new ListPedidosFragment();
     }
 }

@@ -52,26 +52,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.loginCon).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    conecto(email.getText().toString(), password.getText().toString());
-                } catch (Exception e) {
-                    Toast.makeText(getBaseContext(), "Fail conect", Toast.LENGTH_SHORT).show();
-                }
-
+        findViewById(R.id.loginCon).setOnClickListener(v -> {
+            try {
+                conecto(email.getText().toString(), password.getText().toString());
+            } catch (Exception e) {
+                Toast.makeText(getBaseContext(), "Fail conect", Toast.LENGTH_SHORT).show();
             }
+
         });
 
-        findViewById(R.id.loginReg).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    createUserBasic(email.getText().toString(), password.getText().toString());
-                } catch (Exception e) {
-                    Toast.makeText(getBaseContext(), "Registri fail", Toast.LENGTH_SHORT).show();
-                }
+        findViewById(R.id.loginReg).setOnClickListener(v -> {
+            try {
+                createUserBasic(email.getText().toString(), password.getText().toString());
+            } catch (Exception e) {
+                Toast.makeText(getBaseContext(), "Registri fail", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -79,41 +73,35 @@ public class LoginActivity extends AppCompatActivity {
     public void createUserBasic(String email, String password) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
 
 
-                            user = mAuth.getCurrentUser();
-                            Toast.makeText(getBaseContext(), "Registro valido", Toast.LENGTH_SHORT).show();
-                            toMainActivity(mAuth);
+                        user = mAuth.getCurrentUser();
+                        Toast.makeText(getBaseContext(), "Registro valido", Toast.LENGTH_SHORT).show();
+                        toMainActivity(mAuth);
 
 
-                        } else {
-                            // If sign in fails, display a message to the user.
+                    } else {
+                        // If sign in fails, display a message to the user.
 
-                            Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
-                        }
+                        Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
+                        // updateUI(null);
                     }
                 });
     }
     public void conecto(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
 
-                            user = mAuth.getCurrentUser();
-                            Toast.makeText(getBaseContext(), "Conecto", Toast.LENGTH_SHORT).show();
-                            toMainActivity(mAuth);
-                        } else {
-                            Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
-                        }
+                        user = mAuth.getCurrentUser();
+                        Toast.makeText(getBaseContext(), "Conecto", Toast.LENGTH_SHORT).show();
+                        toMainActivity(mAuth);
+                    } else {
+                        Toast.makeText(getBaseContext(), "Registro fallido", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -141,16 +129,13 @@ public class LoginActivity extends AppCompatActivity {
                 //AUTENTICARSE CON GOOGLE
                 if (cuenta != null) {
                     AuthCredential credential = GoogleAuthProvider.getCredential(cuenta.getIdToken(), null);
-                    FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getBaseContext(), "CONECTADO", Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            Toast.makeText(getBaseContext(), "CONECTADO", Toast.LENGTH_SHORT).show();
 
-                                toMainActivity(mAuth);
-                            } else {
-                                Toast.makeText(getBaseContext(), "NO CONECTO", Toast.LENGTH_SHORT).show();
-                            }
+                            toMainActivity(mAuth);
+                        } else {
+                            Toast.makeText(getBaseContext(), "NO CONECTO", Toast.LENGTH_SHORT).show();
                         }
                     });
 

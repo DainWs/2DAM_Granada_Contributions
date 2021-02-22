@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 
 import android.content.DialogInterface;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -77,13 +76,15 @@ public class MakeProduct {
                     .setOnClickListener(view -> {
                         Productos newProduct = userApplyToMarket();
                         if(newProduct != null) {
-                            if(mercado.getProductosWhere(new Consulta<Productos>() {
+                            ArrayList<Productos> thatMatch = mercado.getProductosWhere(new Consulta<Productos>() {
                                 @Override
                                 public boolean comprueba(Productos o) {
                                     return newProduct.getNombre().equals(o.getNombre());
                                 }
-                            }).size() > 0) {
-                                DialogsFactory.makeWarnningDialog(
+                            });
+
+                            if(thatMatch.size() > 0) {
+                                DialogsFactory.makeWarningDialog(
                                         ResourceManager.getString(R.string.products_already_exist)
                                 );
                             }
@@ -95,6 +96,75 @@ public class MakeProduct {
                                     mercado.addProducto(newProduct);
                                     FirebaseDBManager.saveMercado(mercado);
                                 }
+
+                                adapter.update(listProductos);
+                                it.dismiss();
+                            }
+                        }
+                    });
+        });
+        dialog.show();
+    }
+
+    public static void makeProductWithAdapter(ProductsRecyclerAdapter adapter) {
+        View dialogView =
+                GlobalInformation.mainActivity
+                        .getLayoutInflater()
+                        .inflate(R.layout.dialog_make_product, null);
+
+        nombreField = dialogView.findViewById(R.id.editProductnombre);
+        categorySpinner = dialogView.findViewById(R.id.editProductspinner);
+        precioField = dialogView.findViewById(R.id.editProductprice);
+        cantidadField = dialogView.findViewById(R.id.editProductCantidad);
+
+        SpinnerAdapter simpleSpinnerAdapter = new ArrayAdapter<String>(
+                GlobalInformation.mainActivity,
+                android.R.layout.simple_spinner_item,
+                CATEGORIAS
+        );
+
+        MakeProduct.adapter = new ModelsSpinnerAdapter(
+                simpleSpinnerAdapter,
+                GlobalInformation.mainActivity,
+                ""
+        );
+
+        categorySpinner.setAdapter(MakeProduct.adapter);
+        categorySpinner.setSelection(2);
+        AlertDialog dialog = new AlertDialog.Builder(GlobalInformation.mainActivity)
+                .setView(dialogView)
+                // poniendo el listener positivo a nulo e iniciandolo mas tarde,
+                // nos aseguramos de que da igual cuanto pulse el boton,
+                // ni nosotros no queremos, el dialog no se cerrara
+                .setPositiveButton(R.string.apply_button_text, null)
+                .setNegativeButton(
+                        R.string.cancel_button_text,
+                        (dialog12, id) -> dialog12.dismiss()
+                ).create();
+
+        //Aqui agregaremos el listener del positiveButton
+        dialog.setOnShowListener(it -> {
+            ((AlertDialog)it).getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setOnClickListener(view -> {
+                        Productos newProduct = userApplyToMarket();
+                        if(newProduct != null) {
+
+                            boolean alreadyExist = false;
+                            for (Productos producto : adapter.getList()) {
+                                if(newProduct.getNombre().equals(producto.getNombre())) {
+                                    alreadyExist = true;
+                                    break;
+                                }
+                            }
+
+                            if(alreadyExist) {
+                                DialogsFactory.makeWarningDialog(
+                                        ResourceManager.getString(R.string.products_already_exist)
+                                );
+                            }
+                            else {
+                                ArrayList<Productos> listProductos = adapter.getList();
+                                listProductos.add(newProduct);
 
                                 adapter.update(listProductos);
                                 it.dismiss();

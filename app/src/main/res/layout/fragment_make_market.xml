@@ -124,12 +124,6 @@
                     android:layout_weight="1"
                     android:text="ADD Porduct" />
 
-                <Button
-                    android:id="@+id/make_market_remove_product"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Remove Product" />
             </LinearLayout>
 
             <View

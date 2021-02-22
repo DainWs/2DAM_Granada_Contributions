@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarSize="8dp"
-    tools:context=".ui.home.ProductoFragment">
+    tools:context=".ui.home.MercadoFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout5"

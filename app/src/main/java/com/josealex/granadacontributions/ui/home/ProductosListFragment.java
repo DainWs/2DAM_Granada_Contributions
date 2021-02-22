@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.josealex.granadacontributions.R;
-import com.josealex.granadacontributions.adapters.MarketsRecyclerAdapter;
 import com.josealex.granadacontributions.adapters.ProductsRecyclerAdapter;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
@@ -20,6 +19,7 @@ import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.PedidosFactory;
+import com.josealex.granadacontributions.utils.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -77,7 +77,16 @@ public class ProductosListFragment extends Fragment {
             @Override
             protected void onViewClick(View v, Productos producto, int position) {
                 DialogsFactory.makeAddToShoppingCartDialog((dialog, which) -> {
-                    PedidosFactory.addLinea(mercado,producto);
+                    if(producto.getCantidad() >= 1) {
+                        PedidosFactory.addLinea(mercado, producto);
+                    }
+                    else {
+                        DialogsFactory.makeWarningDialog(
+                                ResourceManager.getString(R.string.out_of_stock_title),
+                                ResourceManager.getString(R.string.out_of_stock)
+                        );
+                    }
+                    dialog.dismiss();
                 });
             }
         });
