@@ -110,10 +110,18 @@
     <fragment
         android:id="@+id/nav_pending_orders"
         android:name="com.josealex.granadacontributions.ui.home.ClientPendingOrdersFragment"
-        android:label="@string/pending_orders" />
+        android:label="@string/pending_orders" >
+        <action
+            android:id="@+id/action_nav_pending_orders_to_clientPedidosFragment"
+            app:destination="@id/clientPedidosFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_shopping_cart"
         android:name="com.josealex.granadacontributions.ui.home.ShoppingCardFragment"
         android:label="@string/shopping_cart" />
+    <fragment
+        android:id="@+id/clientPedidosFragment"
+        android:name="com.josealex.granadacontributions.ui.home.ClientPedidosFragment"
+        android:label="ClientPedidosFragment" />
 
 </navigation>

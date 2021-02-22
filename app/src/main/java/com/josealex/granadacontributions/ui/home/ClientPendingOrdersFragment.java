@@ -19,6 +19,7 @@ import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
+import com.josealex.granadacontributions.utils.NavigationManager;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,14 @@ public class ClientPendingOrdersFragment extends Fragment {
         adapter = new MyPedidoAdapter(user.getPedidosPendientes()) {
             @Override
             public void onViewClick(View view, Pedido mItem, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString(ClientPedidosFragment.PEDIDOS_TITLE_BUNDLE_ID, mItem.getNombreCliente() + " " + mItem.getDate());
+                bundle.putSerializable(ClientPedidosFragment.PEDIDOS_BUNDLE_ID, mItem);
 
+                NavigationManager.navigateTo(
+                        R.id.action_nav_pending_orders_to_clientPedidosFragment,
+                        bundle
+                );
             }
 
             @Override
