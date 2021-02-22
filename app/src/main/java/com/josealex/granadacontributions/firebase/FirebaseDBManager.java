@@ -199,7 +199,8 @@ public class FirebaseDBManager {
 
         MERCADOS_EVENTS_LISTENER = MERCADO_REF.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -237,12 +238,13 @@ public class FirebaseDBManager {
 
                 if(searchedID >= 0){
                     GlobalInformation.MERCADOS.set(searchedID, mercado);
-
-                    //TODO (ACTUALIZA AQUI USO DE LISTAS)
-                    GlobalInformation.mainActivity.update();
-                    GlobalInformation.home.update();
+                }
+                else {
+                    GlobalInformation.MERCADOS.add(mercado);
                 }
 
+                GlobalInformation.mainActivity.update();
+                GlobalInformation.home.update();
                 GlobalInformation.preferences.update();
                 GlobalInformation.productosListFragment.update();
                 GlobalInformation.mercadoFragment.update(mercado);
