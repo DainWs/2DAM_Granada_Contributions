@@ -163,12 +163,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDBManager.stopListeners();
     }
 
-    @Override
-    public void onBackPressed() {
-        GlobalInformation.reset();
-        super.onBackPressed();
-    }
-
     public void setShoppingItemState(boolean state) {
         shopingCartItem.setVisible(state);
         shopingCartItem.setEnabled(state);

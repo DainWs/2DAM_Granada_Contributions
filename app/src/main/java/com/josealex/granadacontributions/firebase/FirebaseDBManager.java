@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -139,7 +140,7 @@ public class FirebaseDBManager {
                 //para que recoga los datos, pero si no se creo no hay problema, cuando se cree el comprobara
                 //una vez si hay datos
                 //TODO(AQUI SE ACTUALIZA TODO LO QUE NECESITE LOS MERCADOS AL COMENZAR)
-                GlobalInformation.mainActivity.update();
+                if(GlobalInformation.mainActivity != null) GlobalInformation.mainActivity.update();
                 GlobalInformation.home.update();
                 GlobalInformation.preferences.update();
                 GlobalInformation.productosListFragment.update();
@@ -178,29 +179,34 @@ public class FirebaseDBManager {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                User user = snapshot.getValue(User.class);
-                User currentUser = GlobalInformation.SIGN_IN_USER;
+                try {
+                    User user = snapshot.getValue(User.class);
+                    User currentUser = GlobalInformation.SIGN_IN_USER;
 
-                if(user.getCorreo().equals(currentUser.getCorreo())) {
-                    GlobalInformation.SIGN_IN_USER = user;
-                }
-                else {
-                    int searchedID = -1;
+                    if (user.getCorreo().equals(currentUser.getCorreo())) {
+                        GlobalInformation.SIGN_IN_USER = user;
+                    } else {
+                        int searchedID = -1;
 
-                    ArrayList<User> list = GlobalInformation.USERS;
-                    for (int i = 0; i < list.size(); i++) {
-                        if(list.get(i).getCorreo().equals(user.getCorreo())) {
-                            searchedID = i;
-                            break;
+                        ArrayList<User> list = GlobalInformation.USERS;
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i).getCorreo().equals(user.getCorreo())) {
+                                searchedID = i;
+                                break;
+                            }
+                        }
+
+                        if (searchedID >= 0) {
+                            GlobalInformation.USERS.set(searchedID, user);
+
+                            //TODO (ACTUALIZA AQUI USO DE LISTAS)
+                            if(GlobalInformation.mainActivity != null) GlobalInformation.mainActivity.update();
                         }
                     }
-
-                    if(searchedID >= 0){
-                        GlobalInformation.USERS.set(searchedID, user);
-
-                        //TODO (ACTUALIZA AQUI USO DE LISTAS)
-                        GlobalInformation.mainActivity.update();
-                    }
+                }
+                catch (DatabaseException ex) {
+                    System.out.println(snapshot);
+                    ex.printStackTrace();
                 }
                 GlobalInformation.userFragment.update();
                 GlobalInformation.mercadoFragment.update();
@@ -276,7 +282,7 @@ public class FirebaseDBManager {
                     GlobalInformation.MERCADOS.add(mercado);
                 }
 
-                GlobalInformation.mainActivity.update();
+                if(GlobalInformation.mainActivity != null) GlobalInformation.mainActivity.update();
                 GlobalInformation.home.update();
                 GlobalInformation.preferences.update();
                 GlobalInformation.productosListFragment.update();
