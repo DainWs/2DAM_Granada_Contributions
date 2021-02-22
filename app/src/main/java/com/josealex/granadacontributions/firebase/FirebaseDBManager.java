@@ -163,17 +163,19 @@ public class FirebaseDBManager {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (userStarted) {
-                    User user = snapshot.getValue(User.class);
-                    ArrayList exist = Consulta.getUsersWhere(new Consulta<User>() {
-                        @Override
-                        public boolean comprueba(User o) {
-                            return o.getUid().equals(user.getUid());
-                        }
-                    });
+                    try {
+                        User user = snapshot.getValue(User.class);
+                        ArrayList exist = Consulta.getUsersWhere(new Consulta<User>() {
+                            @Override
+                            public boolean comprueba(User o) {
+                                return o.getUid().equals(user.getUid());
+                            }
+                        });
 
-                    if (exist.size() <= 0) {
-                        onChildChanged(snapshot, previousChildName);
-                    }
+                        if (exist.size() <= 0) {
+                            onChildChanged(snapshot, previousChildName);
+                        }
+                    }catch (DatabaseException ex) {}
                 }
             }
 
@@ -204,10 +206,8 @@ public class FirebaseDBManager {
                         }
                     }
                 }
-                catch (DatabaseException ex) {
-                    System.out.println(snapshot);
-                    ex.printStackTrace();
-                }
+                catch (DatabaseException ex) {}
+
                 GlobalInformation.userFragment.update();
                 GlobalInformation.mercadoFragment.update();
                 GlobalInformation.clientPendingListFragment.update();
