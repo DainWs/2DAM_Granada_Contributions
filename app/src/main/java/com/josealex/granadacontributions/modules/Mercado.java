@@ -182,6 +182,12 @@ public class Mercado implements Serializable {
         }
     }
 
+    public void confirmPedido(Pedido pedido) {
+        if(pedidos.contains(pedido)) {
+            pedidos.remove(pedido);
+        }
+    }
+
     public ArrayList<Pedido> getPedidosWhere(Consulta<Pedido> where) {
         ArrayList<Pedido> select = new ArrayList<>();
 

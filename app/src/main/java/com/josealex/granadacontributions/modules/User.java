@@ -142,4 +142,11 @@ public class User implements Serializable {
 
         pedidosPendientes.removeAll(pedidos);
     }
+
+    public void confirmPedido(Pedido pedido) {
+        if(pedidosPendientes.contains(pedido)) {
+            saldo -= pedido.getTotal();
+            pedidosPendientes.remove(pedido);
+        }
+    }
 }

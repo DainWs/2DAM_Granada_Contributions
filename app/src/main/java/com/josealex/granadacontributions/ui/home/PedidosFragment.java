@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.DialogsFactory;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
 import org.w3c.dom.Text;
@@ -35,8 +37,6 @@ public class PedidosFragment extends Fragment {
 
     private MyLineaspedidoAdapter adapter;
     private RecyclerView rcwlineas;
-
-    public TextView totalpedido;
 
     @Nullable
     @Override
@@ -95,13 +95,54 @@ public class PedidosFragment extends Fragment {
 
                             user.removePedidos(pedido);
                             FirebaseDBManager.saveUserData(user);
+                            dialog.dismiss();
+                            GlobalInformation.mainActivity.onBackPressed();
                         }
                     }
             );
         });
 
         root.findViewById(R.id.accept_button).setOnClickListener(v -> {
-            //TODO(AQUI)
+            DialogsFactory.makeAreYouSureDialog(
+                    R.string.accept_order_title,
+                    R.string.cannot_undo_this_action,
+                    R.string.ok_dialog_button,
+                    R.string.cancel_button_text,
+                    (dialog, which) -> {
+                        ArrayList<User> users = Consulta.getUsersWhere(new Consulta<User>() {
+                            @Override
+                            public boolean comprueba(User o) {
+                                return o.getUid().equals(pedido.getUidCliente());
+                            }
+                        });
+
+                        if(users.size() > 0) {
+                            User user = users.get(0);
+
+                            ArrayList<Mercado> mercados = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+                                @Override
+                                public boolean comprueba(Mercado o) {
+                                    return o.getUid().equals(pedido.getUidMercado());
+                                }
+                            });
+
+                            Mercado mercado = null;
+                            if(mercados.size() > 0) {
+                                mercado = mercados.get(0);
+                            }
+
+                            if(mercado != null) {
+                                mercado.confirmPedido(pedido);
+                                FirebaseDBManager.saveMercado(mercado);
+                            }
+
+                            user.confirmPedido(pedido);
+                            FirebaseDBManager.saveUserData(user);
+                            dialog.dismiss();
+                            GlobalInformation.mainActivity.onBackPressed();
+                        }
+                    }
+            );
         });
 
 
