@@ -44,6 +44,9 @@ public class FirebaseDBManager {
     private static DatabaseReference USERS_REF;
     private static DatabaseReference MERCADO_REF;
 
+    private static boolean marketStarted = false;
+    private static boolean userStarted = false;
+
     private Activity activity;
 
     public FirebaseDBManager(MainActivity activity, User user) {
@@ -144,6 +147,8 @@ public class FirebaseDBManager {
                 GlobalInformation.mercadoFragment.update();
                 GlobalInformation.clientPendingListFragment.update();
                 GlobalInformation.marketPendingListFragment.update();
+                userStarted = true;
+                marketStarted = true;
 
             }
 
@@ -155,7 +160,21 @@ public class FirebaseDBManager {
         //CUANDO EL USUARIO CAMBIA SUS DATOS
         USERS_EVENTS_LISTENER = USERS_REF.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (userStarted) {
+                    User user = snapshot.getValue(User.class);
+                    ArrayList exist = Consulta.getUsersWhere(new Consulta<User>() {
+                        @Override
+                        public boolean comprueba(User o) {
+                            return o.getUid().equals(user.getUid());
+                        }
+                    });
+
+                    if (exist.size() <= 0) {
+                        onChildChanged(snapshot, previousChildName);
+                    }
+                }
+            }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -201,20 +220,25 @@ public class FirebaseDBManager {
         MERCADOS_EVENTS_LISTENER = MERCADO_REF.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String uid = (String) snapshot.child("uid").getValue();
-                ArrayList exist = Consulta.getMercadosWhere(new Consulta<Mercado>() {
-                    @Override
-                    public boolean comprueba(Mercado o) {
-                        return o.getUid().equals(uid);
+                System.out.println("AADDDEDD -----------------------------------------------");
+                if (marketStarted) {
+
+                    String uid = (String) snapshot.child("uid").getValue();
+                    ArrayList exist = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+                        @Override
+                        public boolean comprueba(Mercado o) {
+                            return o.getUid().equals(uid);
+                        }
+                    });
+                    if (exist.size() <= 0) {
+                        onChildChanged(snapshot, previousChildName);
                     }
-                });
-                if(exist.size() <= 0) {
-                    onChildChanged(snapshot, previousChildName);
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                System.out.println("MODIFIED -----------------------------------------------");
                 Mercado mercado = new Mercado();
                 mercado.setUid((String) snapshot.child("uid").getValue());
                 mercado.setNombre((String) snapshot.child("nombre").getValue());
