@@ -253,7 +253,7 @@ public class HomeFragment extends Fragment {
 
     public void makeFilter() {
         Mercado markselect = (Mercado) mercadosSpinner.getSelectedItem();
-        String catselect = (categoriasSpinner.getSelectedItem()==null)?"":categoriasSpinner.getSelectedItem().toString();
+        String catselect = (categoriasSpinner.getSelectedItemPosition()==0)?"":categoriasSpinner.getSelectedItem().toString();
 
         if(markselect == null || markselect.getUid().isEmpty()) {
             mercadosList = GlobalInformation.MERCADOS;
