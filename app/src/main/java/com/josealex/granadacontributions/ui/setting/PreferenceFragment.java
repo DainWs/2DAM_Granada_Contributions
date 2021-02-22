@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -49,6 +50,8 @@ public class PreferenceFragment extends Fragment {
     private MarketsRecyclerAdapter recyclerViewAdapter;
     private View dialogViewAddMoney;
     private TextView salaryview;
+    private LinearLayout addMoneyViewgroup;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,16 +71,28 @@ public class PreferenceFragment extends Fragment {
         userManagesRecyclerView = root.findViewById(R.id.gestionpreference);
         salaryview = root.findViewById(R.id.textViewSalary);
 
-        salaryview.setText(user.getSaldo()+" €");
-        root.findViewById(R.id.market_addmoney).setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
+        addMoneyViewgroup = root.findViewById(R.id.add_money_viewgroup);
 
-            NavigationManager.navigateTo(
-                    R.id.action_nav_settings_to_userFragment,
-                    bundle
-            );
-        });
+        if(GlobalInformation.ON_MANAGER_MODE) {
+            addMoneyViewgroup.setVisibility(View.VISIBLE);
+            addMoneyViewgroup.setEnabled(true);
+            root.findViewById(R.id.market_addmoney).setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
+
+                NavigationManager.navigateTo(
+                        R.id.action_nav_settings_to_userFragment,
+                        bundle
+                );
+            });
+        }
+        else {
+            addMoneyViewgroup.setVisibility(View.INVISIBLE);
+            addMoneyViewgroup.setEnabled(false);
+            root.findViewById(R.id.market_addmoney).setOnClickListener(v -> {});
+        }
+
+        salaryview.setText(user.getSaldo()+" €");
 
         ((TextView)root.findViewById(R.id.username_field)).setText(user.getNombre());
         ((TextView)root.findViewById(R.id.mail_field)).setText(user.getCorreo());
@@ -247,6 +262,26 @@ public class PreferenceFragment extends Fragment {
                 }
             });
             recyclerViewAdapter.update(listaGestion);
+
+            if(GlobalInformation.ON_MANAGER_MODE) {
+                addMoneyViewgroup.setVisibility(View.VISIBLE);
+                addMoneyViewgroup.setEnabled(true);
+                root.findViewById(R.id.market_addmoney).setOnClickListener(v -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(HomeFragment.USER_BUNDLE_ID, user);
+
+                    NavigationManager.navigateTo(
+                            R.id.action_nav_settings_to_userFragment,
+                            bundle
+                    );
+                });
+            }
+            else {
+                addMoneyViewgroup.setVisibility(View.INVISIBLE);
+                addMoneyViewgroup.setEnabled(false);
+                root.findViewById(R.id.market_addmoney).setOnClickListener(v -> {});
+            }
+
         }
     }
 }

@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             if (isChecked != GlobalInformation.ON_MANAGER_MODE) {
                 GlobalInformation.ON_MANAGER_MODE = isChecked;
                 GlobalInformation.home.changeMode(isChecked);
-
+                GlobalInformation.preferences.update();
             }
         });
 
