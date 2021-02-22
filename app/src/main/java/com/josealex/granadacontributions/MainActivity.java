@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) headerView.findViewById(R.id.usuario_mail))
                 .setText(loggedUser.getCorreo());
         ((TextView) headerView.findViewById(R.id.salary_text))
-                .setText(loggedUser.getSaldo());
+                .setText(loggedUser.getSaldo()+"");
     }
 
     @Override

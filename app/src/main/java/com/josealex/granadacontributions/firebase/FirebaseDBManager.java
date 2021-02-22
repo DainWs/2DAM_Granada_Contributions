@@ -243,7 +243,7 @@ public class FirebaseDBManager {
 
                 GlobalInformation.preferences.update();
                 GlobalInformation.productosListFragment.update();
-                GlobalInformation.mercadoFragment.update();
+                GlobalInformation.mercadoFragment.update(mercado);
                 GlobalInformation.marketPendingListFragment.update();
             }
 

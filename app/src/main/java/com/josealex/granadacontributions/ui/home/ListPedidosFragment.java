@@ -14,9 +14,12 @@ import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MyPedidoAdapter;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
+import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.NavigationManager;
 import com.josealex.granadacontributions.utils.ResourceManager;
+
+import java.util.ArrayList;
 
 public class ListPedidosFragment extends Fragment {
 
@@ -58,6 +61,25 @@ public class ListPedidosFragment extends Fragment {
 
     public void update() {
 
+        ArrayList<Mercado> mercados = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+            @Override
+            public boolean comprueba(Mercado o) {
+                return o.getUid().equals(market.getUid());
+            }
+        });
+
+        if(mercados.size() > 0) {
+            update(mercados.get(0));
+        }
+    }
+
+    public void update(Mercado mercado) {
+
+        if(market.getUid().equals(mercado.getUid())) {
+            market = mercado;
+        }
+
+        adapter.update(market.getPedidos());
     }
 
 }

@@ -66,7 +66,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public Object getItem(int pos) {
-        return adapter.getItem((pos - EXTRA_ITEMS));
+        return adapter.getItem(pos);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
 
     @Override
     public long getItemId(int position) {
-        return adapter.getItemId(position - EXTRA_ITEMS);
+        return adapter.getItemId(position);
     }
 
     @Override
