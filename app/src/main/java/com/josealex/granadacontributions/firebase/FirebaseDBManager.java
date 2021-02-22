@@ -16,6 +16,13 @@ import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.ui.home.ClientPendingOrdersFragment;
+import com.josealex.granadacontributions.ui.home.HomeFragment;
+import com.josealex.granadacontributions.ui.home.ListPedidosFragment;
+import com.josealex.granadacontributions.ui.home.MercadoFragment;
+import com.josealex.granadacontributions.ui.home.ProductosListFragment;
+import com.josealex.granadacontributions.ui.home.UserFragment;
+import com.josealex.granadacontributions.ui.setting.PreferenceFragment;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.ArrayList;
@@ -132,6 +139,10 @@ public class FirebaseDBManager {
                 GlobalInformation.home.update();
                 GlobalInformation.preferences.update();
                 GlobalInformation.productosListFragment.update();
+                GlobalInformation.userFragment.update();
+                GlobalInformation.mercadoFragment.update();
+                GlobalInformation.clientPendingListFragment.update();
+                GlobalInformation.marketPendingListFragment.update();
 
             }
 
@@ -171,6 +182,10 @@ public class FirebaseDBManager {
                         GlobalInformation.mainActivity.update();
                     }
                 }
+                GlobalInformation.userFragment.update();
+                GlobalInformation.mercadoFragment.update();
+                GlobalInformation.clientPendingListFragment.update();
+                GlobalInformation.marketPendingListFragment.update();
                 GlobalInformation.preferences.update();
             }
 
@@ -226,7 +241,10 @@ public class FirebaseDBManager {
                     GlobalInformation.home.update();
                 }
 
+                GlobalInformation.preferences.update();
                 GlobalInformation.productosListFragment.update();
+                GlobalInformation.mercadoFragment.update();
+                GlobalInformation.marketPendingListFragment.update();
             }
 
             @Override
