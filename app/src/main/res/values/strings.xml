@@ -1,17 +1,14 @@
 <resources>
-    <string name="app_name">Granada Contributions</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="app_name" translatable="false">Granada Contributions</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="file_preferences">com.josealex.granadacontributions.PREFERENCE</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="file_preferences" translatable="false">com.josealex.granadacontributions.PREFERENCE</string>
+    <string name="menu_home" translatable="false">Home</string>
     <string name="sign_in_with_google">Sign in with Google</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="explore_btn_text">Explore</string>
     <string name="change_user_mode">Change User Mode</string>
     <string name="owners_text">Owners : </string>
@@ -42,11 +39,10 @@
     <string name="market_name">Market Name</string>
     <string name="collapsed">collapsed</string>
     <string name="product_uid">Product UID</string>
-    <string name="it_is_sold_in">It is sold in</string>
     <string name="amount_in_stock">Amount in Stock</string>
     <string name="price">Price</string>
     <string name="remove_market">Remove Market</string>
-    <string name="contentDescription">contentDescription</string>
+    <string name="contentDescription" translatable="false">contentDescription</string>
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
     <string name="buy">Buy</string>
@@ -55,10 +51,10 @@
     <string name="delete_button_text">Delete</string>
     <string name="remove_products">Remove products</string>
     <string name="filter_button">Filter</string>
-    <string name="total">Total</string>
+    <string name="total" translatable="false">Total</string>
     <string name="salary_error">Invalid Salary</string>
-    <string name="plus">+</string>
-    <string name="minus">-</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
     <string name="order_button">Order</string>
     <string name="refuse_button">Refuse</string>
     <string name="accept_button">Accept</string>
@@ -70,7 +66,7 @@
     <string name="mail">Mail</string>
     <string name="add_money">Add Money</string>
     <string name="make_a_new_market">Make a new market</string>
-    <string name="gestiones">Gestiones</string>
+    <string name="gestiones">Manages</string>
     <string name="salary">Salary</string>
     <string name="pending_orders">Pending orders</string>
     <string name="orders_of">"Orders of "</string>
@@ -78,7 +74,7 @@
     <string name="not_equals_market">The product you have selected belongs to another market, remember that an order must only have products from a single market</string>
     <string name="ok_dialog_button">Ok</string>
     <string name="products_already_exist">This product already exists</string>
-    <string name="total_pedido">Total :</string>
+    <string name="total_pedido" translatable="false">Total :</string>
     <string name="are_you_sure_delete">Are you sure you want to cancel this order?</string>
     <string name="do_not_cancel">Do not Cancel</string>
     <string name="you_cant_delete_market_if">You cannot delete a market if it still has pending orders</string>
