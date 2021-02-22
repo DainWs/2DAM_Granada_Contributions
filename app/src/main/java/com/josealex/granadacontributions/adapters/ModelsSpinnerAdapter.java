@@ -42,7 +42,7 @@ public class ModelsSpinnerAdapter implements SpinnerAdapter, ListAdapter {
             tv.setText(nothingText);
             return view;
         }
-        View view = adapter.getView((pos - EXTRA_ITEMS), null, group);
+        View view = adapter.getView(pos, null, group);
 
         return view;
     }

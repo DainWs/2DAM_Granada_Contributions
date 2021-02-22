@@ -60,16 +60,17 @@ public class ListPedidosFragment extends Fragment {
     }
 
     public void update() {
+        if(market!=null) {
+            ArrayList<Mercado> mercados = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+                @Override
+                public boolean comprueba(Mercado o) {
+                    return o.getUid().equals(market.getUid());
+                }
+            });
 
-        ArrayList<Mercado> mercados = Consulta.getMercadosWhere(new Consulta<Mercado>() {
-            @Override
-            public boolean comprueba(Mercado o) {
-                return o.getUid().equals(market.getUid());
+            if (mercados.size() > 0) {
+                update(mercados.get(0));
             }
-        });
-
-        if(mercados.size() > 0) {
-            update(mercados.get(0));
         }
     }
 
