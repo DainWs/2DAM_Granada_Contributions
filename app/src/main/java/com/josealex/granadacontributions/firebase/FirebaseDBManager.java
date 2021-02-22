@@ -257,6 +257,15 @@ public class FirebaseDBManager {
 
                 mercado.setGestores(gestores);
 
+                //PILLAMOS LOS PEDIDOS
+                ArrayList<Pedido> pedidos = new ArrayList<>();
+                for (DataSnapshot pedido : snapshot.child("pedidos").getChildren()) {
+                    pedidos.add(pedido.getValue(Pedido.class));
+                }
+
+                mercado.setPedidos(pedidos);
+
+
                 //PILLAMOS LOS PRODUCTOS
                 ArrayList<Productos> productos = new ArrayList<>();
                 for (DataSnapshot producto : snapshot.child("productos").getChildren()) {
