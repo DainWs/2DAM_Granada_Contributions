@@ -72,6 +72,8 @@ public class MercadoFragment extends Fragment {
         market = (Mercado) getArguments().getSerializable(MARKET_BUNDLE_ID);
         searchAdminUser();
 
+        System.out.println(market.toDetailsString());
+
         //ponemos el UID del mercado
         ((TextView)root.findViewById(R.id.market_uid_field))
             .setText(market.getUid());
@@ -272,20 +274,22 @@ public class MercadoFragment extends Fragment {
     }
 
     public void update() {
-        //ponemos el UID del mercado
-        ((TextView)root.findViewById(R.id.market_uid_field))
-                .setText(market.getUid());
+        if(root!=null) {
+            //ponemos el UID del mercado
+            ((TextView) root.findViewById(R.id.market_uid_field))
+                    .setText(market.getUid());
 
-        //ponemos el nombre del admin del mercado
-        ((TextView) root.findViewById(R.id.market_admin_name_field))
-                .setText(marketAdmin.getNombre());
+            //ponemos el nombre del admin del mercado
+            ((TextView) root.findViewById(R.id.market_admin_name_field))
+                    .setText(marketAdmin.getNombre());
 
-        //ponemos la password de acceso al mercado
-        ((TextView)root.findViewById(R.id.market_password_field))
-                .setText(market.getPassword());
+            //ponemos la password de acceso al mercado
+            ((TextView) root.findViewById(R.id.market_password_field))
+                    .setText(market.getPassword());
 
-        updateOwner();
-        updateList();
+            updateOwner();
+            updateList();
+        }
     }
 
     private void updateList() {

@@ -209,6 +209,11 @@ public class PreferenceFragment extends Fragment {
                 return false;
             }
         });
+
+        for (Mercado mercado: listaGestion) {
+            System.out.println(mercado.toDetailsString());
+        }
+
         recyclerViewAdapter = new MarketsRecyclerAdapter(listaGestion) {
             @Override
             public void onItemClick(Mercado mItem) {

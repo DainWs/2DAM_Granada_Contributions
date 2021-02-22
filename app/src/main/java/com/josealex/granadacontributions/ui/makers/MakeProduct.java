@@ -76,6 +76,9 @@ public class MakeProduct {
                     .setOnClickListener(view -> {
                         Productos newProduct = userApplyToMarket();
                         if(newProduct != null) {
+
+                            System.out.println(mercado.toDetailsString());
+
                             ArrayList<Productos> thatMatch = mercado.getProductosWhere(new Consulta<Productos>() {
                                 @Override
                                 public boolean comprueba(Productos o) {
@@ -92,10 +95,14 @@ public class MakeProduct {
                                 ArrayList<Productos> listProductos = adapter.getList();
                                 listProductos.add(newProduct);
 
+                                System.out.println("2 : "+mercado.toDetailsString());
+
                                 if (mercado != null) {
                                     mercado.addProducto(newProduct);
                                     FirebaseDBManager.saveMercado(mercado);
                                 }
+
+                                System.out.println("3 : "+mercado.toDetailsString());
 
                                 adapter.update(listProductos);
                                 it.dismiss();
