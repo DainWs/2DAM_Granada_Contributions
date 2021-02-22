@@ -61,11 +61,12 @@ public class ProductosListFragment extends Fragment {
             verProductos(mercado.getProductos());
         }
         else {
-            ArrayList<Productos> productos = new ArrayList<>();
+            verProductos(new ArrayList<Productos>());
+            /*ArrayList<Productos> productos = new ArrayList<>();
             for (Mercado mercado:GlobalInformation.MERCADOS) {
                 productos.addAll(mercado.getProductos());
             }
-            verProductos(productos);
+            verProductos(productos);*/
         }
         return root;
     }

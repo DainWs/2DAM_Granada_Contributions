@@ -92,28 +92,33 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
             precioTotalLinea.setText(new DecimalFormat("#.00", separadoresPersonalizados ).format(lineaPedido.getPrecio())+"€");
             mContentView.setText(lineaPedido.getNombreProducto());
             mCantidadView.setText(lineaPedido.getCantidad()+"");
-            mPlusButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (lineaPedido.getCantidad() < producto.getCantidad()) {
-                        lineaPedido.addCantidad(1);
-                        GlobalInformation.userShopping.update();
-                        notifyDataSetChanged();
-                    }
-                }
-            });
 
-            mMinusButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(lineaPedido.getCantidad()>1) {
-                        lineaPedido.removeCantidad(1);
-                        GlobalInformation.userShopping.update();
-                        notifyDataSetChanged();
+            if(mPlusButton !=null) {
+                mPlusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (lineaPedido.getCantidad() < producto.getCantidad()) {
+                            lineaPedido.addCantidad(1);
+                            GlobalInformation.userShopping.update();
+                            notifyDataSetChanged();
+                        }
                     }
-                }
-            });
+                });
+            }
+
+            if(mMinusButton !=null) {
+                mMinusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (lineaPedido.getCantidad() > 1) {
+                            lineaPedido.removeCantidad(1);
+                            GlobalInformation.userShopping.update();
+                            notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
         }
 
         @Override

@@ -122,6 +122,6 @@
     <fragment
         android:id="@+id/clientPedidosFragment"
         android:name="com.josealex.granadacontributions.ui.home.ClientPedidosFragment"
-        android:label="ClientPedidosFragment" />
+        android:label=" " />
 
 </navigation>
