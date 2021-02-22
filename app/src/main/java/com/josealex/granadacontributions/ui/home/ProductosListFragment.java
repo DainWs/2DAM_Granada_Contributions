@@ -110,10 +110,6 @@ public class ProductosListFragment extends Fragment {
             }
             else {
                 ArrayList<Productos> productos = new ArrayList<>();
-                for (Mercado mercado:GlobalInformation.MERCADOS) {
-                    productos.addAll(mercado.getProductos());
-                }
-
                 ((ProductsRecyclerAdapter) recyclerView.getAdapter())
                         .update(productos);
             }

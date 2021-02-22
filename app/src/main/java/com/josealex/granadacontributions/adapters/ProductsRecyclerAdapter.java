@@ -59,6 +59,7 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
+        public final TextView mSizeView;
         public final TextView mContentView;
         private Productos mItem;
 
@@ -66,12 +67,14 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.item_product_price);
+            mSizeView = view.findViewById(R.id.item_product_cantidad);
             mContentView = view.findViewById(R.id.item_product_name);
         }
 
         public void start(Productos mItem, int position) {
             this.mItem = mItem;
             mIdView.setText(mItem.getPrecio()+"€");
+            mSizeView.setText("x"+mItem.getCantidad());
             mContentView.setText(mItem.getNombre());
 
             if(isPrincipal) {

@@ -24,8 +24,10 @@ import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Productos;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
+import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.NavigationManager;
+import com.josealex.granadacontributions.utils.PedidosFactory;
 import com.josealex.granadacontributions.utils.ResourceManager;
 
 import java.util.ArrayList;
@@ -181,7 +183,25 @@ public class HomeFragment extends Fragment {
         for (Mercado mercado : GlobalInformation.MERCADOS) {
             productosList.addAll(mercado.getProductos());
         }
-        recyclerViewProductsAdapter = new ProductsRecyclerAdapter(productosList);
+        recyclerViewProductsAdapter = new ProductsRecyclerAdapter(productosList) {
+            @Override
+            protected void onViewClick(View v, Productos producto, int position) {
+                Mercado mercado = (Mercado) mercadosSpinner.getSelectedItem();
+                if(mercado != null && !mercado.getUid().isEmpty()) {
+                    DialogsFactory.makeAddToShoppingCartDialog((dialog, which) -> {
+                        if (producto.getCantidad() >= 1) {
+                            PedidosFactory.addLinea(mercado, producto);
+                        } else {
+                            DialogsFactory.makeWarningDialog(
+                                    ResourceManager.getString(R.string.out_of_stock_title),
+                                    ResourceManager.getString(R.string.out_of_stock)
+                            );
+                        }
+                        dialog.dismiss();
+                    });
+                }
+            }
+        };
 
         if (inMode) viewRCWMercados.setAdapter(recyclerViewMarketsAdapter);
         else viewRCWMercados.setAdapter(recyclerViewProductsAdapter);
