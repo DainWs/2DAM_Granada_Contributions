@@ -269,19 +269,13 @@
         android:layout_marginBottom="5dp"
         android:background="@color/colorPrimary" />
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/gestionpreference"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginBottom="25dp">
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/list_item_market">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/gestionpreference"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/list_item_market">
-
-        </androidx.recyclerview.widget.RecyclerView>
-    </FrameLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

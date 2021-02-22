@@ -20,6 +20,7 @@ import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.modules.User;
 import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.DialogsFactory;
+import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.ArrayList;
 
@@ -92,6 +93,7 @@ public class ClientPedidosFragment extends Fragment {
 
                             user.removePedidos(pedido);
                             FirebaseDBManager.saveUserData(user);
+                            GlobalInformation.mainActivity.onBackPressed();
                         }
                     }
                 );
