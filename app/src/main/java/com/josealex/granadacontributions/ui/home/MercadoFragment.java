@@ -264,7 +264,7 @@ public class MercadoFragment extends Fragment {
 
     public void update(Mercado market) {
 
-        if(market == null) return;
+        if(market == null || this.market==null) return;
 
         if(this.market.getUid().equals(market.getUid())) {this.market = market;}
 
