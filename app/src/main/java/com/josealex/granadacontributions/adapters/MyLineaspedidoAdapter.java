@@ -93,6 +93,10 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
             mContentView.setText(lineaPedido.getNombreProducto());
             mCantidadView.setText(lineaPedido.getCantidad()+"");
 
+            mView.setOnClickListener(v -> {
+                onViewClick(mView, lineaPedido, position);
+            });
+
             if(mPlusButton !=null) {
                 mPlusButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -125,5 +129,9 @@ public class MyLineaspedidoAdapter extends RecyclerView.Adapter<MyLineaspedidoAd
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+    }
+
+    protected void onViewClick(View v, LineaPedido lineaPedido, int position) {
+
     }
 }

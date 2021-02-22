@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.josealex.granadacontributions.R;
 import com.josealex.granadacontributions.adapters.MyLineaspedidoAdapter;
 import com.josealex.granadacontributions.firebase.FirebaseDBManager;
+import com.josealex.granadacontributions.modules.LineaPedido;
 import com.josealex.granadacontributions.modules.Mercado;
 import com.josealex.granadacontributions.modules.Pedido;
 import com.josealex.granadacontributions.modules.User;
+import com.josealex.granadacontributions.utils.DialogsFactory;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 import com.josealex.granadacontributions.utils.PedidosFactory;
 
@@ -37,7 +39,21 @@ public class ShoppingCardFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_pedido, container, false);
         GlobalInformation.mainActivity.setShoppingItemState(false);
         rcwlineas = root.findViewById(R.id.include2);
-        adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas());
+        adapter = new MyLineaspedidoAdapter(PedidosFactory.get().getLineas()) {
+            @Override
+            protected void onViewClick(View v, LineaPedido lineaPedido, int position) {
+                DialogsFactory.makeAreYouSureDialog(
+                        R.string.warning,
+                        R.string.are_you_sure_delete,
+                        R.string.yes,
+                        R.string.no,
+                        (dialog, which) -> {
+                            PedidosFactory.removeLinea(lineaPedido);
+                            adapter.update(PedidosFactory.get().getLineas());
+                        }
+                );
+            }
+        };
 
         totalpedido = root.findViewById(R.id.textViewTOTAL);
 
