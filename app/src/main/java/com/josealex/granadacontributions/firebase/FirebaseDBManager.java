@@ -23,6 +23,7 @@ import com.josealex.granadacontributions.ui.home.MercadoFragment;
 import com.josealex.granadacontributions.ui.home.ProductosListFragment;
 import com.josealex.granadacontributions.ui.home.UserFragment;
 import com.josealex.granadacontributions.ui.setting.PreferenceFragment;
+import com.josealex.granadacontributions.utils.Consulta;
 import com.josealex.granadacontributions.utils.GlobalInformation;
 
 import java.util.ArrayList;
@@ -200,6 +201,16 @@ public class FirebaseDBManager {
         MERCADOS_EVENTS_LISTENER = MERCADO_REF.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String uid = (String) snapshot.child("uid").getValue();
+                ArrayList exist = Consulta.getMercadosWhere(new Consulta<Mercado>() {
+                    @Override
+                    public boolean comprueba(Mercado o) {
+                        return o.getUid().equals(uid);
+                    }
+                });
+                if(exist.size() <= 0) {
+                    onChildChanged(snapshot, previousChildName);
+                }
             }
 
             @Override
