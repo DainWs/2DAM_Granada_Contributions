@@ -125,10 +125,14 @@ public class PreferenceFragment extends Fragment {
 
                     Context context = PreferenceFragment.this.getContext();
 
+                    ArrayList<Mercado> mercados = new ArrayList<>();
+                    mercados.add(new Mercado());
+                    mercados.addAll(GlobalInformation.MERCADOS);
+
                     SpinnerAdapter simpleSpinnerAdapter = new ArrayAdapter<Mercado>(
                             context,
                             android.R.layout.simple_spinner_item,
-                            GlobalInformation.MERCADOS);
+                            mercados );
 
                     adapter = new ModelsSpinnerAdapter(
                             simpleSpinnerAdapter,

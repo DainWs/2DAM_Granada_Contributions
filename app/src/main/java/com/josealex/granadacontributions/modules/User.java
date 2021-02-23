@@ -3,6 +3,7 @@ package com.josealex.granadacontributions.modules;
 import com.josealex.granadacontributions.utils.Consulta;
 
 import java.io.Serializable;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class User implements Serializable {
@@ -144,9 +145,11 @@ public class User implements Serializable {
     }
 
     public void confirmPedido(Pedido pedido) {
-        if(pedidosPendientes.contains(pedido)) {
-            saldo -= pedido.getTotal();
-            pedidosPendientes.remove(pedido);
+        for (Pedido pedidoTmp: pedidosPendientes) {
+            if(pedidoTmp.getUid().equals(pedido.getUid())) {
+                saldo -= pedido.getTotal();
+                pedidosPendientes.remove(pedido);
+            }
         }
     }
 }

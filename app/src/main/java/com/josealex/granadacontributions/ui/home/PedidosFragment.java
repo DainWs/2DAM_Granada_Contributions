@@ -135,8 +135,9 @@ public class PedidosFragment extends Fragment {
                                 mercado.confirmPedido(pedido);
                                 FirebaseDBManager.saveMercado(mercado);
                             }
-
+                            System.out.println("--"+user.getNombre());
                             user.confirmPedido(pedido);
+                            System.out.println("--"+user.getNombre());
                             FirebaseDBManager.saveUserData(user);
                             dialog.dismiss();
                             GlobalInformation.mainActivity.onBackPressed();
